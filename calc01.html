@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calculadora Laboral</title>
+  <style>
+    :root {
+      --bg:#0f1115; --panel:#171a21; --key:#232736; --key-acc:#2e3450;
+      --primary:#4183ff; --danger:#ff3b3b; --text:#e9eef8; --muted:#a7b1c2;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.3 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .app{max-width:380px;margin:24px auto;padding:16px;background:var(--panel);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .screen{background:#0b0d12;border-radius:12px;padding:12px 14px;margin-bottom:12px;min-height:76px;display:flex;flex-direction:column;justify-content:center}
+    .expr{font-size:22px;color:var(--text);word-wrap:anywhere}
+    .result{font-size:14px;color:var(--muted);min-height:18px}
+    .keypad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .key{background:var(--key);border:0;color:var(--text);padding:14px;border-radius:12px;font-weight:600;cursor:pointer}
+    .key:hover{filter:brightness(1.1)} .key:active{transform:translateY(1px)}
+    .op{background:var(--key-acc)} .primary{background:var(--primary);color:white}
+    .danger{background:var(--danger)} .wide{grid-column:span 2} .small{padding:10px;border-radius:10px}
+    .special-bar{display:flex;gap:8px;align-items:center;margin-top:14px}
+    .special-bar label{font-size:14px;color:var(--muted)}
+    select{flex:1;background:var(--key);color:var(--text);border:0;border-radius:10px;padding:10px}
+    dialog{border:0;border-radius:14px;background:var(--panel);color:var(--text);padding:14px;max-width:360px}
+    .fields{display:grid;gap:10px;margin:12px 0}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center}
+    .field-row label{font-size:14px;color:var(--muted)}
+    .field-row input{background:#0b0d12;border:1px solid #1f2433;color:var(--text);padding:10px;border-radius:10px}
+    .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Pantalla -->
+    <div class="screen" aria-live="polite">
+      <div id="expr" class="expr">0</div>
+      <div id="result" class="result"> </div>
+    </div>
+
+    <!-- Teclado principal -->
+    <div class="keypad" role="group" aria-label="Teclado calculadora">
+      <button data-act="ac" class="key danger">AC</button>
+      <button data-act="del" class="key">DEL</button>
+      <button data-val="(" class="key">(</button>
+      <button data-val=")" class="key">)</button>
+
+      <button data-val="7" class="key">7</button>
+      <button data-val="8" class="key">8</button>
+      <button data-val="9" class="key">9</button>
+      <button data-op="÷" class="key op">÷</button>
+
+      <button data-val="4" class="key">4</button>
+      <button data-val="5" class="key">5</button>
+      <button data-val="6" class="key">6</button>
+      <button data-op="×" class="key op">×</button>
+
+      <button data-val="1" class="key">1</button>
+      <button data-val="2" class="key">2</button>
+      <button data-val="3" class="key">3</button>
+      <button data-op="−" class="key op">−</button>
+
+      <button data-val="0" class="key wide">0</button>
+      <button data-val="." class="key">.</button>
+      <button data-op="+" class="key op">+</button>
+      <button data-act="eq" class="key primary">=</button>
+    </div>
+
+    <!-- Barra de módulos laborales -->
+    <div class="special-bar">
+      <label for="specialSelect">Módulos laborales:</label>
+      <select id="specialSelect" aria-label="Selecciona un módulo especial"></select>
+      <button id="runSpecial" class="key primary small">Calcular</button>
+    </div>
+  </div>
+
+  <!-- Modal para inputs -->
+  <dialog id="specialDialog">
+    <form method="dialog" id="specialForm">
+      <h3 id="specialTitle">Cálculo especial</h3>
+      <div id="specialFields" class="fields"></div>
+      <menu class="modal-actions">
+        <button value="cancel" class="key">Cancelar</button>
+        <button id="specialSubmit" value="ok" class="key primary">OK</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script>
+    // ====== Evaluación segura para la calculadora básica ======
+    function safeEval(expr) {
+      const normalized = expr.replace(/÷/g, "/").replace(/×/g, "*").replace(/−/g, "-");
+      const allowed = /^[0-9+\-*/().\s]+$/;
+      if (!allowed.test(normalized)) return "Error";
+      try {
+        const fn = new Function(`return (${normalized})`);
+        const r = fn();
+        return (typeof r === "number" && isFinite(r)) ? r : "Error";
+      } catch { return "Error"; }
+    }
+
+    // ====== Estado UI ======
+    const exprEl = document.getElementById("expr");
+    const resultEl = document.getElementById("result");
+    let expr = "0";
+    function render(){ exprEl.textContent = expr || "0"; }
+    function appendVal(v){ if (expr==="0" && /[0-9.]/.test(v)) expr=v; else expr+=v; render(); }
+    function appendOp(op){ appendVal(op); }
+    function doAC(){ expr="0"; resultEl.textContent=""; render(); }
+    function doDEL(){ expr = expr.length>1 ? expr.slice(0,-1) : "0"; render(); }
+    function doEQ(){ const res = safeEval(expr); resultEl.textContent = (res==="Error")?"Expresión inválida":`= ${res}`; }
+
+    document.querySelectorAll("[data-val]").forEach(b=>b.addEventListener("click",()=>appendVal(b.dataset.val)));
+    document.querySelectorAll("[data-op]").forEach(b=>b.addEventListener("click",()=>appendOp(b.dataset.op)));
+    document.querySelector("[data-act='ac']").addEventListener("click",doAC);
+    document.querySelector("[data-act='del']").addEventListener("click",doDEL);
+    document.querySelector("[data-act='eq']").addEventListener("click",doEQ);
+
+    // ====== Sistema modular de cálculos laborales ======
+    const specialRegistry = new Map();
+    function registerSpecial({ id, label, fields, compute }) {
+      specialRegistry.set(id, { id, label, fields, compute });
+    }
+
+    const specialSelect = document.getElementById("specialSelect");
+    const runSpecialBtn = document.getElementById("runSpecial");
+    const dialogEl = document.getElementById("specialDialog");
+    const fieldsEl = document.getElementById("specialFields");
+    const titleEl = document.getElementById("specialTitle");
+    const submitBtn = document.getElementById("specialSubmit");
+
+    function refreshSpecialSelect(){
+      specialSelect.innerHTML = "";
+      for (const mod of specialRegistry.values()){
+        const opt = document.createElement("option");
+        opt.value = mod.id; opt.textContent = mod.label;
+        specialSelect.appendChild(opt);
+      }
+    }
+
+    runSpecialBtn.addEventListener("click", ()=>{
+      const mod = specialRegistry.get(specialSelect.value);
+      if (!mod) return;
+      titleEl.textContent = mod.label;
+      fieldsEl.innerHTML = "";
+      mod.fields.forEach(f=>{
+        const row = document.createElement("div");
+        row.className = "field-row";
+        const lab = document.createElement("label");
+        lab.textContent = f.label;
+        lab.setAttribute("for", f.name);
+        const inp = document.createElement("input");
+        inp.type = "number"; inp.step = "any"; inp.id = f.name; inp.placeholder = f.placeholder || "0";
+        row.appendChild(lab); row.appendChild(inp);
+        fieldsEl.appendChild(row);
+      });
+      dialogEl.showModal();
+    });
+
+    submitBtn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      const mod = specialRegistry.get(specialSelect.value);
+      if (!mod) return;
+      const vars = {};
+      mod.fields.forEach(f=>{
+        const v = Number((document.getElementById(f.name).value || "0").replace(",", "."));
+        vars[f.name] = isNaN(v) ? 0 : v;
+      });
+      const out = mod.compute(vars) || {};
+      const value = typeof out.result === "number" ? Number(out.result.toFixed(2)) : "Error";
+      expr = `${mod.label}`;
+      resultEl.textContent = (value==="Error") ? "Error en cálculo" : `= ${value}`;
+      render();
+      dialogEl.close();
+    });
+
+    // ====== Módulo 1: Cesantías ======
+    registerSpecial({
+      id: "cesantias",
+      label: "Cesantías",
+      fields: [
+        { name: "salario", label: "Salario", placeholder: "ej. 2000000" },
+        { name: "aux_transporte", label: "Aux. transporte", placeholder: "ej. 162000" },
+        { name: "dias_lab", label: "Días laborados", placeholder: "ej. 360" },
+      ],
+      compute: ({ salario, aux_transporte, dias_lab }) => {
+        const base = (salario + aux_transporte);
+        const result = (base / 360) * dias_lab;
+        return { result };
+      }
+    });
+
+    // ====== Módulo 2: Prima de Servicios ======
+    registerSpecial({
+      id: "prima",
+      label: "Prima de Servicios",
+      fields: [
+        { name: "salario", label: "Salario", placeholder: "ej. 2000000" },
+        { name: "dias_lab", label: "Días laborados", placeholder: "ej. 180" },
+      ],
+      compute: ({ salario, dias_lab }) => {
+        const result = (salario / 360) * dias_lab; 
+        return { result };
+      }
+    });
+
+    // ====== Módulo 3: Vacaciones ======
+    registerSpecial({
+      id: "vacaciones",
+      label: "Vacaciones",
+      fields: [
+        { name: "salario", label: "Salario", placeholder: "ej. 2000000" },
+        { name: "dias_lab", label: "Días laborados", placeholder: "ej. 360" },
+      ],
+      compute: ({ salario, dias_lab }) => {
+        const result = (salario / 720) * dias_lab; 
+        return { result };
+      }
+    });
+
+    refreshSpecialSelect();
+    render();
+  </script>
+</body>
+</html>
