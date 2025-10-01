@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>XTRACTOR V 3.0 Beta — Resumen, Antes de 1994 y Tiempos Públicos (manual)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1221; --fg:#e8ecf1; --muted:#a7b0bd; --card:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.10); --accent:#22d3ee; --accent-2:#60a5fa;
+    --radius:16px; --shadow:0 10px 28px rgba(0,0,0,0.35);
+  }
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--fg); font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background: radial-gradient(1200px 700px at 20% -10%, rgba(255,255,255,.08), transparent 60%),
+                radial-gradient(1200px 700px at 120% 20%, rgba(255,255,255,.05), transparent 60%), var(--bg);
+  }
+  header{display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px;border-bottom:1px solid var(--border);}
+  header img{height:350px;border-radius:12px;box-shadow:var(--shadow);} /* ↑ logo más grande */
+  header h1{margin:0;font-size:clamp(28px,4vw,44px);font-weight:800}
+  header p{margin:0;color:var(--muted)}
+  main{max-width:60ch;margin:24px auto 0;padding:0 16px;text-align:center}
+  /* ↓ un punto menos de tamaño respecto a lo que tenías */
+  h2{font-size:clamp(20px,3vw,30px);margin:16px 0 6px}
+  .sub{color:var(--muted)}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;margin:12px 0;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#001827;font-weight:800;
+    border:0;cursor:pointer;box-shadow:var(--shadow);
+  }
+  #tables{max-width:60%;margin:18px auto 0;padding:0 16px}
+  textarea{
+    width:100%; height:44vh; background:rgba(0,0,0,.35); color:#e6f3ff;
+    border:1px solid var(--border); border-radius:12px; padding:12px 14px; white-space:pre; font-family:ui-monospace,Consolas,monospace;
+  }
+  .row{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin:22px 0}
+  .row h3{margin:0 0 10px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start;margin-top:8px}
+  .btn-secondary{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;border:1px solid var(--border);
+    background:rgba(255,255,255,.08);color:var(--fg);font-weight:700;cursor:pointer;
+  }
+  #debug{max-width:60%;margin:18px auto 32px;padding:0 16px;color:#9fb3c8;white-space:pre-wrap;font-size:13px}
+  small.muted{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <img src="https://i.ibb.co/3yNGK2QJ/Xtractor-Vid.gif" alt="X/Tractor" />
+  <h1>X/Tractor V 3.0 Beta</h1>
+  <!-- Se eliminó el subtítulo descriptivo debajo del h1 -->
+  <p><small>Un producto de <strong>Supension Plus</strong></small></p>
+</header>
+
+<main>
+  <h3>Extractor de Semanas Cotizadas de Colpensiones</h3>
+  <p class="sub">Subir la Historia Laboral de Colpensiones en PDF.</p>
+  <button id="btnUpload" class="btn">⬆ Subir PDF</button>
+  <input id="fileInput" type="file" accept=".pdf,application/pdf" hidden />
+</main>
+
+<section id="tables"></section>
+<pre id="debug"></pre>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
+<script>
+  // Worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js';
+
+  // Normalizador (sin \p{...})
+  const NM = s => (s||'').toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+  // Fechas dd/mm/yyyy
+  const dateRegex = /\b\d{2}\/\d{2}\/\d{4}\b/;
+
+  // Logs
+  function log(msg){
+    console.log(msg);
+    const d=document.getElementById('debug');
+    d.textContent += msg + '\n';
+  }
+
+  // Agrupar por filas
+  function groupRows(items, tolerance=2){
+    const rows=[];
+    items.sort((a,b)=> b.y - a.y || a.x - b.x);
+    for(const it of items){
+      let row = rows.find(r => Math.abs(r.y - it.y) < tolerance);
+      if(!row){ row = { y:it.y, cells:[] }; rows.push(row); }
+      row.cells.push(it);
+    }
+    rows.forEach(r => r.cells.sort((a,b)=> a.x - b.x));
+    return rows;
+  }
+
+  // Botón de descarga
+  function downloadFromTA(filename, ta){
+    const blob = new Blob([ta.value], {type:'text/plain;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  // ==========================
+  // 1) RESUMEN COLPENSIONES
+  // ==========================
+  function procesarResumenColpensiones(allPages){
+    const TITLE = NM('RESUMEN DE SEMANAS COTIZADAS POR EMPLEADOR');
+    const CUTS  = [ 'RESUMEN DE TIEMPOS', 'DETALLE DE PAGOS' ].map(NM);
+
+    let collected=[];
+    let capturing=false;
+
+    for (const {items, pageNum} of allPages){
+      const rows = groupRows(items);
+      for (const r of rows){
+        const line = NM(r.cells.map(c => (c.text||'').trim()).join(' '));
+
+        if (!capturing && line.includes(TITLE)){
+          capturing = true;
+          log(`[p${pageNum}] RESUMEN: inicia captura`);
+          continue;
+        }
+        if (capturing && CUTS.some(c => line.includes(c))){
+          log(`[p${pageNum}] RESUMEN: fin de captura`);
+          capturing=false;
+        }
+        if (!capturing) continue;
+
+        const row = r.cells
+          .map(c => ({ text:(c.text||'').trim(), x:c.x }))
+          .filter(c => c.text !== '');
+        if (row.length) collected.push(row);
+      }
+    }
+
+    // Buckets por X
+    let xs=[];
+    collected.forEach(row => row.forEach(c => xs.push(c.x)));
+    xs = Array.from(new Set(xs)).sort((a,b)=>a-b);
+    const tol=12, buckets=[];
+    xs.forEach(x=>{
+      if (!buckets.length){ buckets.push({xs:[x], center:x}); return; }
+      const last=buckets[buckets.length-1];
+      if (x - last.center <= tol){ last.xs.push(x); last.center = last.xs.reduce((s,v)=>s+v,0)/last.xs.length; }
+      else { buckets.push({xs:[x], center:x}); }
+    });
+
+    const dateRx=/^\d{2}\/\d{2}\/\d{4}$/;
+    const out=[];
+
+    for (const row of collected){
+      const cols = Array.from({length:buckets.length}, ()=>[]);
+      for (const cell of row){
+        let best=0, bestD=Math.abs(cell.x - buckets[0].center);
+        for (let i=1;i<buckets.length;i++){
+          const d=Math.abs(cell.x - buckets[i].center);
+          if (d<bestD){ best=i; bestD=d; }
+        }
+        cols[best].push(cell.text);
+      }
+      let joined = cols.map(a=>a.join(' ').replace(/\s+/g,' ').trim());
+
+      // buscamos 2 fechas (desde/hasta)
+      const idxs=[];
+      for (let i=0;i<joined.length;i++){
+        if (dateRx.test(joined[i])) idxs.push(i);
+        if (idxs.length===2) break;
+      }
+      if (idxs.length<2) continue;
+
+      const desde = joined[idxs[0]];
+      const hasta = joined[idxs[1]];
+
+      // salario: primer texto con números o $ luego de la 2ª fecha
+      let salario='';
+      for (let i=idxs[1]+1;i<joined.length;i++){
+        if (/[0-9$]/.test(joined[i])) { salario = joined[i]; break; }
+      }
+
+      // 4 números siguientes
+      const nums=[];
+      for (let i=idxs[1]+1;i<joined.length;i++){
+        const t=joined[i];
+        if (/^[0-9]+([.,][0-9]+)?$/.test(t)) nums.push(t);
+        if (nums.length===4) break;
+      }
+      if (!salario || nums.length<4) continue;
+
+      // Filtrar por fecha inicial >= 01/01/1995
+      const [d,m,y] = desde.split('/').map(Number);
+      const fDesde = new Date(y,m-1,d);
+      if (!isNaN(fDesde) && fDesde >= new Date(1995,0,1)){
+        out.push([desde, hasta, salario, ...nums].join(' '));
+      }
+    }
+
+    // Pinta
+    const wrap=document.createElement('div'); wrap.className='row';
+    const h=document.createElement('h3'); h.textContent='Historia Laboral desde 1995';
+    const ta=document.createElement('textarea');
+    ta.value = out.join('\n');
+    const actions=document.createElement('div'); actions.className='actions';
+    const b1=document.createElement('button'); b1.className='btn-secondary'; b1.textContent='⬇ Descargar 1.txt';
+    b1.onclick=()=>downloadFromTA('1.txt',ta);
+
+    wrap.appendChild(h); wrap.appendChild(ta); actions.appendChild(b1); wrap.appendChild(actions);
+    document.getElementById('tables').appendChild(wrap);
+    log(`✅ Filas resumenColpensiones: ${out.length}`);
+  }
+
+  // ===================
+  // 2) ANTES DE 1994
+  // ===================
+  function procesarAntes1994(allPages){
+    const START = NM('DETALLE DE PAGOS EFECTUADOS ANTERIORES A 1995');
+    const STOP  = NM('DETALLE DE PAGOS EFECTUADOS A PARTIR DE 1995');
+
+    let collected=[], capturing=false;
+
+    for (const {items, pageNum} of allPages){
+      const rows = groupRows(items);
+      for (const r of rows){
+        const line = NM(r.cells.map(c => (c.text||'').trim()).join(' '));
+
+        if (!capturing && line.includes(START)){
+          capturing=true; log(`[p${pageNum}] ANTES94: inicia captura`); continue;
+        }
+        if (capturing && (line.includes(STOP) || line.startsWith('RESUMEN') || line.startsWith('DETALLE'))){
+          log(`[p${pageNum}] ANTES94: fin de captura`); capturing=false;
+        }
+        if (!capturing) continue;
+
+        const row = r.cells
+          .map(c => ({text:(c.text||'').trim(), x:c.x}))
+          .filter(c => c.text!=='');
+        if (row.length) collected.push(row);
+      }
+    }
+
+    // Buckets
+    let xs=[]; collected.forEach(row=>row.forEach(c=>xs.push(c.x)));
+    xs = Array.from(new Set(xs)).sort((a,b)=>a-b);
+    const tol=12, buckets=[];
+    xs.forEach(x=>{
+      if (!buckets.length){ buckets.push({xs:[x], center:x}); return; }
+      const last=buckets[buckets.length-1];
+      if (x-last.center<=tol){ last.xs.push(x); last.center = last.xs.reduce((s,v)=>s+v,0)/last.xs.length; }
+      else { buckets.push({xs:[x], center:x}); }
+    });
+
+    const dateRx=/^\d{2}\/\d{2}\/\d{4}$/;
+    const out=[];
+
+    for (const row of collected){
+      const cols = Array.from({length:buckets.length}, ()=>[]);
+      for (const cell of row){
+        let best=0, bestD=Math.abs(cell.x - buckets[0].center);
+        for (let i=1;i<buckets.length;i++){
+          const d=Math.abs(cell.x - buckets[i].center);
+          if (d<bestD){ best=i; bestD=d; }
+        }
+        cols[best].push(cell.text);
+      }
+      const joined = cols.map(a=>a.join(' ').replace(/\s+/g,' ').trim());
+
+      // fechas
+      const idxDesde = joined.findIndex(t=>dateRx.test(t));
+      if (idxDesde===-1) continue;
+      const idxHasta = joined.findIndex((t,i)=>i>idxDesde && dateRx.test(t));
+      if (idxHasta===-1) continue;
+
+      const desde = joined[idxDesde];
+      const hasta = joined[idxHasta];
+
+      // salario (primera cifra después de "hasta")
+      let salario=''; 
+      for (let i=idxHasta+1;i<joined.length;i++){
+        const t=joined[i]; if (/[0-9$]/.test(t)){ salario=t; break; }
+      }
+      if (!salario) continue;
+      const salarioLimpio = salario.replace(/\s/g,'').replace(/\$/g,'').replace(/\./g,'');
+
+      // días (incluye negativos)
+      let dias='';
+      for (let i=idxHasta+1;i<joined.length;i++){
+        const t = joined[i].replace(/\s/g,'');
+        if (/^-?\d+$/.test(t)){ dias=t; break; }
+      }
+      if (!dias) continue;
+
+      out.push([desde, hasta, salarioLimpio, dias].join(' '));
+    }
+
+    // Pinta
+    const wrap=document.createElement('div'); wrap.className='row';
+    const h=document.createElement('h3'); h.textContent='Historia Laboral entre 1967 y 1994';
+    const ta=document.createElement('textarea');
+    ta.value = out.join('\n');
+    const actions=document.createElement('div'); actions.className='actions';
+    const b2=document.createElement('button'); b2.className='btn-secondary'; b2.textContent='⬇ Descargar 2.txt';
+    b2.onclick=()=>downloadFromTA('2.txt',ta);
+
+    wrap.appendChild(h); wrap.appendChild(ta); actions.appendChild(b2); wrap.appendChild(actions);
+    document.getElementById('tables').appendChild(wrap);
+    log(`✅ Filas antes1994: ${out.length}`);
+  }
+
+  // ===========================================
+  // 3) TIEMPOS PÚBLICOS — Entrada manual
+  // ===========================================
+function crearUI_TiemposPublicos(){
+  const container = document.getElementById('tables');
+
+  // Bloque de entrada
+  const rowIn = document.createElement('div'); rowIn.className='row';
+  const hIn = document.createElement('h3'); hIn.textContent = 'Detalle TIEMPOS PÚBLICOS (pega aquí)';
+  const hint = document.createElement('small'); hint.className='muted';
+  hint.textContent = 'Copia y pega la sección tal cual sale del PDF. Luego pulsa “Convertir”.';
+  const taIn = document.createElement('textarea'); taIn.id='tp_in';
+  taIn.placeholder = `Ejemplos:
+890900286 DEPARTAMENTO DE ANTIOQUIA 198607 $32,870 $ 0 $ 0 0 30 0
+o con nombre largo en dos líneas:
+891900268 EMPRESAS MUNICIPALES DE
+TULUA ESP
+197406 $835 $ 0 $ 0 0 30 0 CICLO SIMULTANEO`;
+  const actionsIn = document.createElement('div'); actionsIn.className='actions';
+  const btnConvert = document.createElement('button'); btnConvert.className='btn-secondary'; btnConvert.textContent='⚙ Convertir';
+  btnConvert.onclick = () => convertirTiemposPublicos();
+  actionsIn.appendChild(btnConvert);
+  rowIn.append(hIn,hint,taIn,actionsIn);
+
+  // Bloque de salida
+  const rowOut = document.createElement('div'); rowOut.className='row';
+  const hOut = document.createElement('h3'); hOut.textContent = 'TIEMPOS PÚBLICOS (limpio)';
+  const taOut = document.createElement('textarea'); taOut.id='tp_out'; taOut.placeholder='Resultado aparecerá aquí...';
+  const actionsOut = document.createElement('div'); actionsOut.className='actions';
+
+  // ↔ Expandir fechas
+  const btnExpand = document.createElement('button'); 
+  btnExpand.className='btn-secondary'; 
+  btnExpand.textContent='↔ Expandir fechas (desde/hasta)';
+  btnExpand.onclick = () => expandirFechasTP();
+
+  // 📋 Copiar
+  const btnCopy = document.createElement('button');
+  btnCopy.className = 'btn-secondary';
+  btnCopy.textContent = '📋 Copiar';
+  btnCopy.onclick = () => copyToClipboard(taOut.value);
+
+  // ⬇ Descargar 2.txt
+  const btnDownload = document.createElement('button'); 
+  btnDownload.className='btn-secondary'; 
+  btnDownload.textContent='⬇ Descargar 2.txt';
+  btnDownload.onclick = () => downloadFromTA('2.txt', document.getElementById('tp_out'));
+
+  // ➕ Adjuntar a 2.txt
+  const btnMerge = document.createElement('button');
+  btnMerge.className = 'btn-secondary';
+  btnMerge.textContent = '➕ Adjuntar a 2.txt (subir y fusionar)';
+  const inpMerge = document.createElement('input');
+  inpMerge.type = 'file';
+  inpMerge.accept = 'text/plain';
+  inpMerge.hidden = true;
+  btnMerge.onclick = () => inpMerge.click();
+  inpMerge.addEventListener('change', async (e)=>{
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const merged = await mergeWithExisting2(f, taOut.value);
+    const blob = new Blob([merged], {type:'text/plain;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = '2.txt';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  // 🧹 Limpiar
+  const btnClear = document.createElement('button'); 
+  btnClear.className='btn-secondary'; 
+  btnClear.textContent='🧹 Limpiar';
+  btnClear.onclick = () => { taIn.value=''; taOut.value=''; };
+
+  // 👇 Aquí va el nuevo orden
+  actionsOut.append(btnExpand, btnCopy, btnDownload, btnMerge, inpMerge, btnClear);
+  rowOut.append(hOut, taOut, actionsOut);
+
+  container.append(rowIn, rowOut);
+}
+
+
+
+
+
+
+
+  // =======================
+  // NUEVA: expandirFechasTP
+  // =======================
+  function expandirFechasTP(){
+    const ta = document.getElementById('tp_out');
+    const lines = (ta.value || '').split('\n').map(l => l.trim()).filter(Boolean);
+    if (!lines.length) return;
+
+    const pad2 = n => String(n).padStart(2, '0');
+    const lastDayOfMonth = (y, m) => new Date(y, m, 0).getDate(); // m: 1..12 → día 0 del siguiente mes
+
+    const out = [];
+    for (const line of lines){
+      // Esperamos "AAAAMM $monto dias"
+      // Aceptamos $ y/o comas, y espacios variados
+      const m = line.match(/^\s*(\d{6})\s+(\$?\d[\d,]*)\s+(\d{1,3})\s*$/);
+      if (!m) continue;
+
+      const ciclo = m[1];
+      const rawSal = m[2].replace(/\$/g,'').replace(/,/g,'');
+      const rawDias = parseInt(m[3], 10);
+
+      const year = parseInt(ciclo.slice(0,4), 10);
+      const month = parseInt(ciclo.slice(4,6), 10);
+      const last = lastDayOfMonth(year, month);
+      const endDay = Math.min(Math.max(rawDias, 1), last); // normaliza a 1..último
+
+      const desde = `01/${pad2(month)}/${year}`;
+      const hasta = `${pad2(endDay)}/${pad2(month)}/${year}`;
+
+      out.push(`${desde} ${hasta} ${rawSal} ${endDay}`);
+    }
+
+    ta.value = out.join('\n');
+    log(`✔ Fechas expandidas: ${out.length}`);
+  }
+
+
+  // —————— Lógica de limpieza/conversión ——————
+  // Devuelve "AAAAMM $monto dias" por línea
+  function convertirTiemposPublicos(){
+    const src = (document.getElementById('tp_in').value || '').replace(/\r/g,'').split('\n');
+
+    const out = [];
+    const isNitLine = s => /^[89]\d{7,}\b/.test(s.trim());
+    const isCicloLine = s => /^\s*\d{6}\b/.test(s.trim());
+
+    for (let i=0; i<src.length; i++){
+      let line = src[i].trim();
+      if (!line) continue;
+
+      // Caso 1: la línea ya empieza con AAAAMM
+      if (isCicloLine(line)){
+        const cleaned = parseCicloSalarioDias(line);
+        if (cleaned) out.push(cleaned);
+        continue;
+      }
+
+      // Caso 2: empieza con NIT (puede traer el ciclo o no)
+      if (isNitLine(line)){
+        // si en la misma línea está el ciclo, recortamos desde ahí
+        const mSame = line.match(/\b(\d{6})\b/);
+        if (mSame){
+          const idx = line.indexOf(mSame[1]);
+          const slice = line.slice(idx);
+          const cleaned = parseCicloSalarioDias(slice);
+          if (cleaned) out.push(cleaned);
+          continue;
+        }
+        // si no, buscamos la siguiente línea que empiece con ciclo
+        let j = i + 1;
+        while (j < src.length && !isCicloLine(src[j])) j++;
+        if (j < src.length && isCicloLine(src[j])){
+          const cleaned = parseCicloSalarioDias(src[j].trim());
+          if (cleaned) out.push(cleaned);
+          i = j;
+        }
+        continue;
+      }
+      // otros casos: ignorar
+    }
+
+    document.getElementById('tp_out').value = out.join('\n');
+    log(`✔ Tiempos públicos convertidos: ${out.length}`);
+  }
+
+
+// Copiar al portapapeles (con fallback)
+async function copyToClipboard(text){
+  try{
+    await navigator.clipboard.writeText(text || '');
+    log('✔ Copiado al portapapeles.');
+  }catch(_){
+    // Fallback legacy
+    const ta = document.createElement('textarea');
+    ta.value = text || '';
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); log('✔ Copiado al portapapeles.'); }
+    catch(e){ log('❌ No se pudo copiar automáticamente. Selecciona y usa Ctrl+C.'); }
+    document.body.removeChild(ta);
+  }
+}
+
+// Fusionar contenido con un 2.txt subido por el usuario
+async function mergeWithExisting2(file, newText){
+  const prev = await file.text();
+  // Garantiza salto entre contenidos si ambos tienen texto
+  const sep = (prev.trim() && newText.trim()) ? '\n' : '';
+  return prev + sep + (newText || '');
+}
+
+
+  // Extrae "AAAAMM $monto dias" desde una línea que empieza con AAAAMM
+  function parseCicloSalarioDias(line){
+    // ciclo
+    const mCiclo = line.match(/^\s*(\d{6})\b/);
+    if (!mCiclo) return null;
+    const ciclo = mCiclo[1];
+
+    // salario: primer monto con $, se quitan espacios y COMAS
+    const afterCiclo = line.slice(line.indexOf(ciclo) + ciclo.length);
+    const mMoney = afterCiclo.match(/\$\s?[\d.,]+/);
+    if (!mMoney) return null;
+    const salario = mMoney[0].replace(/\s+/g,'').replace(/,/g,''); // <-- sin coma
+
+    // tail después del primer monto encontrado
+    const tail = afterCiclo.slice(afterCiclo.indexOf(mMoney[0]) + mMoney[0].length);
+
+    // DÍAS: tomar el del medio de los ÚLTIMOS TRES números de la línea
+    // (soporta secuencias como "0 0 30 0": últimos tres = [0,30,0] -> 30)
+    const nums = tail.match(/\b-?\d{1,3}\b/g) || [];
+    if (nums.length < 3) return null;
+    const last3 = nums.slice(-3).map(Number);
+
+    // Preferimos uno válido 1..31 dentro de esos tres; si no, tomamos el del medio
+    let dias = String(last3[1]);
+    const cand = last3.find(n => n >= 1 && n <= 31);
+    if (cand != null) dias = String(cand === last3[0] || cand === last3[2] ? last3[1] : cand); // normalmente el del medio será el bueno
+    // (la línea superior asegura que si el del medio no es 1..31, pero alguno de los extremos sí, nos quedamos con el del medio igualmente
+    // para preservar la lógica "penúltimo" típica; si prefieres sobrescribir, cambia a: dias = String(cand))
+
+    return `${ciclo} ${salario} ${dias}`;
+  }
+
+  // ============
+  // SUBIR PDF
+  // ============
+  const btn = document.getElementById('btnUpload');
+  const inp = document.getElementById('fileInput');
+  btn.addEventListener('click', ()=> inp.click());
+  inp.addEventListener('change', async (e)=>{
+    document.getElementById('tables').innerHTML='';
+    document.getElementById('debug').textContent='';
+    const file = e.target.files[0];
+    if (!file) return;
+    log('Cargando PDF: ' + file.name);
+
+    const buf = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+    const allPages=[];
+
+    for (let pageNum=1; pageNum<=pdf.numPages; pageNum++){
+      const page = await pdf.getPage(pageNum);
+      const content = await page.getTextContent();
+      const items = content.items.map(i=>({ text:i.str, x:i.transform[4], y:i.transform[5] }));
+      allPages.push({pageNum, items});
+      log(`Página ${pageNum}: ${items.length} elementos textuales leídos.`);
+    }
+
+    // Ejecutar secciones que ya funcionaban
+    procesarResumenColpensiones(allPages);
+    procesarAntes1994(allPages);
+
+    // UI de TIEMPOS PÚBLICOS (manual)
+    crearUI_TiemposPublicos();
+
+    log('Proceso finalizado.');
+  });
+</script>
+</body>
+</html>
