@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gran Rifa – Boletas Disponibles y Ocupadas</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a33;
+      --text: #eaf0ff;
+      --muted: #8aa0c6;
+      --brand: #5aa9ff;
+      --taken: #1e4db7;
+      --avail: #1b2a52;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1 { font-size: 2rem; margin: 0.5em 0 0; }
+    h2 { color: var(--muted); margin-top: 0; font-weight: normal; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+      max-width: 800px;
+      width: 100%;
+      margin-top: 30px;
+    }
+    .cell {
+      background: var(--avail);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      text-align: center;
+      padding: 15px 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: 0.3s;
+    }
+    .cell.taken {
+      background: var(--taken);
+      color: #fff;
+      border: 1px solid rgba(90,169,255,0.35);
+    }
+  </style>
+</head>
+<body>
+  <h1>GRAN RIFA</h1>
+  <h2>IPHONE 17 256 GB</h2>
+  <div id="grid" class="grid"></div>
+
+  <script>
+    // === INSERTA AQUÍ TU ENLACE DE GOOGLE SHEETS EN FORMATO CSV ===
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ_Xmu1cXHb236tUdhTwrfm-odE1aGNKUvzZHFQbOmH26iZCY0_Rz2W7EOTRQX9Q/pub?gid=1546956825&single=true&output=csv';
+
+    async function cargarDatos() {
+      try {
+        const res = await fetch(sheetURL);
+        if (!res.ok) throw new Error('No se pudo acceder al archivo.');
+        const csv = await res.text();
+        mostrarDatos(parseCSV(csv));
+      } catch (e) {
+        document.getElementById('grid').innerHTML = `<p style="color:#ffb454">Error: ${e.message}</p>`;
+      }
+    }
+
+    function parseCSV(text) {
+      const filas = text.trim().split(/\r?\n/).map(f => f.split(','));
+      return filas;
+    }
+
+    function mostrarDatos(filas) {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      const encabezado = filas[0];
+      const numIdx = 0; // primera columna
+      const xIdx = encabezado.length - 1; // última columna (columna X)
+
+      for (let i = 1; i < filas.length; i++) {
+        const num = filas[i][numIdx]?.trim();
+        const tomado = filas[i][xIdx]?.trim().toLowerCase() === 'x';
+        if (!num) continue;
+        const celda = document.createElement('div');
+        celda.className = 'cell' + (tomado ? ' taken' : '');
+        celda.textContent = num.padStart(3, '0');
+        grid.appendChild(celda);
+      }
+    }
+
+    cargarDatos();
+  </script>
+</body>
+</html>
