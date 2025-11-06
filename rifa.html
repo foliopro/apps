@@ -12,7 +12,7 @@
       --muted: #8aa0c6;
       --brand: #5aa9ff;
       --taken: #1e4db7;
-      --avail: #1b2a52;
+      --avail: #ffffff;
       --radius: 16px;
     }
     * { box-sizing: border-box; }
@@ -27,8 +27,15 @@
       min-height: 100vh;
       padding: 20px;
     }
-    h1 { font-size: 2rem; margin: 0.5em 0 0; }
-    h2 { color: var(--muted); margin-top: 0; font-weight: normal; }
+    .header-img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+    }
+    h1 { font-size: 2rem; margin: 0.5em 0 0; text-align:center; }
+    h2 { color: var(--muted); margin-top: 0; font-weight: normal; text-align:center; }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -39,12 +46,13 @@
     }
     .cell {
       background: var(--avail);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: var(--radius);
       text-align: center;
       padding: 15px 0;
       font-weight: 600;
       font-size: 1.1rem;
+      color: #000;
       transition: 0.3s;
     }
     .cell.taken {
@@ -55,13 +63,15 @@
   </style>
 </head>
 <body>
+  <img class="header-img" src="https://i.ibb.co/5XCPc3d5/image.png" alt="Título de la rifa">
   <h1>GRAN RIFA</h1>
   <h2>IPHONE 17 256 GB</h2>
   <div id="grid" class="grid"></div>
 
   <script>
     // === INSERTA AQUÍ TU ENLACE DE GOOGLE SHEETS EN FORMATO CSV ===
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ_Xmu1cXHb236tUdhTwrfm-odE1aGNKUvzZHFQbOmH26iZCY0_Rz2W7EOTRQX9Q/pub?gid=1546956825&single=true&output=csv';
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ_Xmu1cXHb236tUdhTwrfm-odE1aGNKUvzZHFQbOmH26iZCY0_Rz2W7EOTRQX9Q/pub?gid=1546956825&single=true&output=csv
+';
 
     async function cargarDatos() {
       try {
@@ -101,3 +111,4 @@
   </script>
 </body>
 </html>
+
