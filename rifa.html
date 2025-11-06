@@ -7,13 +7,12 @@
   <style>
     :root {
       --bg: #0b1020;
-      --panel: #121a33;
       --text: #eaf0ff;
       --muted: #8aa0c6;
-      --brand: #5aa9ff;
       --taken: #1e4db7;
-      --avail: #ffffff;
-      --radius: 14px;
+      --avail: #c8ffd4; /* verde claro para disponibles */
+      --radius: 12px;
+      --shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     * { box-sizing: border-box; }
     body {
@@ -29,36 +28,57 @@
     }
     .header-img {
       width: 100%;
-      max-width: 420px;
+      max-width: 380px;
       border-radius: 10px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+      box-shadow: var(--shadow);
       margin-bottom: 20px;
     }
-    h1 { font-size: 2rem; margin: 0.5em 0 0; text-align:center; }
-    h2 { color: var(--muted); margin-top: 0; font-weight: normal; text-align:center; }
+    h1, h2 { text-align:center; margin:0; }
+    h1 { font-size: 1.8rem; margin-top: 10px; }
+    h2 { color: var(--muted); font-weight: normal; margin-bottom: 25px; }
+    h3 { text-align: center; color: var(--text); margin-bottom: 10px; font-weight: 500; }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 10px;
-      max-width: 800px;
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      gap: 8px;
       width: 100%;
-      margin-top: 30px;
+      max-width: 500px;
     }
+
     .cell {
-      background: var(--avail);
-      border: 1px solid rgba(255,255,255,0.2);
       border-radius: var(--radius);
-      text-align: center;
-      padding: 15px 0;
+      padding: 12px 0;
       font-weight: 600;
-      font-size: 1.1rem;
-      color: #000;
+      text-align: center;
+      font-size: 1rem;
+      cursor: pointer;
       transition: 0.3s;
+      box-shadow: var(--shadow);
+      border: none;
     }
+
+    .cell.available {
+      background: var(--avail);
+      color: #000;
+    }
+
+    .cell.available:hover {
+      background: #a5f0b8;
+      transform: scale(1.05);
+    }
+
     .cell.taken {
       background: var(--taken);
       color: #fff;
-      border: 1px solid rgba(90,169,255,0.35);
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 480px) {
+      .cell { font-size: 0.9rem; padding: 10px 0; }
+      .grid { gap: 6px; }
+      .header-img { max-width: 320px; }
     }
   </style>
 </head>
@@ -66,11 +86,13 @@
   <img class="header-img" src="https://i.ibb.co/5XCPc3d5/image.png" alt="Título de la rifa">
   <h1>GRAN RIFA</h1>
   <h2>IPHONE 17 256 GB</h2>
+  <h3>Adquiere tu número disponible dando clic en él</h3>
   <div id="grid" class="grid"></div>
 
   <script>
     // === INSERTA AQUÍ TU ENLACE DE GOOGLE SHEETS EN FORMATO CSV ===
     const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ_Xmu1cXHb236tUdhTwrfm-odE1aGNKUvzZHFQbOmH26iZCY0_Rz2W7EOTRQX9Q/pub?gid=1546956825&single=true&output=csv';
+    const whatsappNumber = '573022882785';
 
     async function cargarDatos() {
       try {
@@ -98,19 +120,27 @@
       }
 
       const encabezado = filas[0].map(h => h.trim().toUpperCase());
-      const numIdx = 0; // primera columna
+      const numIdx = 0; // primera columna (número)
       let xIdx = encabezado.indexOf('X');
       if (xIdx === -1) xIdx = encabezado.length - 1;
 
       for (let i = 1; i < filas.length; i++) {
         const num = filas[i][numIdx]?.trim();
         const valorX = filas[i][xIdx]?.trim().toUpperCase();
-        const tomado = valorX === 'X';
         if (!num) continue;
-        const celda = document.createElement('div');
-        celda.className = 'cell' + (tomado ? ' taken' : '');
-        celda.textContent = num.padStart(3, '0');
-        grid.appendChild(celda);
+        const tomado = valorX === 'X';
+
+        const boton = document.createElement('button');
+        boton.className = 'cell ' + (tomado ? 'taken' : 'available');
+        boton.textContent = num.padStart(3, '0');
+
+        if (!tomado) {
+          const mensaje = encodeURIComponent(`Hola, quiero comprar el número ${num.padStart(3, '0')} y mi nombre es ...`);
+          boton.onclick = () => {
+            window.open(`https://wa.me/${whatsappNumber}?text=${mensaje}`, '_blank');
+          };
+        }
+        grid.appendChild(boton);
       }
     }
 
