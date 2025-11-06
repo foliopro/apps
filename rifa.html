@@ -13,7 +13,7 @@
       --brand: #5aa9ff;
       --taken: #1e4db7;
       --avail: #ffffff;
-      --radius: 16px;
+      --radius: 14px;
     }
     * { box-sizing: border-box; }
     body {
@@ -29,9 +29,9 @@
     }
     .header-img {
       width: 100%;
-      max-width: 600px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      max-width: 420px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
       margin-bottom: 20px;
     }
     h1 { font-size: 2rem; margin: 0.5em 0 0; text-align:center; }
@@ -70,8 +70,7 @@
 
   <script>
     // === INSERTA AQUÍ TU ENLACE DE GOOGLE SHEETS EN FORMATO CSV ===
-    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ_Xmu1cXHb236tUdhTwrfm-odE1aGNKUvzZHFQbOmH26iZCY0_Rz2W7EOTRQX9Q/pub?gid=1546956825&single=true&output=csv
-';
+    const sheetURL = 'AQUÍ_PEGA_TU_ENLACE_CSV';
 
     async function cargarDatos() {
       try {
@@ -85,20 +84,28 @@
     }
 
     function parseCSV(text) {
-      const filas = text.trim().split(/\r?\n/).map(f => f.split(','));
+      const separador = text.includes(';') ? ';' : ',';
+      const filas = text.trim().split(/\r?\n/).map(f => f.split(separador));
       return filas;
     }
 
     function mostrarDatos(filas) {
       const grid = document.getElementById('grid');
       grid.innerHTML = '';
-      const encabezado = filas[0];
+      if (!filas || filas.length === 0) {
+        grid.innerHTML = '<p style="color:#ffb454">No se encontraron datos.</p>';
+        return;
+      }
+
+      const encabezado = filas[0].map(h => h.trim().toUpperCase());
       const numIdx = 0; // primera columna
-      const xIdx = encabezado.length - 1; // última columna (columna X)
+      let xIdx = encabezado.indexOf('X');
+      if (xIdx === -1) xIdx = encabezado.length - 1;
 
       for (let i = 1; i < filas.length; i++) {
         const num = filas[i][numIdx]?.trim();
-        const tomado = filas[i][xIdx]?.trim().toLowerCase() === 'x';
+        const valorX = filas[i][xIdx]?.trim().toUpperCase();
+        const tomado = valorX === 'X';
         if (!num) continue;
         const celda = document.createElement('div');
         celda.className = 'cell' + (tomado ? ' taken' : '');
@@ -107,8 +114,8 @@
       }
     }
 
+    // Cargar automáticamente al abrir la página
     cargarDatos();
   </script>
 </body>
 </html>
-
