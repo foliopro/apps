@@ -211,4 +211,56 @@
       }
 
       filas.slice(1).forEach(row => {
-        const rawNum
+        const rawNum = (row[numIdx] || "").trim();
+        if (!rawNum) return;
+        const num = rawNum.padStart(3, "0");
+
+        const tomado = (row[xIdx] || "").trim().toUpperCase() === "X";
+        const nombre = (row[nameIdx] || "").trim();
+        const celular = (row[phoneIdx] || "").trim();
+
+        const btn = document.createElement("button");
+        btn.className = "cell " + (tomado ? "taken" : "available");
+        btn.textContent = num;
+
+        if (!tomado) {
+          const mensaje = encodeURIComponent(`Hola, quiero comprar el número ${num} y mi nombre es ...`);
+          btn.onclick = () => window.open(`https://wa.me/${whatsappAdmin}?text=${mensaje}`, "_blank");
+        } else {
+          btn.onclick = () => abrirModal(num, nombre, celular);
+        }
+
+        grid.appendChild(btn);
+      });
+    }
+
+    function abrirModal(num, nombre, celular) {
+      currentData = { num, nombre, celular };
+      const modal = document.getElementById("passwordModal");
+      const input = document.getElementById("passwordInput");
+      modal.style.display = "block";
+      input.value = "";
+      input.focus();
+
+      document.getElementById("acceptBtn").onclick = () => {
+        if (input.value === PASSWORD) {
+          localStorage.clear();
+          localStorage.setItem("numero", currentData.num);
+          localStorage.setItem("nombre", currentData.nombre || "");
+          localStorage.setItem("celular", currentData.celular || "");
+          modal.style.display = "none";
+          window.open("boleta.html", "_blank");
+        } else {
+          alert("Contraseña incorrecta");
+        }
+      };
+
+      document.getElementById("cancelBtn").onclick = () => {
+        modal.style.display = "none";
+      };
+    }
+
+    cargarDatos();
+  </script>
+</body>
+</html>
