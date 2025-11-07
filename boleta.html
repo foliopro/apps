@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Boleta Generada - Gran Rifa</title>
+  <style>
+    body {
+      background: #f5f7fa;
+      color: #012557;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    canvas {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      border-radius: 8px;
+      background: #fff;
+      max-width: 95%;
+      height: auto;
+    }
+    /* ===== MODAL ===== */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    .modal-content {
+      background: #fff;
+      color: #012557;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: #012557;
+    }
+    .modal-buttons {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-download {
+      background: #1e90ff;
+      color: #fff;
+    }
+    .btn-whatsapp {
+      background: #25d366;
+      color: #fff;
+    }
+    .btn-cancel {
+      background: #ccc;
+      color: #012557;
+    }
+    .btn:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+
+  <canvas id="boleta"></canvas>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Vista previa de la boleta</h2>
+      <div class="modal-buttons">
+        <button class="btn btn-download" id="btnDownload">Descargar</button>
+        <button class="btn btn-whatsapp" id="btnWhatsapp">WhatsApp</button>
+        <button class="btn btn-cancel" id="btnCancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const COLOR = "rgba(1, 37, 87, 1)";
+    const baseImg = "https://i.ibb.co/n41YgFz/Whats-App-Image-2025-11-06-at-11-11-02-PM.jpg";
+
+    // Recuperar datos del localStorage
+    const numero = localStorage.getItem("numero") || "";
+    const nombre = localStorage.getItem("nombre") || "";
+    const celular = localStorage.getItem("celular") || "";
+
+    // Referencias
+    const canvas = document.getElementById("boleta");
+    const ctx = canvas.getContext("2d");
+    const modal = document.getElementById("modal");
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = baseImg;
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      const W = canvas.width, H = canvas.height;
+      ctx.fillStyle = COLOR;
+      ctx.textBaseline = "top";
+      ctx.textAlign = "left";
+
+      // N° (grueso)
+      ctx.font = `900 ${W * 0.07}px Segoe UI`;
+      ctx.fillText(numero.padStart(3, "0"), W * 0.135, H * 0.275);
+
+      // Nombre
+      ctx.font = `700 ${W * 0.026}px Segoe UI`;
+      ctx.fillText(nombre, W * 0.23, H * 0.43);
+
+      // Celular
+      ctx.font = `700 ${W * 0.026}px Segoe UI`;
+      ctx.fillText(celular, W * 0.23, H * 0.52);
+
+      // Pagó (X)
+      ctx.font = `700 ${W * 0.026}px Segoe UI`;
+      ctx.fillText("X", W * 0.22, H * 0.66);
+
+      // Mostrar modal
+      modal.style.display = "flex";
+    };
+
+    // === Botones del modal ===
+    const btnDownload = document.getElementById("btnDownload");
+    const btnWhatsapp = document.getElementById("btnWhatsapp");
+    const btnCancel = document.getElementById("btnCancel");
+
+    btnDownload.onclick = () => {
+      const url = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `boleta_${numero}.png`;
+      a.click();
+      cerrarModal();
+    };
+
+    btnWhatsapp.onclick = () => {
+      const mensaje = encodeURIComponent("Esta es tu boleta. Gracias por su apoyo.");
+      const waLink = `https://wa.me/${celular}?text=${mensaje}`;
+      window.open(waLink, "_blank");
+      cerrarModal();
+    };
+
+    btnCancel.onclick = () => cerrarModal();
+
+    function cerrarModal() {
+      modal.style.display = "none";
+      localStorage.clear();
+    }
+  </script>
+</body>
+</html>
