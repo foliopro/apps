@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gran Rifa – Boletas Disponibles y Ocupadas</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --text: #eaf0ff;
+      --muted: #8aa0c6;
+      --taken: #1e4db7;
+      --avail: #c8ffd4; /* verde claro para disponibles */
+      --radius: 12px;
+      --shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .header-img {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    h1, h2 { text-align:center; margin:0; }
+    h1 { font-size: 1.8rem; margin-top: 10px; }
+    h2 { color: var(--muted); font-weight: normal; margin-bottom: 8px; }
+    h3 { text-align: center; color: var(--text); margin-bottom: 14px; font-weight: 500; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      gap: 6px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .cell {
+      border-radius: var(--radius);
+      padding: 10px 0;
+      font-weight: 700;
+      text-align: center;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s transform ease, 0.2s filter ease;
+      box-shadow: var(--shadow);
+      border: none;
+      user-select: none;
+    }
+
+    .cell.available { background: var(--avail); color: #000; }
+    .cell.available:hover { transform: scale(1.04); }
+
+    .cell.taken {
+      background: var(--taken);
+      color: #fff;
+      opacity: 0.9;
+    }
+    .cell.taken:hover { filter: brightness(1.05); }
+
+    @media (max-width: 480px) {
+      .cell { font-size: 0.9rem; padding: 9px 0; }
+      .grid { gap: 5px; }
+      .header-img { max-width: 320px; }
+    }
+
+    /* Barra inferior con acciones cuando se genera boleta */
+    .actions-bar{ display:none; position:fixed; left:0; right:0; bottom:0; background:#0f1733; border-top:1px solid rgba(255,255,255,.12); padding:10px; display:flex; gap:10px; justify-content:center }
+    .btn{ appearance:none; border:none; border-radius:10px; padding:10px 14px; font-weight:700; cursor:pointer }
+    .btn-primary{ background:#5aa9ff; color:#061126 }
+    .btn-ghost{ background:rgba(255,255,255,.08); color:var(--text); border:1px solid rgba(255,255,255,.15) }
+  </style>
+</head>
+<body>
+  <img class="header-img" src="https://i.ibb.co/5XCPc3d5/image.png" alt="Título de la rifa">
+  <h1>GRAN RIFA</h1>
+  <h2>IPHONE 17 256 GB</h2>
+  <h3>Adquiere tu número disponible dando clic en él</h3>
+  <div id="grid" class="grid"></div>
+
+  <!-- Acciones tras generar la boleta -->
+  <div id="bar" class="actions-bar" style="display:none">
+    <button id="btnDownload" class="btn btn-primary">Descargar boleta</button>
+    <button id="btnShare" class="btn btn-ghost">Compartir por WhatsApp</button>
+  </div>
+
+  <script>
+    // === INSERTA AQUÍ TU ENLACE DE GOOGLE SHEETS EN FORMATO CSV ===
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ_Xmu1cXHb236tUdhTwrfm-odE1aGNKUvzZHFQbOmH26iZCY0_Rz2W7EOTRQX9Q/pub?gid=1546956825&single=true&output=csv';
+    const whatsappAdmin = '573022882785';
+    const PASSWORD = 'abcde*123*';
+    const BASE_IMAGE = 'https://i.ibb.co/5XCPc3d5/image.png';
+
+    let lastTicketBlob = null; // para compartir/descargar
+    let lastPhone = '';
+
+    async function cargarDatos() {
+      try {
+        const res = await fetch(sheetURL);
+        if (!res.ok) throw new Error('No se pudo acceder al archivo.');
+        const csv = await res.text();
+        mostrarDatos(parseCSV(csv));
+      } catch (e) {
+        document.getElementById('grid').innerHTML = `<p style="color:#ffb454">Error: ${e.message}</p>`;
+      }
+    }
+
+    function parseCSV(text) {
+      const separador = text.includes(';') ? ';' : ',';
+      return text.trim().split(/\r?\n/).map(f => f.split(separador));
+    }
+
+    function mostrarDatos(filas) {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      if (!filas || filas.length === 0) {
+        grid.innerHTML = '<p style="color:#ffb454">No se encontraron datos.</p>';
+        return;
+      }
+      const header = filas[0].map(h => (h||'').trim().toUpperCase());
+      const numIdx = 0;              // A: Número
+      let xIdx = header.indexOf('X');
+      if (xIdx === -1) xIdx = header.length - 1; // respaldo
+      const phoneIdx = 5;            // F: Celular
+      const nameIdx = 1;             // B: Nombre
+
+      for (let i = 1; i < filas.length; i++) {
+        const row = filas[i];
+        if(!row) continue;
+        const rawNum = (row[numIdx]||'').trim();
+        if(!rawNum) continue;
+        const num = rawNum.padStart(3,'0');
+        const valorX = (row[xIdx]||'').trim().toUpperCase();
+        const tomado = valorX === 'X';
+        const nombre = (row[nameIdx]||'').trim();
+        const celular = (row[phoneIdx]||'').trim();
+
+        const btn = document.createElement('button');
+        btn.className = 'cell ' + (tomado ? 'taken' : 'available');
+        btn.textContent = num;
+
+        if (!tomado) {
+          const mensaje = encodeURIComponent(`Hola, quiero comprar el número ${num} y mi nombre es ...`);
+          btn.onclick = () => window.open(`https://wa.me/${whatsappAdmin}?text=${mensaje}`, '_blank');
+        } else {
+          // Si está tomado: pedir contraseña y generar boleta
+          btn.onclick = async () => {
+            const pass = prompt('Ingresa la contraseña para generar y enviar la boleta:');
+            if(pass !== PASSWORD){ alert('Contraseña incorrecta'); return; }
+            // Generar imagen con datos
+            const blob = await generarBoletaImagen({num, nombre, celular});
+            lastTicketBlob = blob; lastPhone = celular;
+            // Mostrar barra de acciones (descargar / compartir)
+            document.getElementById('bar').style.display = 'flex';
+          };
+        }
+
+        grid.appendChild(btn);
+      }
+    }
+
+    async function generarBoletaImagen({num, nombre, celular}){
+      const img = await cargarImagen(BASE_IMAGE);
+      const cvs = document.createElement('canvas');
+      const ctx = cvs.getContext('2d');
+      cvs.width = img.naturalWidth; cvs.height = img.naturalHeight;
+      ctx.drawImage(img, 0, 0);
+
+      // Estilo de texto (azul legible sobre blanco)
+      const azul = '#1e4db7';
+      // Posiciones relativas (porcentajes) para adaptarse a distintos tamaños de la imagen
+      const W = cvs.width, H = cvs.height;
+
+      // Num boleta grande
+      ctx.font = Math.round(W*0.065) + 'px Segoe UI, Arial, sans-serif';
+      ctx.fillStyle = azul;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      // zona derecha (donde hay más aire en la imagen base)
+      ctx.fillText(`Boleta #${num}`, Math.round(W*0.56), Math.round(H*0.16));
+
+      // Nombre
+      ctx.font = Math.round(W*0.038) + 'px Segoe UI, Arial, sans-serif';
+      ctx.fillText(`Nombre: ${nombre||'-'}`, Math.round(W*0.56), Math.round(H*0.24));
+
+      // Celular
+      ctx.fillText(`Celular: ${celular||'-'}`, Math.round(W*0.56), Math.round(H*0.30));
+
+      // Fecha/hora de emisión
+      const fecha = new Date().toLocaleString();
+      ctx.font = Math.round(W*0.03) + 'px Segoe UI, Arial, sans-serif';
+      ctx.fillText(`Emitida: ${fecha}`, Math.round(W*0.56), Math.round(H*0.36));
+
+      const blob = await new Promise(r => cvs.toBlob(r, 'image/png', 0.92));
+      return blob;
+    }
+
+    function cargarImagen(src){
+      return new Promise((resolve, reject)=>{
+        const i = new Image();
+        i.crossOrigin = 'anonymous'; // intento para habilitar export
+        i.onload = ()=>resolve(i);
+        i.onerror = reject;
+        i.src = src;
+      });
+    }
+
+    // Botones barra inferior
+    document.getElementById('btnDownload').addEventListener('click', ()=>{
+      if(!lastTicketBlob){ alert('Primero genera una boleta (toca un número tomado e ingresa la contraseña).'); return; }
+      const url = URL.createObjectURL(lastTicketBlob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'boleta.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 1000);
+    });
+
+    document.getElementById('btnShare').addEventListener('click', async ()=>{
+      if(!lastTicketBlob){ alert('Primero genera una boleta.'); return; }
+      const file = new File([lastTicketBlob], 'boleta.png', {type:'image/png'});
+      const texto = 'Entregamos su boleta. Gracias por su apoyo';
+      try{
+        if(navigator.canShare && navigator.canShare({files:[file]})){
+          await navigator.share({ files:[file], text: texto, title:'Boleta' });
+          // Tras compartir, opcionalmente abrir chat con el cliente
+          if(lastPhone){ window.open(`https://wa.me/${encodeURIComponent(lastPhone)}?text=${encodeURIComponent(texto)}`, '_blank'); }
+        }else{
+          // Fallback: descargar y abrir WhatsApp del cliente
+          const url = URL.createObjectURL(lastTicketBlob);
+          const a = document.createElement('a'); a.href=url; a.download='boleta.png'; a.click();
+          setTimeout(()=>URL.revokeObjectURL(url), 1000);
+          if(lastPhone){ window.open(`https://wa.me/${encodeURIComponent(lastPhone)}?text=${encodeURIComponent(texto)}`, '_blank'); }
+          else{ window.open(`https://wa.me/${whatsappAdmin}?text=${encodeURIComponent(texto)}`, '_blank'); }
+        }
+      }catch(err){
+        alert('No fue posible compartir automáticamente. Se descargará la boleta.');
+        const url = URL.createObjectURL(lastTicketBlob);
+        const a = document.createElement('a'); a.href=url; a.download='boleta.png'; a.click();
+        setTimeout(()=>URL.revokeObjectURL(url), 1000);
+      }
+    });
+
+    // Cargar automáticamente al abrir la página
+    cargarDatos();
+  </script>
+</body>
+</html>
