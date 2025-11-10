@@ -181,20 +181,33 @@
   </script>
 
 
-<!-- 📋 Pega este bloque antes de </body> -->\n<style>.fomo-notif{position:fixed;left:14px;bottom:14px;background:rgba(10,19,40,.92);padding:12px 14px;border-radius:14px;max-width:360px;display:flex;align-items:center;gap:10px;font-family:system-ui;color:#e7eefc;box-shadow:0 2px 8px rgba(0,0,0,.5);}
+<!-- 📋 Pega este bloque antes de </body> -->
+<style>.fomo-notif{position:fixed;left:14px;bottom:14px;background:rgba(10,19,40,.92);padding:12px 14px;border-radius:14px;max-width:360px;display:flex;align-items:center;gap:10px;font-family:system-ui;color:#e7eefc;box-shadow:0 2px 8px rgba(0,0,0,.5);}
 .fomo-avatar{width:40px;height:40px;border-radius:50%;background:#1e3a8a;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#dbeafe;font-size:15px;}
 .fomo-text strong{font-size:15px;}
-.fomo-sub{font-size:12px;color:#9bb8ff;margin-top:3px;}</style>\n<script>\nwindow.addEventListener('load',()=>{try{
-function rand(a){return a[Math.floor(Math.random()*a.length)]}
-function getInitials(n){const p=n.trim().split(' ');return(p[0][0]+(p[1]?p[1][0]:'')).toUpperCase();}
-const msgs={};
-const names=["Ana Torres\nOscar García\nMaría Ruiz"];
-const places=["Bogotá/Colombia\nCali/Colombia\nMedellín/Colombia"];
-const prod='Producto demo',mon='$',price='25000';
-function show(){const n=rand(names),l=rand(places),k=rand(Object.keys(msgs)),initials=getInitials(n);let mensajeBase=msgs[k]||'compró '+prod;let t=mensajeBase.replace(/{producto}/g,prod).replace(/{min}/g,Math.floor(Math.random()*17)+3);const d=document.createElement('div');d.className='fomo-notif';d.innerHTML='<div class="fomo-avatar">'+initials+'</div><div class="fomo-text"><strong>'+n+'</strong><br>'+t+'<div class="fomo-sub">'+mon+price+' • desde '+l+'</div></div>';document.body.appendChild(d);setTimeout(()=>d.remove(),4500);}show();let c=7;setInterval(()=>{if(c--<=0)return;show();},6000);}catch(e){console.error('FOMO error',e);}});\n</script>
-
+.fomo-sub{font-size:12px;color:#9bb8ff;margin-top:3px;}</style>
+<script>
+window.addEventListener('load',()=>{try{
+    function rand(a){return a[Math.floor(Math.random()*a.length)]}
+    function getInitials(n){const p=n.trim().split(' ');return(p[0][0]+(p[1]?p[1][0]:'')).toUpperCase();}
+    const msgs={};
+    const names=["Ana Torres\nOscar García\nMaría Ruiz"];
+    const places=["Bogotá/Colombia\nCali/Colombia\nMedellín/Colombia"];
+    const prod='Producto demo', mon='$', price='25000';
+    function show(){
+      const n=rand(names), l=rand(places), k=rand(Object.keys(msgs)), initials=getInitials(n);
+      let t=msgs[k].replace(/{producto}/g,prod).replace(/{min}/g,Math.floor(Math.random()*17)+3);
+      const d=document.createElement('div');
+      d.className='fomo-notif';
+      d.innerHTML='<div class="fomo-avatar">'+initials+'</div><div class="fomo-text"><strong>'+n+'</strong><br>'+t+'<div class="fomo-sub">'+mon+price+' • desde '+l+'</div></div>';
+      document.body.appendChild(d);setTimeout(()=>d.remove(),4500);
+    }
+    show();let c=7;setInterval(()=>{if(c--<=0)return;show();},6000);
+  }catch(e){console.error('FOMO error',e);}});
+</script>
 
 </body>
 </html>
+
 
 
