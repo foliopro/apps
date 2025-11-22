@@ -141,12 +141,142 @@
       .header-img { max-width: 320px; }
     }
   </style>
+
+
+
+
+
+
+
+<style>
+  .carousel-container {
+    position: relative;
+    max-width: 540px; /* reducido al 45% de 1200px */
+    margin: 0 auto;
+    overflow: hidden;
+    transform: scale(0.45); /* escala general del carrusel */
+    transform-origin: top center;
+  } {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .carousel-track img {
+    min-width: 100%; /* asegura que solo se vea una imagen a la vez */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  } {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 22px;
+    border-radius: 6px;
+    z-index: 10;
+  }
+
+  .carousel-btn:hover {
+    background: rgba(0,0,0,0.8);
+  }
+
+  .carousel-btn.left { left: 10px; }
+  .carousel-btn.right { right: 10px; }
+
+</style>
+
+<div class="carousel-container">
+  <button class="carousel-btn left" onclick="moveSlide(-1)">❮</button>
+  <button class="carousel-btn right" onclick="moveSlide(1)">❯</button>
+
+  <div class="carousel-track" id="carouselTrack">
+    <img src="https://i.postimg.cc/vm6sPH30/01.png" alt="Diseño 01">
+    <img src="https://i.postimg.cc/5tFVPNnP/03.png" alt="Diseño 03">
+    <img src="https://i.postimg.cc/g06WMkN7/04.png" alt="Diseño 04">
+    <img src="https://i.postimg.cc/HL7gSsBK/05.png" alt="Diseño 05">
+    <img src="https://i.postimg.cc/qRVdWV5D/06.png" alt="Diseño 06">
+    <img src="https://i.postimg.cc/j50rB0FF/i07.png" alt="Diseño 07">
+  </div>
+</div>
+
+<script>
+  let index = 0;
+
+  function moveSlide(direction) {
+    const track = document.getElementById('carouselTrack');
+    const slides = track.children;
+    const total = slides.length;
+
+    index = index + direction;
+
+    // Loop infinito
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+
+    const width = slides[0].clientWidth;
+    track.style.transform = `translateX(${-index * width}px)`;
+  }
+
+  // Ajuste automático en redimensionamiento
+  window.addEventListener('resize', ()=> moveSlide(0));
+</script>
+
+/* Optimización para móviles: 70% del ancho de pantalla */
+<style>
+@media (max-width: 768px) {
+  .carousel-container {
+    max-width: 70vw;
+    transform: scale(1); /* evitar reducción en móvil */
+  }
+  .carousel-track img {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
+
+
+  
+  
 <body>
-  <img class="header-img" src="https://i.ibb.co/5XCPc3d5/image.png" alt="Título de la rifa">
-  <h1>GRAN RIFA</h1>
-  <h2>IPHONE 17 256 GB</h2>
-  <h3>Adquiere tu número disponible dando clic en él</h3>
 
   <div id="grid" class="grid"></div>
 
