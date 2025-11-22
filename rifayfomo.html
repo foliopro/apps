@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gran Rifa - Boletas Disponibles</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --text: #eaf0ff;
+      --muted: #8aa0c6;
+      --taken: #1e4db7;
+      --avail: #c8ffd4;
+      --radius: 12px;
+      --shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header-img {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    h1, h2 { text-align: center; margin: 0; }
+    h1 { font-size: 1.8rem; margin-top: 10px; }
+    h2 { color: var(--muted); font-weight: normal; margin-bottom: 8px; }
+    h3 { text-align: center; color: var(--text); margin-bottom: 14px; font-weight: 500; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      gap: 6px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .cell {
+      border-radius: var(--radius);
+      padding: 10px 0;
+      font-weight: 700;
+      text-align: center;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.25s ease;
+      box-shadow: var(--shadow);
+      border: none;
+      user-select: none;
+    }
+
+    .cell.available {
+      background: var(--avail);
+      color: #000;
+    }
+    .cell.available:hover {
+      transform: scale(1.06);
+      box-shadow: 0 0 10px #8cffb0;
+    }
+
+    .cell.taken {
+      background: var(--taken);
+      color: #fff;
+      opacity: 0.9;
+    }
+    .cell.taken:hover {
+      filter: brightness(1.05);
+    }
+
+    /* --- Modal inferior ajustado --- */
+    #passwordModal {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 15, 30, 0.95);
+      padding: 15px;
+      border-top: 2px solid #1e4db7;
+      display: none;
+      z-index: 100;
+      color: white;
+      text-align: center;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.4);
+      animation: slideUp 0.4s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    #passwordModal input {
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      width: 180px;
+      text-align: center;
+      margin: 8px;
+    }
+
+    #passwordModal button {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      margin: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    #acceptBtn {
+      background: #1e4db7;
+      color: #fff;
+    }
+
+    #cancelBtn {
+      background: #666;
+      color: #fff;
+    }
+
+    #passwordModal button:hover {
+      filter: brightness(1.2);
+    }
+
+    @media (max-width: 480px) {
+      .cell { font-size: 0.9rem; padding: 9px 0; }
+      .grid { gap: 5px; }
+      .header-img { max-width: 320px; }
+    }
+  </style>
+
+
+
+
+
+
+
+<style>
+  .carousel-container {
+    position: relative;
+    max-width: 540px; /* reducido al 45% de 1200px */
+    margin: 0 auto;
+    overflow: hidden;
+    transform: scale(0.45); /* escala general del carrusel */
+    transform-origin: top center;
+  } {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .carousel-track img {
+    min-width: 100%; /* asegura que solo se vea una imagen a la vez */
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  } {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 22px;
+    border-radius: 6px;
+    z-index: 10;
+  }
+
+  .carousel-btn:hover {
+    background: rgba(0,0,0,0.8);
+  }
+
+  .carousel-btn.left { left: 10px; }
+  .carousel-btn.right { right: 10px; }
+
+</style>
+
+<div class="carousel-container">
+  <button class="carousel-btn left" onclick="moveSlide(-1)">❮</button>
+  <button class="carousel-btn right" onclick="moveSlide(1)">❯</button>
+
+  <div class="carousel-track" id="carouselTrack">
+    <img src="https://i.postimg.cc/vm6sPH30/01.png" alt="Diseño 01">
+    <img src="https://i.postimg.cc/5tFVPNnP/03.png" alt="Diseño 03">
+    <img src="https://i.postimg.cc/g06WMkN7/04.png" alt="Diseño 04">
+    <img src="https://i.postimg.cc/HL7gSsBK/05.png" alt="Diseño 05">
+    <img src="https://i.postimg.cc/qRVdWV5D/06.png" alt="Diseño 06">
+    <img src="https://i.postimg.cc/j50rB0FF/i07.png" alt="Diseño 07">
+  </div>
+</div>
+
+<script>
+  let index = 0;
+
+  function moveSlide(direction) {
+    const track = document.getElementById('carouselTrack');
+    const slides = track.children;
+    const total = slides.length;
+
+    index = index + direction;
+
+    // Loop infinito
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+
+    const width = slides[0].clientWidth;
+    track.style.transform = `translateX(${-index * width}px)`;
+  }
+
+  // Ajuste automático en redimensionamiento
+  window.addEventListener('resize', ()=> moveSlide(0));
+</script>
+<style>
+@media (max-width: 768px) {
+  .carousel-container {
+    max-width: 70vw;
+    transform: scale(1); /* evitar reducción en móvil */
+  }
+  .carousel-track img {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+  }
+}
+</style>
+
+</head>
+  
+<body>
+<p></p>
+  <h3>ADQUIERE TU NÚMERO FAVORITO ANDO CLICK SOBRE EL</h3>
+
+  <div id="grid" class="grid"></div>
+
+  <!-- Modal inferior -->
+  <div id="passwordModal">
+    <p>Ingrese la contraseña para generar la boleta:</p>
+    <input type="password" id="passwordInput" placeholder="********" />
+    <div>
+      <button id="acceptBtn">Aceptar</button>
+      <button id="cancelBtn">Cancelar</button>
+    </div>
+  </div>
+
+  <script>
+    const sheetURL = "https://api.allorigins.win/raw?url=" +
+      encodeURIComponent("https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ_Xmu1cXHb236tUdhTwrfm-odE1aGNKUvzZHFQbOmH26iZCY0_Rz2W7EOTRQX9Q/pub?gid=1546956825&single=true&output=csv");
+    
+    const whatsappAdmin = "573022882785";
+    const PASSWORD = "Jayda6780*";
+
+    let currentData = null;
+
+    async function cargarDatos() {
+      try {
+        const res = await fetch(sheetURL);
+        if (!res.ok) throw new Error("No se pudo acceder al archivo CSV.");
+        const csv = await res.text();
+        mostrarDatos(parseCSV(csv));
+      } catch (e) {
+        document.getElementById("grid").innerHTML = `<p style='color:#ffb454'>Error: ${e.message}</p>`;
+      }
+    }
+
+    function parseCSV(text) {
+      const sep = text.includes(";") ? ";" : ",";
+      return text.trim().split(/\r?\n/).map(f => f.split(sep));
+    }
+
+    function mostrarDatos(filas) {
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+
+      const header = filas[0].map(h =>
+        (h || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[°#.,]/g, "")
+          .trim()
+          .toUpperCase()
+      );
+
+      const numIdx = header.findIndex(h => h === "N" || h === "NO" || h.startsWith("N°"));
+      const nameIdx = header.findIndex(h => h.startsWith("NOM"));
+      const xIdx = header.findIndex(h => h === "X");
+      const phoneIdx = header.findIndex(h => h.includes("F") || h.includes("TEL") || h.includes("CEL")) !== -1 ? 
+                       header.findIndex(h => h.includes("F") || h.includes("TEL") || h.includes("CEL")) : 5; // columna F por defecto
+
+      if (numIdx === -1 || nameIdx === -1 || xIdx === -1) {
+        grid.innerHTML = "<p style='color:#ffb454'>No se pudieron identificar correctamente las columnas del CSV.</p>";
+        console.warn("Encabezados detectados:", header);
+        return;
+      }
+
+      filas.slice(1).forEach(row => {
+        const rawNum = (row[numIdx] || "").trim();
+        if (!rawNum) return;
+        const num = rawNum.padStart(3, "0");
+
+        const tomado = (row[xIdx] || "").trim().toUpperCase() === "X";
+        const nombre = (row[nameIdx] || "").trim();
+        const celular = (row[phoneIdx] || "").trim();
+
+        const btn = document.createElement("button");
+        btn.className = "cell " + (tomado ? "taken" : "available");
+        btn.textContent = num;
+
+        if (!tomado) {
+          const mensaje = encodeURIComponent(`Hola, quiero comprar el número ${num} y mi nombre es ...`);
+          btn.onclick = () => window.open(`https://wa.me/${whatsappAdmin}?text=${mensaje}`, "_blank");
+        } else {
+          btn.onclick = () => abrirModal(num, nombre, celular);
+        }
+
+        grid.appendChild(btn);
+      });
+    }
+
+    function abrirModal(num, nombre, celular) {
+      currentData = { num, nombre, celular };
+      const modal = document.getElementById("passwordModal");
+      const input = document.getElementById("passwordInput");
+      modal.style.display = "block";
+      input.value = "";
+      input.focus();
+
+      document.getElementById("acceptBtn").onclick = () => {
+        if (input.value === PASSWORD) {
+          localStorage.clear();
+          localStorage.setItem("numero", currentData.num);
+          localStorage.setItem("nombre", currentData.nombre || "");
+          localStorage.setItem("celular", currentData.celular || "");
+          modal.style.display = "none";
+          window.open("boleta.html", "_blank");
+        } else {
+          alert("Contraseña incorrecta");
+        }
+      };
+
+      document.getElementById("cancelBtn").onclick = () => {
+        modal.style.display = "none";
+      };
+    }
+
+    cargarDatos();
+  </script>
+
+
+<!-- FOMO: pega esto antes de </body> -->
+<style>.fomo-notif{position:fixed;left:14px;bottom:14px;max-width:360px;width:calc(100% - 28px);background:rgba(10,19,40,.92);color:#e7eefc;padding:12px;border-radius:14px;font-family:system-ui;}</style>
+<script>
+window.addEventListener('load',()=>{try{function rand(a){return a[Math.floor(Math.random()*a.length)]}const msgs={"viendo":"está viendo el producto {producto}.","comprando":"está comprando una boleta de {producto}.","compro_hace":"compró dos boletas de {producto} hace {min} minutos.","oferta":"aprovechó una promoción especial en {producto}.","recomendado":"recomendó {producto} a sus amigos.","resena":"dejó una reseña ★★★★★ sobre la rifa {producto}.","social":"compartió una historia sobre {producto} en redes.","info":"está solicitando información sobre el servicio {producto}.","reservando":"reservó una cita para {producto}.","experiencia":"comentó su buena experiencia con {producto}.","testimonio":"publicó un testimonio positivo sobre {producto}.","consulta":"acaba de hacer una consulta sobre {producto}.","inscrito":"se inscribió para {producto}.","mirando":"está mirando los números de la rifa {producto}.","registro":"se registró para participar en {producto}.","compartiendo":"compartió la rifa {producto} con sus amigos.","ganador":"ganó un premio en la rifa {producto} 🎉.","resena4":"dejó una reseña ★★★★☆ sobre la rifa {producto}.","entusiasmado":"dijo que espera ganar pronto en {producto} 😄."};const names=["Ana Torres","Oscar García","María Ruiz"];const places=["Bogotá/Colombia","Cali/Colombia","Medellín/Colombia"];function show(){const n=rand(names);const l=rand(places);const k=rand(Object.keys(msgs));let t=msgs[k].replace(/{producto}/g,'Producto demo').replace(/{min}/g,Math.floor(Math.random()*17)+3);const b=document.createElement('div');b.className='fomo-notif';b.innerHTML='<b>'+n+'</b><br>'+t+'<br><small style=color:#9bb8ff>desde '+l+'</small>';document.body.appendChild(b);setTimeout(()=>b.remove(),4000);}show();let c=7;setInterval(()=>{if(c--<=0)return;show();},6000);}catch(e){console.error('FOMO error',e);}});
+</script>
+
+
+</body>
+</html>
