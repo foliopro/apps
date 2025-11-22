@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOMO Builder v3.4</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#0b1224;color:#fff;margin:0;padding:0}
+.container{max-width:1200px;margin:auto;padding:20px}
+h1{margin-bottom:5px}small{color:#7fa9ff}
+textarea,input,select{width:100%;background:#0a1328;border:1px solid #22335a;color:#dbeafe;border-radius:6px;padding:8px}
+textarea{min-height:100px}
+button{background:linear-gradient(180deg,#22c55e,#16a34a);border:none;padding:10px 15px;color:#052911;font-weight:bold;border-radius:8px;cursor:pointer}
+button.secondary{background:#0a1328;border:1px solid #1b2d57;color:#cde7ff}
+.grid{display:grid;gap:15px}@media(min-width:768px){.grid{grid-template-columns:1fr 1fr}}
+label{font-size:14px;font-weight:bold}
+.code{white-space:pre-wrap;background:#0a1226;border:1px solid #102044;padding:10px;border-radius:8px;font-family:monospace;color:#dbeafe;min-height:220px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>FOMO Builder v3.4</h1>
+  <small>Basado en el original 3.3 — con mensajes personalizados ampliados</small>
+  <hr>
+
+  <div class="grid">
+    <div>
+      <label>Producto/Oferta</label>
+      <input id="prod" value="Producto demo">
+      <label>Moneda</label>
+      <select id="mon"><option selected>$</option><option>€</option><option>$COP</option></select>
+      <label>Precio</label>
+      <input id="pre" value="25000">
+      <label>Nombres (uno por línea)</label>
+      <textarea id="names">Ana Torres
+Oscar García
+María Ruiz</textarea>
+      <label>Ciudades / Países</label>
+      <textarea id="places">Bogotá/Colombia
+Cali/Colombia
+Medellín/Colombia</textarea>
+    </div>
+
+    <div>
+      <label>Mensajes personalizados (Clave | Texto)</label>
+      <textarea id="messages" style="min-height:400px">
+# 🛍️ PRODUCTOS
+viendo | está viendo el producto {producto}.
+comprando | está comprando {producto} ahora mismo.
+compro_hace | compró {producto} hace {min} minutos.
+oferta | aprovechó una promoción especial en {producto}.
+recomendado | recomendó {producto} a sus amigos.
+resena | dejó una reseña ★★★★★ sobre {producto}.
+social | compartió una historia sobre {producto} en redes.
+
+# 💼 SERVICIOS
+info | está solicitando información sobre el servicio {producto}.
+reservando | reservó una cita para {producto}.
+resena | dejó una reseña ★★★★★ sobre {producto}.
+experiencia | comentó su buena experiencia con {producto}.
+testimonio | publicó un testimonio positivo sobre {producto}.
+consulta | acaba de hacer una consulta sobre {producto}.
+inscrito | se inscribió para {producto}.
+
+# 🎟️ RIFAS
+mirando | está mirando los números de la rifa {producto}.
+comprando | está comprando una boleta de {producto}.
+compro_hace | compró dos boletas de {producto} hace {min} minutos.
+registro | se registró para participar en {producto}.
+compartiendo | compartió la rifa {producto} con sus amigos.
+ganador | ganó un premio en la rifa {producto} 🎉.
+resena | dejó una reseña ★★★★★ sobre la rifa {producto}.
+resena4 | dejó una reseña ★★★★☆ sobre la rifa {producto}.
+entusiasmado | dijo que espera ganar pronto en {producto} 😄.
+      </textarea>
+    </div>
+  </div>
+
+  <hr>
+  <div>
+    <button id="run">Ejecutar (preview)</button>
+    <button class="secondary" id="stop">Detener</button>
+    <button class="secondary" id="makeEmbed">Generar snippet incrustable</button>
+    <button class="secondary" id="copy">Copiar snippet</button>
+    <button class="secondary" id="fill">Rellenar ejemplos</button>
+  </div>
+  <p id="diag" style="font-size:12px;color:#9fb0d1;margin-top:8px;"></p>
+
+  <h3>📋 Snippet listo para pegar</h3>
+  <p style="font-size:12px;color:#9fb0d1;">Copia este bloque y pégalo justo antes de <code>&lt;/body&gt;</code>.</p>
+  <textarea id="snippet" class="code" readonly></textarea>
+</div>
+
+<script>
+(()=>{const $=s=>document.querySelector(s),rand=a=>a[Math.floor(Math.random()*a.length)],lines=v=>(v||"").split("\n").map(s=>s.trim()).filter(Boolean);function parseMessages(txt){const m={};lines(txt).forEach(r=>{if(!r||r.startsWith("#"))return;const ix=r.indexOf("|");if(ix>0){const k=r.slice(0,ix).trim(),v=r.slice(ix+1).trim();if(k&&v)m[k]=v;}});return m;}
+const DEMO={producto:"Producto demo",moneda:"$",precio:"25000",nombres:["Ana Torres","Oscar García","María Ruiz"],lugares:["Bogotá/Colombia","Cali/Colombia","Medellín/Colombia"],mensajes:parseMessages($("#messages").value)},el={prod:$("#prod"),mon:$("#mon"),pre:$("#pre"),names:$("#names"),places:$("#places"),messages:$("#messages"),run:$("#run"),stop:$("#stop"),makeEmbed:$("#makeEmbed"),copy:$("#copy"),fill:$("#fill"),snippet:$("#snippet"),diag:$("#diag")};let previewInt=null,lastName=null;
+function showOne(cfg){let nombre=rand(cfg.nombres);if(cfg.nombres.length>1){let t=5;while(nombre===lastName&&t-->0)nombre=rand(cfg.nombres);}lastName=nombre;const lugar=rand(cfg.lugares),tipo=rand(Object.keys(cfg.mensajes));let texto=cfg.mensajes[tipo].replace(/{producto}/g,cfg.producto).replace(/{min}/g,Math.floor(Math.random()*17)+3);const box=document.createElement("div");box.className="fomo-notif";box.style="position:fixed;left:14px;bottom:14px;background:rgba(10,19,40,.92);padding:12px;border-radius:12px;max-width:340px;font-family:system-ui;color:#e7eefc;";box.innerHTML=`<b>${nombre}</b><br>${texto}<br><small style='color:#9bb8ff'>desde ${lugar}</small>`;document.body.appendChild(box);setTimeout(()=>{box.remove();},4000);}
+function runPreview(){stopPreview();const cfg=getConfigSafe();showOne(cfg);let left=7;previewInt=setInterval(()=>{if(left--<=0)return stopPreview();showOne(cfg);},6000);el.diag.textContent="Preview ejecutándose...";}
+function stopPreview(){if(previewInt)clearInterval(previewInt);document.querySelectorAll(".fomo-notif").forEach(n=>n.remove());el.diag.textContent="Preview detenido.";}
+function getConfigSafe(){return{producto:el.prod.value||DEMO.producto,moneda:el.mon.value||DEMO.moneda,precio:el.pre.value||DEMO.precio,nombres:lines(el.names.value)||DEMO.nombres,lugares:lines(el.places.value)||DEMO.lugares,mensajes:parseMessages(el.messages.value)||DEMO.mensajes};}
+function buildEmbedHTML(cfg){const css=".fomo-notif{position:fixed;left:14px;bottom:14px;max-width:360px;width:calc(100% - 28px);background:rgba(10,19,40,.92);color:#e7eefc;padding:12px;border-radius:14px;font-family:system-ui;}",js="window.addEventListener('load',()=>{try{function rand(a){return a[Math.floor(Math.random()*a.length)]}const msgs="+JSON.stringify(cfg.mensajes)+";const names="+JSON.stringify(cfg.nombres)+";const places="+JSON.stringify(cfg.lugares)+";function show(){const n=rand(names);const l=rand(places);const k=rand(Object.keys(msgs));let t=msgs[k].replace(/{producto}/g,'"+cfg.producto+"').replace(/{min}/g,Math.floor(Math.random()*17)+3);const b=document.createElement('div');b.className='fomo-notif';b.innerHTML='<b>'+n+'</b><br>'+t+'<br><small style=color:#9bb8ff>desde '+l+'</small>';document.body.appendChild(b);setTimeout(()=>b.remove(),4000);}show();let c=7;setInterval(()=>{if(c--<=0)return;show();},6000);}catch(e){console.error('FOMO error',e);}});";return '<!-- FOMO: pega esto antes de </body> -->\n<style>'+css+'</style>\n<scr'+'ipt>\n'+js+'\n</scr'+'ipt>';}
+function makeEmbed(){const cfg=getConfigSafe(),html=buildEmbedHTML(cfg);el.snippet.value=html;el.diag.textContent="Snippet generado correctamente.";}
+function copy(){navigator.clipboard.writeText(el.snippet.value);el.diag.textContent="Copiado al portapapeles.";}
+function fillDemo(){el.prod.value=DEMO.producto;el.mon.value=DEMO.moneda;el.pre.value=DEMO.precio;el.names.value=DEMO.nombres.join("\n");el.places.value=DEMO.lugares.join("\n");el.messages.value=$("#messages").value;makeEmbed();el.diag.textContent="Ejemplo rellenado.";}
+el.run.onclick=e=>{e.preventDefault();runPreview();};el.stop.onclick=e=>{e.preventDefault();stopPreview();};el.makeEmbed.onclick=e=>{e.preventDefault();makeEmbed();};el.copy.onclick=e=>{e.preventDefault();copy();};el.fill.onclick=e=>{e.preventDefault();fillDemo();};makeEmbed();
+})();
+</script>
+</body>
+</html>
