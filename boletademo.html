@@ -1,14 +1,41 @@
 <!-- ============ MICROSITIO (BARBERIA) · generado por Microsite Builder Multi-Nicho v1.2 ============ -->
-<section id="microsite" class="bb-wrap">
-  <style>
-  body, html, #microsite {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
+<script>
+(function(){
+  // FORZAR VIEWPORT RESPONSIVE
+  var vp = document.querySelector('meta[name="viewport"]');
+  if(!vp){
+    vp = document.createElement("meta");
+    vp.setAttribute("name","viewport");
+    vp.setAttribute("content","width=device-width, initial-scale=1.0, maximum-scale=1.0");
+    document.head.appendChild(vp);
   }
-</style>
-  
-  <style>
+
+  // FORZAR QUE EL CONTENEDOR PADRE NO ROMPA EL RESPONSIVE
+  var css = `
+    html, body {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+    #microsite {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+    * {
+      box-sizing: border-box !important;
+    }
+  `;
+  var st = document.createElement("style");
+  st.innerHTML = css;
+  document.head.appendChild(st);
+})();
+</script>
+
+
+
+<section id="microsite" class="bb-wrap">
+   <style>
     #microsite{
       --bg:#0f141a; --paper:#121a22; --text:#e7eef6; --muted:#9fb0bd; --gold1:#6ea8fe; --gold2:#a3d0ff; --bronze:#4b5d6b; --ring:#223049; --radius:22px;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text);
