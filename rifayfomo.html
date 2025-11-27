@@ -377,12 +377,5 @@
     cargarDatos();
   </script>
 
-
-<!-- FOMO: pega esto antes de </body> -->
-<style>.fomo-notif{position:fixed;left:14px;bottom:14px;max-width:360px;width:calc(100% - 28px);background:rgba(10,19,40,.92);color:#e7eefc;padding:12px;border-radius:14px;font-family:system-ui;}</style>
-<script>
-window.addEventListener('load',()=>{try{function rand(a){return a[Math.floor(Math.random()*a.length)]}const msgs={"social":"compartió una historia sobre la rifa en redes.","mirando":"está mirando los números de la rifa","info":"está solicitando información sobre la rifa","comprando":"está comprando una boleta","compro_hace":"compró dos boletas y está feliz","compra2":"reservó hace {min} tres boletas","compartiendo":"compartió la rifa con sus amigos.","ganador":"ganó un premio en la rifa {producto} 🎉.","resena":"dejó una reseña ★★★★★ sobre la rifa","resena4":"dejó una reseña ★★★★☆ sobre la rifa","entusiasmado":"dijo que espera ganarse pronto el Iphone 😄."};const names=["Valentina Ruiz","Juan Sebastián Torres","Sara Lucía Ramírez","Andrés Felipe Gómez","Mariana Castillo","Diego Alejandro Rojas","Natalia Ortiz","Camilo Morales","Laura Daniela Rodríguez","Miguel Ángel Pérez","Juliana Marcela Torres","David Esteban López","Paula Alejandra Ortiz","Jorge Andrés Martínez","Isabella López","Carlos Eduardo Mendoza","Daniela Arias","Luis Fernando Herrera","Karen Tatiana Morales","Santiago Ramírez"];const places=["Cali/ Colombia","Cartago/Colombia","Armenia/Colombia","Bogotá/Colombia","Medellín/Colombia","Barranquilla/Colombia","Dosquebradas/Colombia","New York/USA","Caracas/ Venezuela","Pereira/Colombia"];function show(){const n=rand(names);const l=rand(places);const k=rand(Object.keys(msgs));let t=msgs[k].replace(/{producto}/g,'la Rifa de un Iphone 17').replace(/{min}/g,Math.floor(Math.random()*17)+3);const b=document.createElement('div');b.className='fomo-notif';b.innerHTML='<b>'+n+'</b><br>'+t+'<br><small style=color:#9bb8ff>desde '+l+'</small>';document.body.appendChild(b);setTimeout(()=>b.remove(),4000);}show();let c=7;setInterval(()=>{if(c--<=0)return;show();},6000);}catch(e){console.error('FOMO error',e);}});
-</script>
-
 </body>
 </html>
