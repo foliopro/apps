@@ -244,3 +244,73 @@ $
   </script>
 </section>
 <!-- ============ /CATÁLOGO DIGITAL · TEMA PASTELERÍA ============ -->
+
+
+<!-- ============================================== -->
+<!-- CÓDIGO RESPONSIVO: adapta la página a móviles -->
+<!-- ============================================== -->
+<script>
+(function () {
+    console.log("🔵 Código responsivo activo: preparando vista para móviles, tablets y desktop.");
+
+    // 1) Asegurar meta viewport (clave para que no se vea todo diminuto en el móvil)
+    function asegurarViewport() {
+        var metas = document.getElementsByTagName("meta");
+        var tieneViewport = false;
+
+        for (var i = 0; i < metas.length; i++) {
+            if (metas[i].name && metas[i].name.toLowerCase() === "viewport") {
+                tieneViewport = true;
+                break;
+            }
+        }
+
+        if (!tieneViewport) {
+            var meta = document.createElement("meta");
+            meta.name = "viewport";
+            meta.content = "width=device-width, initial-scale=1.0";
+            document.head.appendChild(meta);
+            console.log("✅ Meta viewport añadida automáticamente.");
+        } else {
+            console.log("ℹ️ Ya existe meta viewport en la página.");
+        }
+    }
+
+    // 2) Asignar clases responsivas al <body>
+    function aplicarResponsivoGlobal() {
+        var w = window.innerWidth || document.documentElement.clientWidth;
+        var b = document.body;
+
+        // Limpiar clases previas
+        b.classList.remove("rs-mobile", "rs-tablet", "rs-desktop", "rs-ultra");
+
+        // Rangos básicos
+        if (w < 600) {
+            b.classList.add("rs-mobile");
+        } else if (w < 900) {
+            b.classList.add("rs-tablet");
+        } else if (w < 1600) {
+            b.classList.add("rs-desktop");
+        } else {
+            b.classList.add("rs-ultra");
+        }
+
+        console.log("Ancho actual:", w, "→ Clases en <body>:", b.className);
+    }
+
+    // Ejecutar cuando el DOM esté listo
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function () {
+            asegurarViewport();
+            aplicarResponsivoGlobal();
+        });
+    } else {
+        asegurarViewport();
+        aplicarResponsivoGlobal();
+    }
+
+    // Actualizar al cambiar tamaño de la ventana
+    window.addEventListener("resize", aplicarResponsivoGlobal);
+})();
+</script>
+
