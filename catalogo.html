@@ -1,0 +1,246 @@
+<!-- ============ CATÁLOGO DIGITAL · TEMA PASTELERÍA (WhatsApp order) ============ -->
+<section id="catalogo" class="cat theme-pastel">
+  <style>
+    .cat{
+      --bg:#fff1f5; --panel:#ffffffdd; --text:#3a2d2f; --muted:#7a5a62;
+      --prime1:#ff9ebf; --prime2:#ffc0d7; --ring:#f7cdd9; --ok:#52b788; --warn:#f4a261;
+      --radius:18px; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text);
+      background:
+        radial-gradient(1200px 520px at 10% -10%, #ffe5ec 0%, transparent 60%),
+        radial-gradient(1200px 520px at 110% -10%, #ffd1dc 0%, transparent 60%),
+        var(--bg);
+      padding:0 0 110px;
+    }
+    #catalogo a{ color:inherit; text-decoration:none !important; }
+    #catalogo h1,#catalogo h2,#catalogo h3{ text-decoration:none !important; }
+    #catalogo img{ display:block; max-width:100%; }
+    #catalogo .name::marker{ content:""; }
+    .cat-hero{ padding:42px 16px 24px; text-align:center; border-bottom:1px solid var(--ring) }
+    .cat-title{ font-size:32px; font-weight:900; letter-spacing:.2px; margin:0 0 8px }
+    .cat-sub{ margin:0 auto; max-width:860px; color:var(--muted) }
+    .cat-bar{ max-width:1100px; margin:16px auto 6px; padding:0 16px; display:grid; gap:10px;
+      grid-template-columns: 1fr auto; align-items:center; }
+    .cat-search{ display:flex; background:var(--panel); border:1px solid var(--ring); border-radius:999px; padding:12px 14px; gap:10px;
+      box-shadow:0 10px 20px rgba(0,0,0,.08); }
+    .cat-search input{ flex:1; background:transparent; border:none; outline:none; color:var(--text); font-size:16px }
+    .cat-chips{ display:flex; gap:10px; overflow:auto; padding:0 16px 10px; margin:6px auto 0; max-width:1100px; }
+    .chip{ flex:0 0 auto; padding:10px 14px; border-radius:999px; border:1px solid var(--ring);
+      background:linear-gradient(90deg,var(--prime1),var(--prime2)); color:#532b33; font-weight:800; opacity:.9; cursor:pointer; user-select:none }
+    .chip.is-active{ box-shadow:0 10px 18px rgba(255, 158, 191, .35); }
+    .cat-grid{ max-width:1100px; margin:8px auto; padding:0 16px; display:grid; gap:14px;
+      grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); }
+    .card{ background:linear-gradient(180deg, var(--panel), color-mix(in srgb, var(--panel), #000 3%));
+      border:1px solid var(--ring); border-radius:var(--radius); overflow:hidden; box-shadow:0 18px 30px rgba(110,50,70,.15); display:flex; flex-direction:column; }
+    .thumb{ position:relative; aspect-ratio: 1 / 1; overflow:hidden }
+    .thumb img{ width:100%; height:100%; object-fit:cover; transition: transform .25s ease }
+    .card:hover .thumb img{ transform: scale(1.04) }
+    .badge{ position:absolute; top:10px; left:10px; background:#0008; color:#fff; padding:6px 10px; border-radius:999px; font-weight:800; font-size:12px; border:1px solid #fff3 }
+    .priceTag{ position:absolute; bottom:10px; right:10px; background:linear-gradient(90deg,var(--prime1),var(--prime2));
+      color:#4a222a; font-weight:900; border-radius:999px; padding:6px 10px; border:2px solid #fff; }
+    .card-body{ padding:14px; display:grid; gap:8px }
+    .name{ font-weight:900; margin:0 }
+    .desc{ margin:0; color:var(--muted); font-size:14px }
+    .pill{ display:inline-flex; align-items:center; gap:6px; border-radius:999px; border:1px solid var(--ring); padding:8px 10px; background:#00000008 }
+    .row{ display:flex; gap:8px; align-items:center; justify-content:space-between; flex-wrap:wrap }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 14px; border-radius:14px; border:1px solid var(--ring); text-decoration:none; cursor:pointer; user-select:none; touch-action:manipulation; }
+    .btn.primary{ background:linear-gradient(90deg,var(--prime1),var(--prime2)); color:#4a222a; font-weight:900; border:2px solid #fff }
+    .btn.ghost{ background:#0000 }
+    .modal{ position:fixed; inset:0; background:rgba(30,15,20,.45); display:none; align-items:center; justify-content:center; padding:16px; z-index:60 }
+    .modal.show{ display:flex }
+    .modal-card{ width:min(860px,96vw); background:var(--panel); color:var(--text); border:1px solid var(--ring); border-radius:16px; overflow:hidden; box-shadow:0 30px 60px rgba(70,30,45,.35) }
+    .modal-head{ display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-bottom:1px solid var(--ring) }
+    .modal-body{ padding:12px; display:grid; gap:12px }
+    .modal-gallery{ aspect-ratio:1 / 1; overflow:hidden; border-radius:12px }
+    .modal-gallery img{ width:100%; height:100%; object-fit:cover }
+    .qty{ display:flex; align-items:center; gap:8px }
+    .qty button{ width:34px; height:34px; border-radius:8px; border:1px solid var(--ring); background:#0000; color:#3a2d2f }
+    .dock{ position:fixed; inset:auto 0 18px; display:flex; justify-content:center; z-index:58; pointer-events:none }
+    .dock-inner{ pointer-events:auto; display:flex; gap:10px; align-items:center; padding:8px; border-radius:999px;
+      background:#fff8; border:1px solid var(--ring); backdrop-filter:blur(10px); box-shadow:0 20px 30px rgba(50,10,20,.18) }
+    .dock .total{ font-weight:900; color:#4a222a }
+    .dock .pill{ background:#fff; color:#4a222a }
+    .dock .btn{ border-radius:999px }
+    .dock .btn.whatsapp{ background:linear-gradient(90deg, #25D366, #53e28c); color:#103d22; font-weight:900; border:none }
+    @media (max-width: 480px){
+      #catalogo .cat-bar{ grid-template-columns: 1fr !important; gap: 8px !important; }
+      #catalogo .cat-chips{ padding: 0 16px 10px !important; gap:10px !important; }
+      #catalogo .cat-grid{ grid-template-columns: 1fr !important; gap: 14px !important; }
+      #catalogo .thumb{ aspect-ratio: 1 / 1 !important; }
+      #catalogo .btn{ width:100% !important; }
+      #catalogo .dock-inner{ transform: scale(.96); }
+    }
+  </style>
+  <header class="cat-hero">
+    <h1 class="cat-title">Catálogo</h1>
+    <p class="cat-sub">Explora y arma tu pedido. Cuando estés listo, envíalo por WhatsApp y lo preparamos con amor. 🧁</p>
+  </header>
+  <div class="cat-bar">
+    <div class="cat-search">
+      🔎
+      <input id="q" type="search" placeholder="Buscar">
+    </div>
+    <div class="pill" id="countInfo">0 ítems</div>
+  </div>
+  <nav class="cat-chips" id="chips" aria-label="Categorías"></nav>
+  <section class="cat-grid" id="grid" aria-live="polite"></section>
+  <div class="dock" id="dock">
+    <div class="dock-inner">
+      <div class="pill"><span id="badgeCnt">0</span> seleccionados</div>
+      <div class="pill total">
+$
+ <span id="badgeTotal">0</span></div>
+      <a class="btn whatsapp" id="sendWA" href="#" rel="noopener">💬 Enviar por WhatsApp</a>
+    </div>
+  </div>
+  <div class="modal" id="modal" aria-hidden="true" role="dialog">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong id="mTitle">Producto</strong>
+        <button id="mClose" class="btn ghost">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-gallery"><img id="mImg" src="" alt=""></div>
+        <p id="mDesc" class="desc"></p>
+        <div id="mVariants"></div>
+        <div class="row">
+          <div class="qty">
+            <button id="minus">–</button>
+            <strong id="qty">1</strong>
+            <button id="plus">+</button>
+          </div>
+          <div class="row" style="gap:10px">
+            <div class="pill">Subtotal: 
+$
+ <span id="mSub">0</span></div>
+            <button id="mAdd" class="btn primary">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  const PHONE = "573228269333";
+  const NOMBRE_NEGOCIO = "Tu Pastelería";
+  const MONEDA = "$";
+  const DEC = 0;
+  const PRODUCTOS = [
+  {
+    "id": "cake1",
+    "nombre": "Torta Red Velvet 1 lb",
+    "cat": "Tortas",
+    "precio": 65000,
+    "img": "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?q=80&w=1200",
+    "desc": "Bizcocho rojo con crema de queso. Para 8–10 porciones.",
+    "badge": "Top",
+    "variants": []
+  },
+  {
+    "id": "cake2",
+    "nombre": "Cheesecake de Maracuyá",
+    "cat": "Tortas",
+    "precio": 72000,
+    "img": "https://images.unsplash.com/photo-1562440499-64c9a111f713?q=80&w=1200",
+    "desc": "Base crocante, relleno cremoso y cobertura de maracuyá.",
+    "variants": []
+  },
+  {
+    "id": "cup1",
+    "nombre": "Cupcakes x6",
+    "cat": "Cupcakes",
+    "precio": 42000,
+    "img": "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=1200",
+    "desc": "Surtidos: vainilla, chocolate y red velvet.",
+    "variants": [
+      {
+        "label": "Caja x6",
+        "precio": 42000
+      },
+      {
+        "label": "Caja x12",
+        "precio": 78000
+      }
+    ]
+  },
+  {
+    "id": "cook1",
+    "nombre": "Alfajores x10",
+    "cat": "Galletas",
+    "precio": 30000,
+    "img": "https://recetasdecocina.elmundo.es/wp-content/uploads/2024/05/alfajores.jpg",
+    "desc": "Rellenos con dulce de leche y coco.",
+    "variants": []
+  },
+  {
+    "id": "combo1",
+    "nombre": "Combo Fiesta",
+    "cat": "Combos",
+    "precio": 150000,
+    "img": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1200",
+    "desc": "Torta 1 lb + 12 cupcakes + 10 alfajores.",
+    "variants": [
+      {
+        "label": "Clásico",
+        "precio": 150000
+      },
+      {
+        "label": "Personalizado",
+        "precio": 170000
+      }
+    ]
+  }
+];
+  (function(){
+    const $ = s => document.querySelector(s);
+    const root = document.getElementById("catalogo");
+    const grid = document.getElementById("grid"), chips = document.getElementById("chips"), q = document.getElementById("q");
+    const badgeCnt = document.getElementById("badgeCnt"), badgeTotal = document.getElementById("badgeTotal"), countInfo = document.getElementById("countInfo");
+    const modal = document.getElementById("modal"), mTitle=document.getElementById("mTitle"), mImg=document.getElementById("mImg"), mDesc=document.getElementById("mDesc"),
+          mVariants=document.getElementById("mVariants"), mSub=document.getElementById("mSub"), mAdd=document.getElementById("mAdd"), mClose=document.getElementById("mClose"),
+          minus=document.getElementById("minus"), plus=document.getElementById("plus"), qty=document.getElementById("qty"), sendWA=document.getElementById("sendWA");
+    const state = { filtro:"Todos", q:"", items:{}, current:null, currentQty:1, currentPrice:0, variant:null };
+    const categorias = ["Todos", ...Array.from(new Set(PRODUCTOS.map(p=>p.cat)))];
+    chips.innerHTML = categorias.map(c => `<button class="chip${c==="Todos"?" is-active":""}" data-cat="${c}">${c}</button>`).join("");
+    chips.addEventListener("click", (e)=>{ const b = e.target.closest(".chip"); if(!b) return; chips.querySelectorAll(".chip").forEach(x=>x.classList.remove("is-active")); b.classList.add("is-active"); state.filtro = b.dataset.cat; render(); });
+    q.addEventListener("input", ()=>{ state.q = q.value.trim().toLowerCase(); render(); });
+    function render(){ const list = PRODUCTOS.filter(p=>{ const okCat = state.filtro==="Todos" || p.cat===state.filtro; const okQ = !state.q || (p.nombre.toLowerCase().includes(state.q) || (p.desc||"").toLowerCase().includes(state.q)); return okCat && okQ; }); countInfo.textContent = `${list.length} resultados`; grid.innerHTML = list.map(p => cardHTML(p)).join(""); }
+    function money(n){ return (MONEDA + " " + Number(n).toFixed(DEC).replace(/\B(?=(\d{3})+(?!\d))/g, ".")); }
+    function cardHTML(p){ return `
+      <article class="card" data-id="${p.id}">
+        <a href="#" class="thumb" data-open>
+          ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
+          <img loading="lazy" src="${p.img}" alt="${p.nombre}">
+          <span class="priceTag">${money(p.precio)}</span>
+        </a>
+        <div class="card-body">
+          <h3 class="name">${p.nombre}</h3>
+          ${p.desc ? `<p class="desc">${p.desc}</p>`:""}
+          <div class="row">
+            <span class="pill">${p.cat}</span>
+            <button class="btn primary" data-add>Agregar</button>
+          </div>
+        </div>
+      </article>`; }
+    grid.addEventListener("click", (e)=>{ const art = e.target.closest(".card"); if(!art) return; const p = PRODUCTOS.find(x=>x.id===art.dataset.id); if (e.target.closest("[data-open]")) { openModal(p); } if (e.target.closest("[data-add]"))  { quickAdd(p); } e.preventDefault(); });
+    function quickAdd(p){ const variant = p.variants?.[0]?.label || null; const price = variant ? Number(p.variants[0].precio)||0 : Number(p.precio)||0; addToBag(p, 1, variant, price); }
+    function openModal(p){ state.current = p; state.currentQty=1; state.variant = null; mTitle.textContent = p.nombre; mImg.src = p.img; mDesc.textContent = p.desc || ""; if (p.variants && p.variants.length){ mVariants.innerHTML = `
+          <div class="row" style="justify-content:flex-start; gap:8px; flex-wrap:wrap">
+            ${p.variants.map((v,i)=>`
+              <label class="pill" style="cursor:pointer">
+                <input type="radio" name="variant" value="${v.label}" ${i===0?"checked":""} style="accent-color:#ff9ebf;margin-right:6px">
+                ${v.label} · ${money(Number(v.precio)||0)}
+              </label>`).join("")}
+          </div>`; state.variant = p.variants[0].label; state.currentPrice = Number(p.variants[0].precio)||0; mVariants.addEventListener("change", (ev)=>{ const lab = ev.target.closest('input[name="variant"]'); if(!lab) return; state.variant = lab.value; const v = p.variants.find(x=>x.label===state.variant); state.currentPrice = Number(v.precio)||0; updateSub(); }, {once:true}); } else { mVariants.innerHTML = ""; state.variant = null; state.currentPrice = Number(p.precio)||0; } qty.textContent = state.currentQty; updateSub(); modal.classList.add("show"); modal.setAttribute("aria-hidden","false"); }
+    function updateSub(){ mSub.textContent = Number(state.currentPrice * state.currentQty).toFixed(DEC).replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+    minus.onclick = ()=>{ state.currentQty = Math.max(1, state.currentQty-1); qty.textContent = state.currentQty; updateSub(); };
+    plus.onclick = ()=>{ state.currentQty++; qty.textContent = state.currentQty; updateSub(); };
+    mAdd.onclick = ()=>{ addToBag(state.current, state.currentQty, state.variant, state.currentPrice); modal.classList.remove("show"); modal.setAttribute("aria-hidden","true"); };
+    mClose.onclick = ()=> modal.classList.remove("show");
+    modal.addEventListener("click", e=>{ if(e.target===modal) modal.classList.remove("show"); });
+    function addToBag(p, q=1, variant=null, price=null){ const key = p.id + (variant?("::"+variant):""); const item = state.items[key] || {id:p.id, nombre:p.nombre, variant, precio:(Number(price??p.precio)||0), qty:0}; item.qty += q; state.items[key] = item; updateDock(); }
+    function updateDock(){ const arr = Object.values(state.items); const cnt = arr.reduce((s,x)=>s+x.qty,0); const tot = arr.reduce((s,x)=>s+(Number(x.precio)||0)*x.qty,0); badgeCnt.textContent = cnt; badgeTotal.textContent = (Number(tot).toFixed(DEC).replace(/\B(?=(\d{3})+(?!\d))/g, ".")); document.getElementById("countInfo").textContent = cnt + " ítems"; sendWA.classList.toggle("disabled", cnt===0); sendWA.style.opacity = cnt?1:.6; sendWA.onclick = (e)=>{ e.preventDefault(); if(!cnt) return; const lines = arr.map(x => `• ${x.nombre}${x.variant?(" ("+x.variant+")"):""} x${x.qty} - ${money((Number(x.precio)||0)*x.qty)}`).join("%0A"); const total = money(tot); const txt = `Hola, vengo del catálogo de *${NOMBRE_NEGOCIO}*.%0A%0AQuiero este pedido:%0A${lines}%0A%0A*Total:* ${total}`; const url = `https://wa.me/${PHONE}?text=${txt}`; const win = window.open(url, "_blank", "noopener,noreferrer"); if(!win){ window.location.href = `https://api.whatsapp.com/send?phone=${PHONE}&text=${txt}`; } }; }
+    function padBottom(){ const dock = document.getElementById('dock'); if(!root || !dock) return; const h = Math.ceil(dock.getBoundingClientRect().height) + 24; root.style.paddingBottom = (h + 24) + 'px'; }
+    render(); updateDock(); padBottom(); window.addEventListener('resize', padBottom); const fomo = document.getElementById('fomo'); if (fomo) { try{ fomo.remove(); }catch(e){} }
+  })();
+  </script>
+</section>
+<!-- ============ /CATÁLOGO DIGITAL · TEMA PASTELERÍA ============ -->
