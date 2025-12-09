@@ -1,4 +1,39 @@
 <!-- ============ MICROSITIO (BARBERIA) · generado por Microsite Builder Multi-Nicho v1.2 ============ -->
+
+<script>
+(function(){
+  // FORZAR VIEWPORT RESPONSIVE
+  var vp = document.querySelector('meta[name="viewport"]');
+  if(!vp){
+    vp = document.createElement("meta");
+    vp.setAttribute("name","viewport");
+    vp.setAttribute("content","width=device-width, initial-scale=1.0, maximum-scale=1.0");
+    document.head.appendChild(vp);
+  }
+
+  // FORZAR QUE EL CONTENEDOR PADRE NO ROMPA EL RESPONSIVE
+  var css = `
+    html, body {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+    #microsite {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+    * {
+      box-sizing: border-box !important;
+    }
+  `;
+  var st = document.createElement("style");
+  st.innerHTML = css;
+  document.head.appendChild(st);
+})();
+</script>
+
+
 <section id="microsite" class="bb-wrap">
   <style>
     #microsite{
