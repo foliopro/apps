@@ -1,39 +1,4 @@
 <!-- ============ MICROSITIO (BARBERIA) · generado por Microsite Builder Multi-Nicho v1.2 ============ -->
-
-<script>
-(function(){
-  // FORZAR VIEWPORT RESPONSIVE
-  var vp = document.querySelector('meta[name="viewport"]');
-  if(!vp){
-    vp = document.createElement("meta");
-    vp.setAttribute("name","viewport");
-    vp.setAttribute("content","width=device-width, initial-scale=1.0, maximum-scale=1.0");
-    document.head.appendChild(vp);
-  }
-
-  // FORZAR QUE EL CONTENEDOR PADRE NO ROMPA EL RESPONSIVE
-  var css = `
-    html, body {
-      width: 100% !important;
-      max-width: 100% !important;
-      overflow-x: hidden !important;
-    }
-    #microsite {
-      width: 100% !important;
-      max-width: 100% !important;
-      overflow-x: hidden !important;
-    }
-    * {
-      box-sizing: border-box !important;
-    }
-  `;
-  var st = document.createElement("style");
-  st.innerHTML = css;
-  document.head.appendChild(st);
-})();
-</script>
-
-
 <section id="microsite" class="bb-wrap">
   <style>
     #microsite{
@@ -57,9 +22,9 @@
     .bb-scroller{ position:relative; padding: 12px 0 }
     .bb-track{ max-width:1200px; margin:0 auto; padding: 0 16px 8px; display:flex; gap:12px; overflow-x:auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch }
     .bb-track::-webkit-scrollbar{ height:8px } .bb-track::-webkit-scrollbar-thumb{ background:color-mix(in srgb, var(--gold2), #000 50%); border-radius:999px }
-    .bb-slide{ position:relative; min-width: 86%; max-width:86%; height: 240px; border-radius:18px; scroll-snap-align:center; overflow:hidden; text-decoration:none; border:1px solid var(--ring); background:color-mix(in srgb, var(--paper), #000 6%); box-shadow: 0 14px 26px rgba(0,0,0,.25); transition: transform .18s ease, box-shadow .18s ease }
-    @media (min-width: 560px){ .bb-slide{ min-width: 48%; max-width:48%; height: 260px } } @media (min-width: 900px){ .bb-slide{ min-width: 32%; max-width:32%; height: 280px } }
-    .bb-slide img{ width:100%; height:100%; object-fit:cover; display:block; } .bb-slide:hover{ transform: translateY(-2px); box-shadow: 0 20px 34px rgba(0,0,0,.35) }
+    .bb-slide{ position:relative; min-width:90%; max-width:90%; border-radius:18px; scroll-snap-align:center; overflow:hidden; text-decoration:none; border:1px solid var(--ring); background:transparent; box-shadow: 0 14px 26px rgba(0,0,0,.25); transition: transform .18s ease, box-shadow .18s ease; display:flex; justify-content:center; align-items:center }
+    @media (min-width: 560px){ .bb-slide{ min-width:70%; max-width:70% } } @media (min-width: 900px){ .bb-slide{ min-width:50%; max-width:50% } }
+    .bb-slide img{ width:100%; height:auto; max-height:85vh; object-fit:contain; display:block } .bb-slide:hover{ transform: translateY(-2px); box-shadow: 0 20px 34px rgba(0,0,0,.35) }
     .bb-links{ max-width:1200px; margin:6px auto 0; padding: 0 16px; display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
     .bb-tile{ display:flex; gap:12px; align-items:center; text-decoration:none; background: linear-gradient(180deg, color-mix(in srgb, var(--paper), #000 8%), color-mix(in srgb, var(--paper), #000 20%)); border:1px solid var(--ring); border-radius:16px; padding:12px; transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; box-shadow: 0 10px 20px rgba(0,0,0,.25); color:var(--text);}
     .bb-tile:hover{ transform: translateY(-1px); border-color:color-mix(in srgb, var(--gold2), #000 40%); box-shadow: 0 14px 26px rgba(0,0,0,.32) }
@@ -79,22 +44,22 @@
   </style>
   <header class="bb-header">
     <div class="bb-avatar"><img src="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&amp;w=600" alt="Foto de perfil"></div>
-    <h1 class="bb-name">ABOGADOS JURISCOL</h1>
-    <p class="bb-handle">@juriscol</p>
-    <p class="bb-bio">Asesoria Profesional • Pensiones • Laboral • Civil • Familia • Aministrativo • Penal</p>
+    <h1 class="bb-name">Tu Barbería</h1>
+    <p class="bb-handle">@tubarberia</p>
+    <p class="bb-bio">Cortes premium • Afeitado clásico • Diseño de barba. Atención con cita previa y servicio express.</p>
   </header>
   <nav class="bb-actions" aria-label="Acciones rápidas">
-    <a class="bb-btn" href="https://wa.me/573117715353?text=Hola%2C%20me%20interesa%20ABOGADOS%20JURISCOL" target="_blank" rel="noopener" aria-label="WhatsApp">💬 WhatsApp</a>
-    <a class="bb-btn light" href="tel:%2B573117715353" aria-label="Llamar">📞 Llamar</a>
+    <a class="bb-btn" href="https://wa.me/573228269333?text=Hola%2C%20me%20interesa%20Tu%20Barber%C3%ADa" target="_blank" rel="noopener" aria-label="WhatsApp">💬 WhatsApp</a>
+    <a class="bb-btn light" href="tel:%2B57%20322%20826%209333" aria-label="Llamar">📞 Llamar</a>
     <a class="bb-btn light" href="#" id="mapBtn" aria-label="Cómo llegar">📍 Cómo llegar</a>
   </nav>
   <section class="bb-scroller" aria-label="Galería"><div class="bb-track" id="bbTrack">
-<a class="bb-slide" href="#" data-zoom aria-label="Foto 1"><img loading="lazy" src="https://i.ibb.co/S4TJ2myx/image.png" alt="Galería 1"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 2"><img loading="lazy" src="https://i.ibb.co/Txstypd9/image.png" alt="Galería 2"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 3"><img loading="lazy" src="https://i.ibb.co/xtZV1NRp/image.png" alt="Galería 3"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 4"><img loading="lazy" src="https://i.ibb.co/B5WzvkX8/image.png" alt="Galería 4"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 5"><img loading="lazy" src="https://i.ibb.co/fVZbMRPR/image.png" alt="Galería 5"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 6"><img loading="lazy" src="https://i.ibb.co/DHSsvP2X/image.png" alt="Galería 6"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 7"><img loading="lazy" src="https://i.ibb.co/99hjsM1w/image.png" alt="Galería 7"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 8"><img loading="lazy" src="https://i.ibb.co/Vc6zXDys/image.png" alt="Galería 8"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 9"><img loading="lazy" src="https://i.ibb.co/cK0dW031/image.png" alt="Galería 9"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 10"><img loading="lazy" src="https://i.ibb.co/pjFkdccm/image.png" alt="Galería 10"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 11"><img loading="lazy" src="https://i.ibb.co/gFbPZd9x/image.png" alt="Galería 11"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 12"><img loading="lazy" src="https://i.ibb.co/WvwT5HPV/image.png" alt="Galería 12"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 13"><img loading="lazy" src="https://i.ibb.co/7JKg4kQw/image.png" alt="Galería 13"></a>
+<a class="bb-slide" href="#" data-zoom aria-label="Foto 1"><img loading="lazy" src="https://i.ibb.co/7JKg4kQw/image.png" alt="Galería 1"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 2"><img loading="lazy" src="https://i.ibb.co/WvwT5HPV/image.png" alt="Galería 2"></a><a class="bb-slide" href="#" data-zoom aria-label="Foto 3"><img loading="lazy" src="https://i.ibb.co/gFbPZd9x/image.png" alt="Galería 3"></a>
 </div></section>
   <section class="bb-links" aria-label="Enlaces útiles">
-<a class="bb-tile" href="#" target="_blank" rel="noopener"><div class="bb-icon">💈</div><div><p class="bb-title">Servicios &amp; Precios</p><p class="bb-sub">Asesoria Gratuita</p></div><div class="bb-arrow">➜</div></a><a class="bb-tile" href="https://instagram.com/tuusuario" target="_blank" rel="noopener"><div class="bb-icon">📸</div><div><p class="bb-title">Instagram</p><p class="bb-sub">Trabajos recientes</p></div><div class="bb-arrow">➜</div></a>
+<a class="bb-tile" href="#" target="_blank" rel="noopener"><div class="bb-icon">💈</div><div><p class="bb-title">Servicios &amp; Precios</p><p class="bb-sub">Cortes, afeitado, color, faciales</p></div><div class="bb-arrow">➜</div></a><a class="bb-tile" href="https://instagram.com/tuusuario" target="_blank" rel="noopener"><div class="bb-icon">📸</div><div><p class="bb-title">Instagram</p><p class="bb-sub">Trabajos recientes</p></div><div class="bb-arrow">➜</div></a>
 </section>
-  <div class="bb-dock" id="bbDock"><div class="bb-dockInner"><a id="dockWA" class="bb-fab" href="https://wa.me/573117715353?text=Hola%2C%20me%20interesa%20ABOGADOS%20JURISCOL" rel="noopener" role="button">💬 WhatsApp</a><a id="dockShare" class="bb-fab secondary" href="#" rel="noopener" role="button">🔗 Compartir</a></div></div>
+  <div class="bb-dock" id="bbDock"><div class="bb-dockInner"><a id="dockWA" class="bb-fab" href="https://wa.me/573228269333?text=Hola%2C%20me%20interesa%20Tu%20Barber%C3%ADa" rel="noopener" role="button">💬 WhatsApp</a><a id="dockShare" class="bb-fab secondary" href="#" rel="noopener" role="button">🔗 Compartir</a></div></div>
   <div class="bb-modal" id="zoomModal" aria-hidden="true" role="dialog" aria-label="Vista ampliada"><div class="bb-modalCard"><div class="bb-modalHead"><strong>Vista</strong><button class="bb-close" data-close>✕</button></div><div class="bb-modalBody"><img id="zoomImg" src="" alt="Imagen ampliada"></div></div></div>
   <script>
     (function(){const el=document.getElementById("bbTrack");let isDown=false,startX=0,scrollLeft=0;
