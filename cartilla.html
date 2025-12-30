@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Cartilla Laboral y Pensional 2026 | Supensión Plus</title>
+  <meta name="description" content="Cartilla Laboral y Pensional 2026: cifras oficiales, jornada laboral, horas extras, prestaciones, aportes e impacto pensional. Asesoría personalizada por WhatsApp." />
+  <meta name="theme-color" content="#0F1115" />
+  <style>
+    :root{
+      --bg:#0F1115;
+      --panel:#131722;
+      --panel2:#0b0d11;
+      --text:#E9EEF7;
+      --muted:#AAB4C5;
+      --accent:#F1B60F;
+      --accent2:#FFD166;
+      --ok:#3ddc97;
+      --danger:#ff5c77;
+      --line:rgba(255,255,255,.08);
+      --shadow: 0 16px 40px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius2:24px;
+      --max:1100px;
+      --stickyH:68px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(241,182,15,.12), transparent 55%),
+                  radial-gradient(900px 700px at 80% 20%, rgba(255,209,102,.10), transparent 60%),
+                  linear-gradient(180deg, var(--bg), #080a0d 60%, #07090c);
+      color:var(--text);
+      line-height:1.35;
+      padding-bottom: calc(var(--stickyH) + env(safe-area-inset-bottom));
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 16px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: rgba(15,17,21,.72);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      min-width: 220px;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(241,182,15,.95), rgba(255,209,102,.8));
+      box-shadow: 0 10px 25px rgba(241,182,15,.18);
+    }
+    .brand b{display:block; font-size:14px; letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted)}
+    .nav{
+      display:none;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .nav a{
+      text-decoration:none; padding:8px 10px; border-radius:12px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{border-color:var(--line); color:var(--text)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(241,182,15,.22);
+      background: linear-gradient(180deg, rgba(241,182,15,.18), rgba(241,182,15,.08));
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+      box-shadow: 0 14px 30px rgba(0,0,0,.25);
+      cursor:pointer;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn.secondary{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-weight:600;
+    }
+    .btn.whatsapp{
+      background: linear-gradient(180deg, rgba(61,220,151,.22), rgba(61,220,151,.08));
+      border-color: rgba(61,220,151,.25);
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .grid{
+      display:grid;
+      gap:14px;
+    }
+    .hero{
+      padding:18px 0 8px;
+    }
+    .heroCard{
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(19,23,34,.92), rgba(10,12,16,.88));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .heroInner{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+      padding:16px;
+    }
+    .kicker{color:var(--accent2); font-weight:800; font-size:12px; letter-spacing:.4px; text-transform:uppercase}
+    h1{
+      margin:6px 0 8px;
+      font-size:28px;
+      line-height:1.08;
+      letter-spacing:-.4px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+    .badges{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .ctaRow{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .media{
+      border-radius: 18px;
+      border:1px solid var(--line);
+      overflow:hidden;
+      background: rgba(255,255,255,.02);
+      min-height: 240px;
+      position:relative;
+    }
+    .media img{
+      width:100%; height:100%; object-fit:cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.03);
+    }
+    .media .label{
+      position:absolute; left:12px; bottom:12px;
+      background: rgba(15,17,21,.72);
+      border:1px solid var(--line);
+      padding:8px 10px;
+      border-radius: 999px;
+      color:var(--muted);
+      font-size:12px;
+      backdrop-filter: blur(8px);
+    }
+
+    section{padding:18px 0}
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px; margin-bottom:12px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size:20px;
+      letter-spacing:-.2px;
+    }
+    .sectionHead p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      max-width: 52ch;
+    }
+
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(19,23,34,.75);
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+      padding:14px;
+    }
+    .card.soft{
+      background: rgba(255,255,255,.03);
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+    .stat{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      display:flex; justify-content:space-between; gap:14px;
+    }
+    .stat b{font-size:13px}
+    .stat span{color:var(--muted); font-size:13px}
+    .stat .value{font-weight:900; color:var(--text)}
+    .stat .value.accent{color:var(--accent)}
+    .callout{
+      border-left: 3px solid rgba(241,182,15,.7);
+      padding:12px 12px 12px 14px;
+      background: rgba(241,182,15,.06);
+      border-radius: 14px;
+      border:1px solid rgba(241,182,15,.18);
+      color: var(--text);
+      margin-top: 10px;
+    }
+    .callout small{color:var(--muted)}
+    .cols{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    th, td{
+      padding:10px 10px;
+      text-align:left;
+      font-size:13px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+    }
+    th{
+      color: var(--muted);
+      font-weight:700;
+      background: rgba(255,255,255,.03);
+    }
+    tr:last-child td{border-bottom:none}
+    .money{white-space:nowrap; font-weight:800}
+    .muted{color:var(--muted)}
+    .highlight{
+      color:var(--accent);
+      font-weight:900;
+    }
+
+    .tabs{
+      display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;
+    }
+    .tab{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:800;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tab[aria-selected="true"]{
+      color:var(--text);
+      border-color: rgba(241,182,15,.28);
+      background: rgba(241,182,15,.10);
+    }
+    .tabPanel{display:none}
+    .tabPanel.active{display:block}
+
+    .list{
+      margin:0; padding:0 0 0 18px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .list li{margin:8px 0}
+    .hr{height:1px; background:var(--line); margin:16px 0}
+
+    details{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(255,255,255,.03);
+      padding:10px 12px;
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+      outline:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{color:var(--muted); margin:10px 0 0; font-size:14px}
+
+    .twoMedia{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .contactItem{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .dot{
+      width:10px; height:10px; border-radius:99px;
+      background: var(--accent);
+      margin-top:5px;
+      box-shadow: 0 0 0 6px rgba(241,182,15,.10);
+    }
+
+    .sticky{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      z-index:60;
+      background: rgba(15,17,21,.76);
+      backdrop-filter: blur(10px);
+      border-top:1px solid var(--line);
+      padding:10px 0 calc(10px + env(safe-area-inset-bottom));
+    }
+    .sticky .inner{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+    }
+    .sticky .inner .mini{
+      display:flex; flex-direction:column; gap:2px;
+      min-width: 0;
+    }
+    .sticky .inner .mini b{font-size:13px}
+    .sticky .inner .mini span{font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    footer{
+      padding:22px 0 10px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* Desktop tweaks */
+    @media (min-width: 900px){
+      .nav{display:flex}
+      .heroInner{grid-template-columns: 1.05fr .95fr; padding:20px}
+      h1{font-size:40px}
+      .cols{grid-template-columns: 1fr 1fr}
+      .stats{grid-template-columns: 1fr 1fr 1fr}
+      .twoMedia{grid-template-columns: 1fr 1fr}
+      .contactGrid{grid-template-columns: 1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <b>Supensión Plus</b>
+            <span>Cartilla Laboral y Pensional 2026</span>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Navegación">
+          <a href="#cifras">Cifras</a>
+          <a href="#empleador">Empleador</a>
+          <a href="#jornada">Jornada</a>
+          <a href="#prestaciones">Prestaciones</a>
+          <a href="#pensional">Pensión</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+        <a class="btn whatsapp" id="topCTA" href="#" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="heroCard">
+        <div class="heroInner">
+          <div>
+            <div class="kicker">Guía técnica y estratégica 2026 · Colombia</div>
+            <h1>Cartilla Laboral y Pensional 2026</h1>
+            <p class="sub">
+              El salario mínimo más alto de la historia, la reducción de la jornada laboral y su impacto real en
+              <b>nómina, aportes y pensión</b>.
+            </p>
+
+            <div class="badges" aria-label="Badges">
+              <span class="pill">📊 Cifras oficiales 2026</span>
+              <span class="pill">🕒 2 divisores (Ene–Jun / Jul–Dic)</span>
+              <span class="pill">🧠 +15 años de experiencia</span>
+            </div>
+
+            <div class="ctaRow">
+              <a class="btn whatsapp" href="#contacto">Solicitar asesoría</a>
+              <a class="btn secondary" href="#cifras">Ver cifras clave</a>
+            </div>
+
+            <div class="callout">
+              <b>2026 no es un año más.</b> Por primera vez el ingreso mínimo (salario + auxilio) llega a
+              <span class="highlight">$2.000.000</span>.
+              <div><small>Fuente: Cartilla Laboral y Pensional 2026 (Supensión Plus).</small></div>
+            </div>
+          </div>
+
+          <div class="media" aria-label="Imagen portada">
+            <img src="https://i.ibb.co/W4cW81fw/image.png" alt="Imagen Portada 9:16 - Cartilla Laboral y Pensional 2026" loading="lazy" />
+            <div class="label">IMG-01 · Portada (1080×1920 WebP)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECCIÓN 2: CONTEXTO -->
+  <section id="contexto">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>2026 cambia las reglas del juego</h2>
+          <p>Incremento histórico + reducción de jornada = nuevos cálculos y nuevas decisiones.</p>
+        </div>
+        <span class="pill">Capítulo 0 · Introducción</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <p class="muted" style="margin-top:0">
+            En 2026, el aumento del salario mínimo y del auxilio de transporte redefine el costo laboral,
+            el valor de la hora y las proyecciones pensionales. Cumplir la norma ya no es suficiente:
+            <b>entender los números</b> es lo que protege tu patrimonio.
+          </p>
+          <ul class="list">
+            <li><b>Empleadores:</b> reestructuración de costos y parametrización de nómina.</li>
+            <li><b>Empleados:</b> neto, prestaciones y cálculo de pensión bajo nueva referencia.</li>
+            <li><b>Independientes:</b> aportes PILA y planeación del IBC con impacto directo en mesada.</li>
+          </ul>
+          <div class="hr"></div>
+          <a class="btn secondary" href="#jornada">Ver cambio de jornada (julio)</a>
+        </div>
+
+        <div class="media" aria-label="Imagen contexto">
+          <img src="https://i.ibb.co/svycjXK1/image.png" alt="Imagen 9:16 - Contexto 2026" loading="lazy" />
+          <div class="label">IMG-02 · Contexto 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: CIFRAS CLAVE -->
+  <section id="cifras">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Cifras laborales que rigen el 2026</h2>
+          <p>Valores base para cálculos de nómina, seguridad social y proyecciones.</p>
+        </div>
+        <span class="pill">Capítulo 1</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div>
+            <b>Salario mínimo (SMLMV)</b>
+            <div class="muted">Base salarial 2026</div>
+          </div>
+          <div class="value accent money">$1.747.000</div>
+        </div>
+        <div class="stat">
+          <div>
+            <b>Auxilio de transporte</b>
+            <div class="muted">Aplica según condiciones legales</div>
+          </div>
+          <div class="value money">$253.000</div>
+        </div>
+        <div class="stat">
+          <div>
+            <b>Ingreso total de referencia</b>
+            <div class="muted">Salario + auxilio</div>
+          </div>
+          <div class="value accent money">$2.000.000</div>
+        </div>
+      </div>
+
+      <div class="cols" style="margin-top:14px">
+        <div class="card">
+          <b>Hito histórico:</b> 2026 marca el primer año donde el ingreso mínimo mensual alcanza los
+          <span class="highlight">$2.000.000</span>.
+          <div class="hr"></div>
+          <div class="muted">Esto impacta directamente:</div>
+          <ul class="list">
+            <li>costo real de contratar</li>
+            <li>prestaciones sociales</li>
+            <li>aportes a seguridad social</li>
+            <li>matemática pensional</li>
+          </ul>
+        </div>
+
+        <div class="media" aria-label="Imagen cifras">
+          <img src="https://i.ibb.co/pvn2xZPy/image.png" alt="Imagen 9:16 - Cifras base 2026" loading="lazy" />
+          <div class="label">IMG-03 · Cifras base</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4: EVOLUCIÓN HISTÓRICA (simplificada) -->
+  <section id="historia">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Evolución histórica (2015–2026)</h2>
+          <p>2026 registra el mayor incremento porcentual del periodo analizado.</p>
+        </div>
+        <span class="pill">Capítulo 1 · Tabla histórica</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <p class="muted" style="margin-top:0">
+            El ajuste de 2026 sobresale por su magnitud: <b>22,7%</b> en salario mínimo y <b>26,5%</b> en auxilio.
+            Esto acelera la presión sobre costos empresariales y recalibra indicadores del sistema pensional.
+          </p>
+          <div class="callout">
+            <b>Idea clave:</b> cuando el mínimo sube fuerte, muchos ingresos “representan menos salarios mínimos”,
+            lo que puede modificar la tasa de reemplazo en Colpensiones.
+          </div>
+        </div>
+        <div class="media" aria-label="Imagen evolución histórica">
+          <img src="img/04.webp" alt="Imagen 9:16 - Evolución histórica 2015 a 2026" loading="lazy" />
+          <div class="label">IMG-04 · Evolución histórica</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 5: EMPLEADOR -->
+  <section id="empleador">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Impacto para el empleador: costo mensual real</h2>
+          <p>El salario no es el costo real. Aquí está la carga prestacional total (empresa exonerada).</p>
+        </div>
+        <span class="pill">Capítulo 1.2</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <table aria-label="Costo mensual de nómina 2026 - Empleador">
+            <thead>
+              <tr><th>Concepto</th><th>Detalle</th><th>Valor mensual</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Salario + Auxilio</b></td><td class="muted">Pago directo</td><td class="money">$2.000.000</td></tr>
+              <tr><td><b>Pensión</b></td><td class="muted">12% sobre salario</td><td class="money">$209.640</td></tr>
+              <tr><td><b>Caja de compensación</b></td><td class="muted">4% sobre salario</td><td class="money">$69.880</td></tr>
+              <tr><td><b>ARL (Riesgo I)</b></td><td class="muted">0,522% sobre salario</td><td class="money">$9.119</td></tr>
+              <tr><td><b>Provisiones prestaciones</b></td><td class="muted">Prima, cesantías, intereses, vacaciones</td><td class="money">$426.050</td></tr>
+              <tr><td colspan="2"><b>COSTO TOTAL EMPRESA</b></td><td class="money"><span class="highlight">$2.714.689</span></td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout">
+            <b>Lectura rápida:</b> por cada trabajador que recibe $2.000.000, la empresa asume un costo total de
+            <span class="highlight">$2.714.689</span> (aprox. +36%).
+          </div>
+        </div>
+
+        <div class="media" aria-label="Imagen empleador">
+          <img src="img/05.webp" alt="Imagen 9:16 - Costo real para el empleador en 2026" loading="lazy" />
+          <div class="label">IMG-05 · Empleador</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 6: EMPLEADO -->
+  <section id="empleado">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Impacto para el empleado: ingreso neto recibido</h2>
+          <p>Del devengado al valor que llega a la cuenta: salud y pensión (4% + 4%).</p>
+        </div>
+        <span class="pill">Capítulo 1.3</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <table aria-label="Ingreso neto del empleado 2026">
+            <thead>
+              <tr><th>Concepto</th><th>Detalle</th><th>Valor mensual</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Salario básico</b></td><td class="muted">Devengado</td><td class="money">$1.747.000</td></tr>
+              <tr><td><b>Auxilio de transporte</b></td><td class="muted">Devengado</td><td class="money">$253.000</td></tr>
+              <tr><td><b>Salud</b></td><td class="muted">-4% del salario</td><td class="money">-$69.880</td></tr>
+              <tr><td><b>Pensión</b></td><td class="muted">-4% del salario</td><td class="money">-$69.880</td></tr>
+              <tr><td colspan="2"><b>NETO A RECIBIR</b></td><td class="money"><span class="highlight">$1.860.240</span></td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout">
+            <b>Nota:</b> el auxilio de transporte no está sujeto a descuentos; los descuentos se calculan sobre el salario básico.
+          </div>
+        </div>
+
+        <div class="media" aria-label="Imagen empleado neto">
+          <img src="img/06.webp" alt="Imagen 9:16 - Neto del empleado en 2026" loading="lazy" />
+          <div class="label">IMG-06 · Empleado</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 7: INDEPENDIENTE -->
+  <section id="independiente">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Impacto para el independiente: aportes PILA (base mínima)</h2>
+          <p>En 2026 el independiente asume el 100% de sus aportes: pensión + salud + ARL.</p>
+        </div>
+        <span class="pill">Capítulo 1.4 / 4</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <table aria-label="Aportes mínimos del independiente 2026">
+            <thead>
+              <tr><th>Concepto</th><th>Tarifa</th><th>Valor mensual</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Pensión</b></td><td class="muted">16%</td><td class="money">$279.520</td></tr>
+              <tr><td><b>Salud</b></td><td class="muted">12,5%</td><td class="money">$218.375</td></tr>
+              <tr><td><b>ARL (Riesgo I)</b></td><td class="muted">0,522%</td><td class="money">$9.119</td></tr>
+              <tr><td colspan="2"><b>TOTAL APORTE MENSUAL</b></td><td class="money"><span class="highlight">$507.014</span></td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout">
+            <b>Clave:</b> el IBC es el 40% de ingresos, pero por ley no puede ser inferior a 1 SMLMV para salud y pensión.
+          </div>
+        </div>
+
+        <div class="media" aria-label="Imagen independiente">
+          <img src="img/07.webp" alt="Imagen 9:16 - Aportes del independiente en 2026" loading="lazy" />
+          <div class="label">IMG-07 · Independiente</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 8: JORNADA -->
+  <section id="jornada">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Jornada 2026: dos valores de hora ordinaria</h2>
+          <p>Desde julio cambia el divisor mensual: esto encarece la hora y las horas extras.</p>
+        </div>
+        <span class="pill">Capítulo 2</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <div class="tabs" role="tablist" aria-label="Periodos de 2026">
+            <div class="tab" role="tab" tabindex="0" aria-selected="true" aria-controls="p1" id="t1">Enero – Junio (43h)</div>
+            <div class="tab" role="tab" tabindex="0" aria-selected="false" aria-controls="p2" id="t2">Julio – Diciembre (42h)</div>
+          </div>
+
+          <div class="tabPanel active" role="tabpanel" id="p1" aria-labelledby="t1">
+            <div class="pill">Divisor mensual: <b>215 horas</b></div>
+            <div class="hr"></div>
+            <table aria-label="Valores por hora Ene-Jun 2026">
+              <thead>
+                <tr><th>Tipo de hora</th><th>Factor</th><th>Valor</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><b>Hora ordinaria</b></td><td class="muted">1,00</td><td class="money">$8.126</td></tr>
+                <tr><td><b>Recargo nocturno</b></td><td class="muted">0,35</td><td class="money">$2.844</td></tr>
+                <tr><td><b>Hora extra diurna</b></td><td class="muted">1,25</td><td class="money">$10.158</td></tr>
+                <tr><td><b>Hora extra nocturna</b></td><td class="muted">1,75</td><td class="money">$14.221</td></tr>
+                <tr><td><b>Recargo dom/fest</b></td><td class="muted">0,80</td><td class="money">$6.501</td></tr>
+                <tr><td><b>Extra diurna dom/fest</b></td><td class="muted">2,05</td><td class="money">$16.658</td></tr>
+                <tr><td><b>Extra noct. dom/fest</b></td><td class="muted">2,55</td><td class="money">$20.721</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tabPanel" role="tabpanel" id="p2" aria-labelledby="t2">
+            <div class="pill">Divisor mensual: <b>210 horas</b></div>
+            <div class="hr"></div>
+            <table aria-label="Valores por hora Jul-Dic 2026">
+              <thead>
+                <tr><th>Tipo de hora</th><th>Factor</th><th>Valor</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><b>Hora ordinaria</b></td><td class="muted">1,00</td><td class="money">$8.319</td></tr>
+                <tr><td><b>Recargo nocturno</b></td><td class="muted">0,35</td><td class="money">$2.912</td></tr>
+                <tr><td><b>Hora extra diurna</b></td><td class="muted">1,25</td><td class="money">$10.399</td></tr>
+                <tr><td><b>Hora extra nocturna</b></td><td class="muted">1,75</td><td class="money">$14.558</td></tr>
+                <tr><td><b>Recargo dom/fest</b></td><td class="muted">0,80</td><td class="money">$6.655</td></tr>
+                <tr><td><b>Extra diurna dom/fest</b></td><td class="muted">2,05</td><td class="money">$17.054</td></tr>
+                <tr><td><b>Extra noct. dom/fest</b></td><td class="muted">2,55</td><td class="money">$21.213</td></tr>
+              </tbody>
+            </table>
+
+            <div class="callout">
+              <b>Impacto:</b> a partir de julio, cada hora extra cuesta aprox. <span class="highlight">2,3% más</span> por el cambio de divisor.
+              <div><small>Recargo nocturno inicia a las 7:00 p. m.</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="media" aria-label="Imagen jornada">
+          <img src="img/08.webp" alt="Imagen 9:16 - Jornada y dos divisores 2026" loading="lazy" />
+          <div class="label">IMG-08 · Jornada</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 9: PRESTACIONES & ARL -->
+  <section id="prestaciones">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Prestaciones sociales y ARL en 2026</h2>
+          <p>Prestaciones acumuladas y riesgos laborales (ARL) por clase de riesgo.</p>
+        </div>
+        <span class="pill">Capítulo 3</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <h3 style="margin:0 0 10px; font-size:16px; letter-spacing:-.2px">Prestaciones (1 SMLMV)</h3>
+          <table aria-label="Prestaciones sociales 2026">
+            <thead>
+              <tr><th>Prestación</th><th>Tarifa</th><th>Mensual</th><th>Anual</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Prima</b></td><td class="muted">8,33%</td><td class="money">$166.667</td><td class="money">$2.000.000</td></tr>
+              <tr><td><b>Cesantías</b></td><td class="muted">8,33%</td><td class="money">$166.667</td><td class="money">$2.000.000</td></tr>
+              <tr><td><b>Intereses</b></td><td class="muted">12%</td><td class="money">$20.000</td><td class="money">$240.000</td></tr>
+              <tr><td><b>Vacaciones</b></td><td class="muted">4,17%</td><td class="money">$72.792</td><td class="money">$873.500</td></tr>
+              <tr><td colspan="2"><b>TOTALES</b></td><td class="money"><span class="highlight">$426.125</span></td><td class="money"><span class="highlight">$5.113.500</span></td></tr>
+            </tbody>
+          </table>
+
+          <div class="hr"></div>
+
+          <h3 style="margin:0 0 10px; font-size:16px; letter-spacing:-.2px">ARL (responsabilidad del empleador)</h3>
+          <table aria-label="ARL por clase de riesgo 2026">
+            <thead>
+              <tr><th>Riesgo</th><th>Tarifa</th><th>Ejemplo</th><th>Costo mensual</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>I</b></td><td class="muted">0,522%</td><td class="muted">Oficinas, comercio</td><td class="money">$9.119</td></tr>
+              <tr><td><b>II</b></td><td class="muted">1,044%</td><td class="muted">Agrícola, manufactura</td><td class="money">$18.239</td></tr>
+              <tr><td><b>III</b></td><td class="muted">2,436%</td><td class="muted">Talleres, construcción</td><td class="money">$42.557</td></tr>
+              <tr><td><b>IV</b></td><td class="muted">4,350%</td><td class="muted">Transporte, explosivos</td><td class="money">$75.995</td></tr>
+              <tr><td><b>V</b></td><td class="muted">6,960%</td><td class="muted">Minería, alturas</td><td class="money">$121.591</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout">
+            <b>Fechas clave:</b> cesantías se consignan máximo el <span class="highlight">14 de febrero</span> y los intereses se pagan máximo el
+            <span class="highlight">31 de enero</span>.
+          </div>
+        </div>
+
+        <div class="media" aria-label="Imagen prestaciones y ARL">
+          <img src="img/09.webp" alt="Imagen 9:16 - Prestaciones y ARL 2026" loading="lazy" />
+          <div class="label">IMG-09 · Prestaciones y ARL</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 10: SALARIO DIFERIDO -->
+  <section id="diferido">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>El “salario diferido”: lo que no ves hoy, pero sí estás ganando</h2>
+          <p>El neto no es toda la compensación: prestaciones + derechos acumulados.</p>
+        </div>
+        <span class="pill">Capítulo 3.4</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <p class="muted" style="margin-top:0">
+            Aunque el neto mensual sea <b class="highlight">$1.860.240</b>, el trabajador está generando un ahorro y derechos adicionales
+            por <b class="highlight">$426.125</b> mensuales en prestaciones (aprox.), que se materializan en pagos y beneficios durante el año.
+          </p>
+          <div class="callout">
+            <b>Consejo:</b> comprender el salario diferido ayuda a evaluar ofertas laborales, cambios de empleo y decisiones de cotización.
+          </div>
+          <a class="btn secondary" href="#pensional" style="margin-top:12px">Ver impacto en pensión</a>
+        </div>
+
+        <div class="card soft">
+          <b>Para asesores y empresas</b>
+          <ul class="list">
+            <li>Útil para explicar “compensación real”.</li>
+            <li>Reduce fricción y errores en liquidaciones.</li>
+            <li>Mejora claridad en presupuestos de personal.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 11: INDEPENDIENTE (tabla por niveles) -->
+  <section id="indep-guia">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Guía 2026 para independientes (por nivel de ingresos)</h2>
+          <p>Cómo se comporta el IBC y cuánto paga realmente según su nivel.</p>
+        </div>
+        <span class="pill">Capítulo 4</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <table aria-label="Tabla de aportes del independiente 2026 por ingresos">
+            <thead>
+              <tr>
+                <th>Concepto</th>
+                <th>1 SMLMV</th>
+                <th>2 SMLMV</th>
+                <th>3 SMLMV</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Ingreso bruto</b></td>
+                <td class="money">$1.747.000</td>
+                <td class="money">$3.494.000</td>
+                <td class="money">$5.241.000</td>
+              </tr>
+              <tr>
+                <td><b>IBC (base pago)</b></td>
+                <td class="money">$1.747.000</td>
+                <td class="money">$1.747.000*</td>
+                <td class="money">$2.096.400</td>
+              </tr>
+              <tr>
+                <td><b>Pensión (16%)</b></td>
+                <td class="money">$279.520</td>
+                <td class="money">$279.520</td>
+                <td class="money">$335.424</td>
+              </tr>
+              <tr>
+                <td><b>Salud (12,5%)</b></td>
+                <td class="money">$218.375</td>
+                <td class="money">$218.375</td>
+                <td class="money">$262.050</td>
+              </tr>
+              <tr>
+                <td><b>ARL (0,522%)</b></td>
+                <td class="money">$9.119</td>
+                <td class="money">$9.119</td>
+                <td class="money">$10.943</td>
+              </tr>
+              <tr>
+                <td><b>Total a pagar</b></td>
+                <td class="money"><span class="highlight">$507.014</span></td>
+                <td class="money"><span class="highlight">$507.014</span></td>
+                <td class="money"><span class="highlight">$608.417</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="muted" style="margin:10px 0 0">
+            *Si el 40% del ingreso es inferior al mínimo, por ley se ajusta el IBC a 1 SMLMV.
+          </p>
+        </div>
+
+        <div class="card">
+          <b>Errores frecuentes del independiente</b>
+          <ul class="list">
+            <li>Cotizar siempre al mínimo cuando sus ingresos reales son mayores.</li>
+            <li>No presupuestar aportes y quedarse sin flujo de caja.</li>
+            <li>No planear IBL (promedio últimos 10 años) cuando se acerca la jubilación.</li>
+          </ul>
+          <div class="callout">
+            <b>Visión pensional:</b> si hoy gana 3 SMLMV pero cotiza al mínimo, limita su pensión futura.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 12: IMPACTO PENSIONAL -->
+  <section id="pensional">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Impacto pensional 2026 (Guía Supensión Plus)</h2>
+          <p>Por qué 2026 puede mejorar la tasa de reemplazo para muchos casos en Colpensiones.</p>
+        </div>
+        <span class="pill">Capítulo 5</span>
+      </div>
+
+      <div class="cols">
+        <div class="card">
+          <b>En palabras simples:</b>
+          <p class="muted" style="margin-top:8px">
+            Su pensión se calcula con el promedio de los últimos 10 años (<b>IBL</b>) y un porcentaje legal
+            (<b>tasa de reemplazo</b>).
+          </p>
+
+          <div class="hr"></div>
+
+          <b>La lógica 2026:</b>
+          <p class="muted" style="margin-top:8px">
+            Si el salario mínimo sube mucho, su IBL puede representar <b>menos salarios mínimos</b>. En la fórmula,
+            eso puede aumentar el porcentaje final.
+          </p>
+
+          <div class="callout">
+            <b>Fórmula (Ley 797 de 2003):</b> r = 65,5 − (0,5 × s) <br/>
+            <small>r: porcentaje de pensión · s: número de salarios mínimos que caben en el IBL</small>
+          </div>
+
+          <div class="hr"></div>
+
+          <b>Caso real (IBL $6.000.000):</b>
+          <ul class="list">
+            <li><b>2025:</b> s=4,21 → r= <b>63,39%</b></li>
+            <li><b>2026:</b> s=3,43 → r= <b>63,78%</b></li>
+          </ul>
+          <div class="callout">
+            <b>Resultado:</b> 0,39% más del promedio “de por vida” puede representar millones adicionales en el tiempo.
+          </div>
+        </div>
+
+        <div class="card">
+          <b>¿Quiénes suelen beneficiarse más?</b>
+          <ul class="list">
+            <li><b>Pensionados de 1 SMLMV:</b> reciben el aumento pleno del mínimo.</li>
+            <li><b>Salarios medios (2 a 5 SMLMV):</b> posible mejora en porcentaje por “menos mínimos”.</li>
+            <li><b>Mujeres (hito 2026):</b> 1.250 semanas y descuento por hijos (máx. 3).</li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <a class="btn whatsapp" href="#contacto">Quiero mi proyección pensional</a>
+          <p class="muted" style="margin:10px 0 0">
+            Te ayudamos a revisar historia laboral, semanas, promedios y escenarios.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 13: CIERRE + SERVICIOS + CONTACTO -->
+  <section id="contacto">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div>
+          <h2>Asesoría profesional y contacto</h2>
+          <p>Cierre orientado a conversión: diagnósticos, proyecciones y reliquidaciones.</p>
+        </div>
+        <span class="pill">Cierre</span>
+      </div>
+
+      <div class="twoMedia" style="margin-bottom:12px">
+        <div class="media" aria-label="Imagen cierre">
+          <img src="img/10.webp" alt="Imagen 9:16 - Cierre, servicios y contacto" loading="lazy" />
+          <div class="label">IMG-10 · Cierre / Contacto</div>
+        </div>
+        <div class="card">
+          <b>Servicios Supensión Plus</b>
+          <ul class="list">
+            <li>✅ Reliquidación de pensiones</li>
+            <li>✅ Proyección de mesadas pensionales</li>
+            <li>✅ Asesoría pensional integral (Ley 797 y Reforma 2024)</li>
+            <li>✅ Auditoría fiscal y contable</li>
+          </ul>
+
+          <div class="callout">
+            <b>Atendemos:</b> empleadores, empleados, independientes y abogados (consultoría técnica).
+          </div>
+
+          <div class="ctaRow">
+            <a class="btn whatsapp" href="#" id="ctaContact">Hablar por WhatsApp</a>
+            <a class="btn secondary" href="#cifras">Volver a cifras</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="contactGrid">
+          <div class="contactItem">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>WhatsApp / Celular</b>
+              <div class="muted" id="phoneText">311 771 5353</div>
+            </div>
+          </div>
+
+          <div class="contactItem">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Correo</b>
+              <div class="muted">pendiente@supensionplus.com (editar)</div>
+            </div>
+          </div>
+
+          <div class="contactItem">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Dirección</b>
+              <div class="muted">Calle 17 No. 15 - 49, Oficina 501</div>
+            </div>
+          </div>
+
+          <div class="contactItem">
+            <div class="dot" aria-hidden="true"></div>
+            <div>
+              <b>Ubicación</b>
+              <div class="muted">Armenia, Quindío</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <details>
+          <summary>FAQ: ¿Qué necesito para una asesoría?</summary>
+          <p>Usualmente: historia laboral, ingresos aproximados o IBL estimado (si aplica), semanas cotizadas, y el objetivo (proyección, reliquidación o revisión de nómina/aportes).</p>
+        </details>
+        <details>
+          <summary>FAQ: ¿Sirve para empleadores y empresas?</summary>
+          <p>Sí. Se puede revisar costo real de nómina, parametrización, horas extras, provisiones y cumplimiento para evitar errores y contingencias.</p>
+        </details>
+        <details>
+          <summary>FAQ: ¿Puedo pedir proyección si soy independiente?</summary>
+          <p>Sí. Se analiza IBC, aportes, escenarios de cotización y cómo impactan en el IBL y mesada futura.</p>
+        </details>
+
+        <footer>
+          <div class="wrap" style="padding:0">
+            <div>© <span id="year"></span> Supensión Plus. Información de carácter orientativo; para casos específicos se recomienda asesoría profesional.</div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY CTA -->
+  <div class="sticky" role="region" aria-label="CTA fijo WhatsApp">
+    <div class="wrap">
+      <div class="inner">
+        <div class="mini">
+          <b>¿Quieres tu proyección 2026?</b>
+          <span>Responde por WhatsApp y te guiamos con tu caso.</span>
+        </div>
+        <a class="btn whatsapp" href="#" id="stickyCTA">WhatsApp ahora</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === CONFIG WhatsApp ===
+    const phoneE164 = "573117715353"; // Colombia +57
+    const defaultMsg = "Hola Supensión Plus, quiero asesoría por la Cartilla Laboral y Pensional 2026. ¿Me ayudas con mi caso?";
+    const waUrl = (msg) => `https://wa.me/${phoneE164}?text=${encodeURIComponent(msg)}`;
+
+    // Set all WhatsApp CTAs
+    const setWA = () => {
+      const links = [
+        document.getElementById("topCTA"),
+        document.getElementById("ctaContact"),
+        document.getElementById("stickyCTA"),
+      ].filter(Boolean);
+
+      links.forEach(a => {
+        a.href = waUrl(defaultMsg);
+        a.target = "_blank";
+        a.rel = "noopener";
+      });
+    };
+
+    // Tabs (Jornada)
+    const initTabs = () => {
+      const tabs = Array.from(document.querySelectorAll(".tab"));
+      const panels = Array.from(document.querySelectorAll(".tabPanel"));
+
+      const activate = (idx) => {
+        tabs.forEach((t,i) => t.setAttribute("aria-selected", i === idx ? "true" : "false"));
+        panels.forEach((p,i) => p.classList.toggle("active", i === idx));
+      };
+
+      tabs.forEach((tab, idx) => {
+        tab.addEventListener("click", () => activate(idx));
+        tab.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(idx); }
+          if (e.key === "ArrowRight") activate(Math.min(idx+1, tabs.length-1));
+          if (e.key === "ArrowLeft") activate(Math.max(idx-1, 0));
+        });
+      });
+    };
+
+    // Smooth scroll offset for sticky topbar
+    const initAnchorOffset = () => {
+      const headerHeight = document.querySelector(".topbar")?.offsetHeight || 64;
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener("click", (e) => {
+          const href = a.getAttribute("href");
+          if (!href || href === "#") return;
+          const el = document.querySelector(href);
+          if (!el) return;
+          e.preventDefault();
+          const y = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        });
+      });
+    };
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    setWA();
+    initTabs();
+    initAnchorOffset();
+  </script>
+</body>
+</html>
