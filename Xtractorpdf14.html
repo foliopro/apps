@@ -550,38 +550,43 @@ async function mergeWithExisting2(file, newText){
 
 
 // ===========================================
-// 4) EXTRACCIÓN DE DATOS BÁSICOS (COTIZANTE)
+// 4) EXTRACCIÓN DE DATOS BÁSICOS (COTIZANTE) - VERSIÓN MEJORADA
 // ===========================================
 function extraerDatosCotizante(allPages) {
-    let textoCompleto = "";
-    allPages.slice(0, 2).forEach(p => {
-        textoCompleto += p.items.map(i => i.text).join(" ") + "\n";
-    });
+    // Unimos TODO el texto de la página 1 en una sola cadena larga
+    // para que no importe el orden de las columnas
+    let textoPagina1 = allPages[0].items.map(i => i.text).join(" ");
 
-    const regexNombre = /Nombre:\s*([A-ZÁÉÍÓÚÑ\s]+?)(?=\s+Dirección|$)/i;
+    // Buscamos los datos usando patrones que ignoran espacios o saltos extraños
+    const regexNombre = /Nombre:\s*([^:]+?)(?=Dirección|Estado|Ubicación|$)/i;
     const regexCedula = /Número de Documento:\s*([\d\.]+)/i;
     const regexFecha = /Fecha de Nacimiento:\s*(\d{2}\/\d{2}\/\d{4})/i;
 
-    const nombreMatch = textoCompleto.match(regexNombre);
-    const cedulaMatch = textoCompleto.match(regexCedula);
-    const fechaMatch = textoCompleto.match(regexFecha);
+    const nombreMatch = textoPagina1.match(regexNombre);
+    const cedulaMatch = textoPagina1.match(regexCedula);
+    const fechaMatch = textoPagina1.match(regexFecha);
 
-    const nombre = nombreMatch ? nombreMatch[1].trim() : "NO ENCONTRADO";
-    const cedula = cedulaMatch ? cedulaMatch[1].replace(/\D/g, '') : "NO ENCONTRADO";
-    const fecha = fechaMatch ? fechaMatch[1].trim() : "NO ENCONTRADO";
+    // Limpieza de datos
+    const nombre = nombreMatch ? nombreMatch[1].trim() : "NOMBRE NO ENCONTRADO";
+    // Dejamos la cédula solo con números
+    const cedula = cedulaMatch ? cedulaMatch[1].replace(/\D/g, '') : "CÉDULA NO ENCONTRADA";
+    const fecha = fechaMatch ? fechaMatch[1].trim() : "FECHA NO ENCONTRADA";
 
     const contenidoTxt = `${nombre}\n${cedula}\n${fecha}`;
 
+    // Crear la interfaz visual
     const wrap = document.createElement('div'); 
     wrap.className = 'row';
-    wrap.style.border = "1px solid var(--accent)";
+    wrap.style.border = "2px solid var(--accent)";
     wrap.innerHTML = `
         <h3 style="color:var(--accent)">👤 Datos del Cotizante Extraídos</h3>
-        <p style="color:var(--muted); font-size:0.9em;">Archivo <b>cotizante.txt</b> listo para el sistema.</p>
-        <div style="background:rgba(0,0,0,0.2); padding:10px; border-radius:8px; margin-bottom:10px">
-            <code style="white-space:pre; color:#fff">${contenidoTxt}</code>
+        <p style="color:var(--muted); font-size:0.85em;">Datos detectados en la carátula del PDF.</p>
+        <div style="background:rgba(0,0,0,0.4); padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid rgba(255,255,255,0.1)">
+            <div style="margin-bottom:5px"><b style="color:var(--accent-2)">Nombre:</b> ${nombre}</div>
+            <div style="margin-bottom:5px"><b style="color:var(--accent-2)">Cédula:</b> ${cedula}</div>
+            <div><b style="color:var(--accent-2)">F. Nacimiento:</b> ${fecha}</div>
         </div>
-        <button id="btnDescargarCotizante" style="background:var(--accent); color:#000; padding:10px 20px; border-radius:8px; border:none; cursor:pointer; font-weight:bold; width:100%">
+        <button id="btnDescargarCotizante" style="background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#000; padding:12px; border-radius:8px; border:none; cursor:pointer; font-weight:800; width:100%; box-shadow: 0 4px 15px rgba(34,211,238,0.3)">
             ⬇️ Descargar cotizante.txt
         </button>
     `;
@@ -597,7 +602,7 @@ function extraerDatosCotizante(allPages) {
         a.click();
     };
 
-    log(`✅ Identificación procesada: ${nombre}`);
+    log(`✅ Identificación extraída: ${nombre}`);
 }
 
 
