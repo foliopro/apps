@@ -549,77 +549,58 @@ async function mergeWithExisting2(file, newText){
 
 
 
-// ===========================================
-// 4) EXTRACCIÓN DE DATOS POR COORDENADAS (VBA)
-// ===========================================
+// ============================================================
+// 4) LOGICA DE EXTRACCION TIPO DATA-ENGINEER (COLPENSIONES)
+// ============================================================
 function extraerDatosCotizante(allPages) {
-  const items = allPages[0].items; 
-  
-  let nombre = "";
-  let cedula = "";
-  let fecha = "";
+    // Escaneamos la primera página como un array de strings puros
+    const rawItems = allPages[0].items.map(i => i.text);
+    const textoUnido = rawItems.join(" ");
 
-  // Buscamos las coordenadas de las etiquetas primero
-  items.forEach((item, index) => {
-    let t = NM(item.text);
-    
-    // 1. EL NOMBRE: En Colpensiones está justo debajo o después de la etiqueta "Nombre:"
-    if (t === "NOMBRE") {
-      // Buscamos en los siguientes elementos el que tenga texto largo en mayúsculas
-      for(let i=1; i<10; i++){
-        if(items[index+i] && items[index+i].text.length > 10 && items[index+i].text === items[index+i].text.toUpperCase()){
-          nombre = items[index+i].text.trim();
-          break;
-        }
-      }
-    }
+    // Lógica 1: El Nombre (Patrón de texto largo en Mayúsculas)
+    // Buscamos un bloque de texto que tenga más de 12 letras y sea todo MAYÚSCULAS
+    const matchNombre = rawItems.find(t => t.length > 12 && t === t.toUpperCase() && !t.includes("NIT") && !t.includes("PERIODO"));
 
-    // 2. LA CÉDULA: Buscamos el número largo cerca de "NUMERO DE DOCUMENTO"
-    if (t.includes("NUMERODEDOCUMENTO")) {
-      for(let i=1; i<8; i++){
-        let num = items[index+i].text.replace(/\D/g,'');
-        if(num.length >= 6){
-          cedula = num;
-          break;
-        }
-      }
-    }
+    // Lógica 2: La Cédula (Patrón numérico puro de 7 a 10 dígitos)
+    // Filtramos cualquier número que encaje en el rango de cédula colombiana
+    const matchCedula = rawItems.find(t => {
+        let num = t.replace(/\D/g, '');
+        return num.length >= 7 && num.length <= 10 && !t.includes("/");
+    });
 
-    // 3. LA FECHA: Buscamos el formato DD/MM/AAAA
-    if (t.includes("FECHADENACIMIENTO")) {
-      for(let i=1; i<8; i++){
-        if(/\d{2}\/\d{2}\/\d{4}/.test(items[index+i].text)){
-          fecha = items[index+i].text.trim();
-          break;
-        }
-      }
-    }
-  });
+    // Lógica 3: La Fecha (Patrón DD/MM/AAAA)
+    const matchFecha = textoUnido.match(/(\d{2}\/\d{2}\/\d{4})/);
 
-  // Limpieza final para que Excel no tenga errores
-  const contenidoTxt = `${nombre}\n${cedula}\n${fecha}`;
+    // Limpieza final para VBA de Excel
+    const nombreFinal = matchNombre ? matchNombre.trim() : "NOMBRE NO ENCONTRADO";
+    const cedulaFinal = matchCedula ? matchCedula.replace(/\D/g, '') : "0";
+    const fechaFinal = matchFecha ? matchFecha[1] : "00/00/0000";
 
-  const wrap = document.createElement('div');
-  wrap.className = 'row';
-  wrap.style.border = "2px solid var(--accent)";
-  wrap.innerHTML = `
-    <h3 style="color:var(--accent)">📦 Datos Identificación (Para Excel)</h3>
-    <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; margin-bottom:10px">
-      <pre style="color:#fff; margin:0; font-family:monospace; font-size:1.1em">${contenidoTxt}</pre>
-    </div>
-    <button id="btnDescargarCotizante" style="background:var(--accent); color:#000; padding:10px; border-radius:8px; border:none; cursor:pointer; font-weight:bold; width:100%">
-      GENERAR COTIZANTE.TXT
-    </button>
-  `;
-  
-  const tablesContainer = document.getElementById('tables');
-  tablesContainer.insertBefore(wrap, tablesContainer.firstChild);
+    const contenidoTxt = `${nombreFinal}\n${cedulaFinal}\n${fechaFinal}`;
 
-  document.getElementById('btnDescargarCotizante').onclick = () => {
-    const blob = new Blob([contenidoTxt], { type: 'text/plain;charset=utf-8' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'cotizante.txt'; a.click();
-  };
+    // Renderizado UI (Diseño sobrio)
+    const wrap = document.createElement('div');
+    wrap.className = 'row';
+    wrap.style.border = "1px solid var(--accent)";
+    wrap.style.background = "rgba(0,0,0,0.4)";
+    wrap.innerHTML = `
+        <h3 style="color:var(--accent); margin-bottom:5px">👤 Datos para Liquidación (VBA)</h3>
+        <pre style="color:#fff; font-size:1.1em; padding:10px">${contenidoTxt}</pre>
+        <button id="btnVBA" style="width:100%; background:var(--accent); color:#000; font-weight:bold; padding:10px; border:none; border-radius:8px; cursor:pointer">
+            DESCARGAR ARCHIVO COTIZANTE.TXT
+        </button>
+    `;
+
+    const tablesContainer = document.getElementById('tables');
+    tablesContainer.insertBefore(wrap, tablesContainer.firstChild);
+
+    document.getElementById('btnVBA').onclick = () => {
+        const blob = new Blob([contenidoTxt], { type: 'text/plain;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'cotizante.txt';
+        a.click();
+    };
 }
 
 
@@ -653,7 +634,8 @@ for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
     // -----------------------
 
     procesarResumenColpensiones(allPages);
-    // ... resto de tus funciones
+ 
+  // ... resto de tus funciones
     procesarAntes1994(allPages);
 
 
