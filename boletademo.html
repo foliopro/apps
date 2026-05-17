@@ -640,17 +640,20 @@ function extraerDatosCotizante(allPages) {
     const pdf = await pdfjsLib.getDocument({data:buf}).promise;
     const allPages=[];
 
-for (let pageNum=1; pageNum<=pdf.numPages; pageNum++){
-      // ... (aquí está tu código de lectura de páginas) ...
-      allPages.push({pageNum, items});
-    } // <--- ESTA LLAVE CIERRA EL FOR
+for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      const page = await pdf.getPage(pageNum);
+      const content = await page.getTextContent();
+      const items = content.items.map(i => ({ text: i.str, x: i.transform[4], y: i.transform[5] }));
+      allPages.push({ pageNum, items });
+      log(`Página ${pageNum}: ${items.length} elementos leídos.`);
+    }
 
-    // JUSTO AQUÍ PEGA ESTA LÍNEA:
+    // --- INTEGRACIÓN AQUÍ ---
     extraerDatosCotizante(allPages);
+    // -----------------------
 
-    // Y luego siguen las otras:
     procesarResumenColpensiones(allPages);
-
+    // ... resto de tus funciones
     procesarAntes1994(allPages);
 
 
