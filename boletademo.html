@@ -550,49 +550,61 @@ async function mergeWithExisting2(file, newText){
 
 
 // ===========================================
-// 4) EXTRACCIÓN DE DATOS PARA EXCEL (VBA)
+// 4) EXTRACCIÓN DE DATOS BÁSICOS (PARA EXCEL)
 // ===========================================
 function extraerDatosCotizante(allPages) {
-  // Solo usamos la primera página
-  const items = allPages[0].items;
+  const items = allPages[0].items; // Usamos solo la primera página
   
-  // Función para encontrar el texto que está a la derecha de una etiqueta
-  function encontrarValor(etiqueta, esFecha = false) {
-    let index = items.findIndex(i => NM(i.text).includes(NM(etiqueta)));
-    if (index === -1) return null;
+  let nombre = "";
+  let cedula = "";
+  let fecha = "";
 
-    // Buscamos en los siguientes 5 elementos de texto el que mejor encaje
-    for (let i = index + 1; i <= index + 5 && i < items.length; i++) {
-      let texto = items[i].text.trim();
-      if (!texto) continue;
-      
-      if (esFecha && /\d{2}\/\d{2}\/\d{4}/.test(texto)) return texto;
-      if (!esFecha && /[A-Z0-9]/.test(texto) && !texto.includes(':')) return texto;
+  // Recorremos los elementos usando tu lógica de normalización NM()
+  items.forEach((item, index) => {
+    let texto = NM(item.text);
+
+    // 1. Buscar Nombre: En Colpensiones el nombre suele estar en el elemento siguiente a "NOMBRE"
+    if (texto === "NOMBRE" && items[index + 1]) {
+      nombre = items[index + 1].text.trim();
     }
-    return null;
+
+    // 2. Buscar Cédula: Buscamos el número que sigue a "NUMERO DE DOCUMENTO"
+    if (texto.includes("NUMERODEDOCUMENTO") && items[index + 1]) {
+      cedula = items[index + 1].text.replace(/\D/g, '');
+    }
+
+    // 3. Buscar Fecha: Buscamos el formato de fecha cerca de "FECHA DE NACIMIENTO"
+    if (texto.includes("FECHADENACIMIENTO")) {
+      // Buscamos en los siguientes 3 elementos un formato dd/mm/aaaa
+      for(let i=1; i<=3; i++) {
+        if(items[index+i] && /\d{2}\/\d{2}\/\d{4}/.test(items[index+i].text)) {
+          fecha = items[index+i].text.trim();
+          break;
+        }
+      }
+    }
+  });
+
+  // Si por alguna razón el orden falló, aplicamos un respaldo de seguridad
+  if (!nombre || nombre.length < 5) {
+    const backup = items.find(i => i.text.length > 15 && i.text === i.text.toUpperCase() && !i.text.includes(':'));
+    if (backup) nombre = backup.text.trim();
   }
 
-  // Captura de datos reales del PDF
-  const nombre = encontrarValor("Nombre") || "NO ENCONTRADO";
-  const cedulaRaw = encontrarValor("Número de Documento") || "0";
-  const fecha = encontrarValor("Fecha de Nacimiento", true) || "00/00/0000";
-
-  // Limpieza para Excel (Cédula sin puntos)
-  const cedula = cedulaRaw.replace(/\D/g, '');
-
-  // Formato final: Solo los datos puros para VBA
+  // Formato para tu Excel: Solo los 3 datos puros
   const contenidoTxt = `${nombre}\n${cedula}\n${fecha}`;
 
-  // Crear cuadro visual en la interfaz
-  const wrap = document.createElement('div'); wrap.className = 'row';
+  // Creamos la tarjeta visual igual a tus otras tablas
+  const wrap = document.createElement('div');
+  wrap.className = 'row';
   wrap.style.border = "2px solid var(--accent)";
   wrap.innerHTML = `
-    <h3 style="color:var(--accent)">📦 Datos para Importación Excel</h3>
-    <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; margin-bottom:15px">
-        <pre style="color:#fff; margin:0; font-family:monospace; line-height:1.5; font-size:1.2em">${contenidoTxt}</pre>
+    <h3 style="color:var(--accent)">📦 Datos Identificación (VBA)</h3>
+    <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; margin-bottom:10px">
+      <pre style="color:#fff; margin:0; font-family:monospace; font-size:1.1em">${contenidoTxt}</pre>
     </div>
-    <button id="btnDescargarCotizante" style="background:var(--accent); color:#000; padding:12px; border-radius:8px; border:none; cursor:pointer; font-weight:bold; width:100%">
-        GENERAR ARCHIVO PARA EXCEL
+    <button id="btnDescargarCotizante" style="background:var(--accent); color:#000; padding:10px; border-radius:8px; border:none; cursor:pointer; font-weight:bold; width:100%">
+      GENERAR COTIZANTE.TXT
     </button>
   `;
   
@@ -606,11 +618,7 @@ function extraerDatosCotizante(allPages) {
     a.download = 'cotizante.txt';
     a.click();
   };
-
-  log(`✅ Datos preparados para Excel: ${nombre}`);
 }
-
-
 
 
 
@@ -631,18 +639,17 @@ function extraerDatosCotizante(allPages) {
     const pdf = await pdfjsLib.getDocument({data:buf}).promise;
     const allPages=[];
 
-for (let pageNum=1; pageNum<=pdf.numPages; pageNum++){
-      const page = await pdf.getPage(pageNum);
-      const content = await page.getTextContent();
-      const items = content.items.map(i=>({ text:i.str, x:i.transform[4], y:i.transform[5] }));
+    for (let pageNum=1; pageNum<=pdf.numPages; pageNum++){
+      // ... tu código de lectura ...
       allPages.push({pageNum, items});
-      log(`Página ${pageNum}: ${items.length} elementos textuales leídos.`);
     }
 
-    // === AGREGAR ESTA LÍNEA AQUÍ ===
+    // LLAMADO A LA NUEVA FUNCIÓN
     extraerDatosCotizante(allPages);
 
+    // Tus funciones de siempre
     procesarResumenColpensiones(allPages);
+
     procesarAntes1994(allPages);
 
 
