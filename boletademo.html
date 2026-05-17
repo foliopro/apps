@@ -550,34 +550,45 @@ async function mergeWithExisting2(file, newText){
 
 
 // ===========================================
-// 4) EXTRACCIÓN DE DATOS BÁSICOS (PARA EXCEL)
+// 4) EXTRACCIÓN DE DATOS POR COORDENADAS (VBA)
 // ===========================================
 function extraerDatosCotizante(allPages) {
-  const items = allPages[0].items; // Usamos solo la primera página
+  const items = allPages[0].items; 
   
   let nombre = "";
   let cedula = "";
   let fecha = "";
 
-  // Recorremos los elementos usando tu lógica de normalización NM()
+  // Buscamos las coordenadas de las etiquetas primero
   items.forEach((item, index) => {
-    let texto = NM(item.text);
-
-    // 1. Buscar Nombre: En Colpensiones el nombre suele estar en el elemento siguiente a "NOMBRE"
-    if (texto === "NOMBRE" && items[index + 1]) {
-      nombre = items[index + 1].text.trim();
+    let t = NM(item.text);
+    
+    // 1. EL NOMBRE: En Colpensiones está justo debajo o después de la etiqueta "Nombre:"
+    if (t === "NOMBRE") {
+      // Buscamos en los siguientes elementos el que tenga texto largo en mayúsculas
+      for(let i=1; i<10; i++){
+        if(items[index+i] && items[index+i].text.length > 10 && items[index+i].text === items[index+i].text.toUpperCase()){
+          nombre = items[index+i].text.trim();
+          break;
+        }
+      }
     }
 
-    // 2. Buscar Cédula: Buscamos el número que sigue a "NUMERO DE DOCUMENTO"
-    if (texto.includes("NUMERODEDOCUMENTO") && items[index + 1]) {
-      cedula = items[index + 1].text.replace(/\D/g, '');
+    // 2. LA CÉDULA: Buscamos el número largo cerca de "NUMERO DE DOCUMENTO"
+    if (t.includes("NUMERODEDOCUMENTO")) {
+      for(let i=1; i<8; i++){
+        let num = items[index+i].text.replace(/\D/g,'');
+        if(num.length >= 6){
+          cedula = num;
+          break;
+        }
+      }
     }
 
-    // 3. Buscar Fecha: Buscamos el formato de fecha cerca de "FECHA DE NACIMIENTO"
-    if (texto.includes("FECHADENACIMIENTO")) {
-      // Buscamos en los siguientes 3 elementos un formato dd/mm/aaaa
-      for(let i=1; i<=3; i++) {
-        if(items[index+i] && /\d{2}\/\d{2}\/\d{4}/.test(items[index+i].text)) {
+    // 3. LA FECHA: Buscamos el formato DD/MM/AAAA
+    if (t.includes("FECHADENACIMIENTO")) {
+      for(let i=1; i<8; i++){
+        if(/\d{2}\/\d{2}\/\d{4}/.test(items[index+i].text)){
           fecha = items[index+i].text.trim();
           break;
         }
@@ -585,21 +596,14 @@ function extraerDatosCotizante(allPages) {
     }
   });
 
-  // Si por alguna razón el orden falló, aplicamos un respaldo de seguridad
-  if (!nombre || nombre.length < 5) {
-    const backup = items.find(i => i.text.length > 15 && i.text === i.text.toUpperCase() && !i.text.includes(':'));
-    if (backup) nombre = backup.text.trim();
-  }
-
-  // Formato para tu Excel: Solo los 3 datos puros
+  // Limpieza final para que Excel no tenga errores
   const contenidoTxt = `${nombre}\n${cedula}\n${fecha}`;
 
-  // Creamos la tarjeta visual igual a tus otras tablas
   const wrap = document.createElement('div');
   wrap.className = 'row';
   wrap.style.border = "2px solid var(--accent)";
   wrap.innerHTML = `
-    <h3 style="color:var(--accent)">📦 Datos Identificación (VBA)</h3>
+    <h3 style="color:var(--accent)">📦 Datos Identificación (Para Excel)</h3>
     <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; margin-bottom:10px">
       <pre style="color:#fff; margin:0; font-family:monospace; font-size:1.1em">${contenidoTxt}</pre>
     </div>
@@ -614,12 +618,9 @@ function extraerDatosCotizante(allPages) {
   document.getElementById('btnDescargarCotizante').onclick = () => {
     const blob = new Blob([contenidoTxt], { type: 'text/plain;charset=utf-8' });
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'cotizante.txt';
-    a.click();
+    a.href = URL.createObjectURL(blob); a.download = 'cotizante.txt'; a.click();
   };
 }
-
 
 
   // ============
@@ -639,15 +640,15 @@ function extraerDatosCotizante(allPages) {
     const pdf = await pdfjsLib.getDocument({data:buf}).promise;
     const allPages=[];
 
-    for (let pageNum=1; pageNum<=pdf.numPages; pageNum++){
-      // ... tu código de lectura ...
+for (let pageNum=1; pageNum<=pdf.numPages; pageNum++){
+      // ... (aquí está tu código de lectura de páginas) ...
       allPages.push({pageNum, items});
-    }
+    } // <--- ESTA LLAVE CIERRA EL FOR
 
-    // LLAMADO A LA NUEVA FUNCIÓN
+    // JUSTO AQUÍ PEGA ESTA LÍNEA:
     extraerDatosCotizante(allPages);
 
-    // Tus funciones de siempre
+    // Y luego siguen las otras:
     procesarResumenColpensiones(allPages);
 
     procesarAntes1994(allPages);
