@@ -3,380 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio de Reliquidación Pensional en Colpensiones | Resultados en 24 Horas</title>
-    
-    <!-- Open Graph Metadata para WhatsApp y Redes Sociales -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Estudio de Reliquidación Pensional en Colpensiones | Resultados en 24h">
-    <meta property="og:description" content="Descubre si tu pensión quedó bien liquidada. Informe detallado comparando toda tu vida laboral vs Colpensiones. ¡Sin salir de casa!">
-    <meta property="og:image" content="imagen01.jpg">
-    <meta property="og:url" content="https://tuwebdepensiones.com">
-    <meta name="twitter:card" content="summary_large_image">
-
+    <title>Reliquidación de Pensiones | SuPensión® Dark Edition</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'dark-bg': '#090D16',
-                        'dark-card': '#111827',
-                        'dark-border': '#1F2937',
-                        'neon-emerald': '#10B981',
-                        'neon-gold': '#F59E0B',
-                        'tech-blue': '#38BDF8',
+                        dark: {
+                            bg: '#090D16',       /* Fondo ultra oscuro */
+                            card: '#111827',     /* Fondo de tarjetas / cajones */
+                            border: '#1F2937',   /* Bordes sutiles */
+                            accent: '#10B981',   /* Verde Neón / Esmeralda */
+                            accentGlow: '#059669',
+                            gold: '#F59E0B',     /* Dorado de lujo */
+                            blueNeon: '#38BDF8'  /* Azul neón tecnológico */
+                        }
                     },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome para Iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Animación Neón de Pulso para los Botones Principales */
+        @keyframes neon-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.5), 0 0 30px rgba(16, 185, 129, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.8), 0 0 50px rgba(16, 185, 129, 0.4); }
+        }
         .btn-neon {
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-            transition: all 0.3s ease;
+            animation: neon-glow 2.5s infinite;
         }
-        .btn-neon:hover {
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.8);
-            transform: translateY(-2px);
-        }
-        .glow-card {
-            background: linear-gradient(180deg, rgba(17, 24, 39, 0.8) 0%, rgba(9, 13, 22, 0.9) 100%);
-            border: 1px solid rgba(31, 41, 55, 0.8);
+
+        /* Degradado de texto metálico/neón */
+        .text-gradient-accent {
+            background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body class="bg-dark-bg text-gray-100 font-sans antialiased selection:bg-neon-emerald selection:text-black">
+<body class="bg-dark-bg font-sans text-slate-300 antialiased selection:bg-dark-accent selection:text-black min-h-screen">
 
-    <!-- 1. BARRA DE URGENCIA / GARANTÍA (TOP BANNER NEÓN) -->
-    <div class="bg-gradient-to-r from-neon-emerald via-emerald-600 to-tech-blue text-black font-bold py-2.5 px-4 text-center text-xs md:text-sm tracking-wide sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
-            <span class="bg-black text-white text-xs px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse">¡Atención!</span>
-            <span>Resultados Garantizados en 24 Horas o Menos • 100% Digital, Sin Salir de Casa</span>
-        </div>
+    <!-- 1. CINTILLO NEÓN SUPERIOR (TOP BANNER) -->
+    <div class="bg-gradient-to-r from-emerald-900/50 via-dark-card to-emerald-900/50 text-white text-xs sm:text-sm py-2.5 px-4 text-center font-bold tracking-wide border-b border-emerald-500/30">
+        ⚡ RESPUESTA EN <span class="text-dark-gold uppercase font-extrabold">24 HORAS</span> | AUDITORÍA DIGITAL DE PENSIONES COLPENSIONES
     </div>
 
-    <!-- 2. HERO ULTRA-DIRECTO -->
-    <header class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/20 via-dark-bg to-dark-bg pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Columna de Texto -->
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 bg-dark-card border border-dark-border px-3.5 py-1.5 rounded-full text-xs font-medium text-neon-emerald">
-                        <i class="fa-solid fa-shield-halved"></i> Proveedores directos de software tecnológico para abogados
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
-                        ¿Estás seguro de que tu pensión en <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-tech-blue">Colpensiones quedó bien calculada?</span>
-                    </h1>
-                    <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0">
-                        Descúbrelo en solo <strong>24 horas</strong>. Analizamos matemáticamente toda tu vida laboral, tus últimos 10 años y lo comparamos frente a lo liquidado por Colpensiones.
-                    </p>
-                    
-                    <!-- Chips de Confianza -->
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
-                        <span class="bg-dark-card/80 border border-dark-border px-3 py-1 rounded-md text-xs text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-check text-neon-emerald"></i> Sin intermediarios costosos</span>
-                        <span class="bg-dark-card/80 border border-dark-border px-3 py-1 rounded-md text-xs text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-check text-neon-emerald"></i> Informe PDF detallado</span>
-                        <span class="bg-dark-card/80 border border-dark-border px-3 py-1 rounded-md text-xs text-gray-300 flex items-center gap-1.5"><i class="fa-solid fa-check text-neon-emerald"></i> 100% Online</span>
-                    </div>
+    <!-- MAIN CONTAINER (Estructura centralizada estilo VSL / Direct Response) -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-14 space-y-12 sm:space-y-16">
 
-                    <!-- Botón de Llamada a la Acción Principal -->
-                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="https://api.whatsapp.com/send?phone=573117715353&text=Hola,%20estoy%20interesado%20en%20sus%20servicios,%20mi%20nombre%20es..." target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-neon-emerald text-black font-bold text-lg px-8 py-4 rounded-xl btn-neon uppercase tracking-wide">
-                            <i class="fa-brands fa-whatsapp text-2xl"></i> Agendar llamada / Consultar
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Imagen 01 -->
-                <div class="lg:col-span-5">
-                    <div class="relative mx-auto max-w-md lg:max-w-none">
-                        <div class="absolute -inset-1.5 bg-gradient-to-r from-neon-emerald to-tech-blue rounded-2xl blur-lg opacity-30 animate-pulse-slow"></div>
-                        <div class="relative rounded-2xl overflow-hidden border border-dark-border bg-dark-card shadow-2xl">
-                            <img src="imagen01.jpg" alt="Estudio y Reliquidación de Pensiones en Colpensiones" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500">
-                        </div>
-                    </div>
-                </div>
+        <!-- LOGO & BADGES SUPERIORES -->
+        <div class="text-center space-y-3">
+            <span class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                SuPensión<span class="text-dark-accent">.</span>
+            </span>
+            <p class="text-xs text-dark-blueNeon font-semibold uppercase tracking-widest">
+                LegalTech & Engine de Cálculo Pensional
+            </p>
+            
+            <!-- CAJONES TIPO BADGES / CHIPS DE CONFIANZA RAPIDA -->
+            <div class="flex flex-wrap justify-center gap-2 pt-1">
+                <span class="bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold px-3 py-1 rounded-full">
+                    ✔ Tecnología SuPensión®
+                </span>
+                <span class="bg-slate-900 text-slate-300 border border-slate-700 text-[11px] font-bold px-3 py-1 rounded-full">
+                    ⚡ Entrega en 24H
+                </span>
+                <span class="bg-amber-950 text-amber-400 border border-amber-500/30 text-[11px] font-bold px-3 py-1 rounded-full">
+                    ⭐ Creadores del Software
+                </span>
             </div>
         </div>
-    </header>
 
-    <hr class="border-dark-border">
+        <!-- 2. HERO SECTION -->
+        <section class="text-center space-y-6 relative">
+            
+            <!-- Resplandor de fondo (Glow Effect) -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <!-- 3. SECCIÓN DE DOLOR / COMODIDAD -->
-    <section class="py-20 bg-dark-card/40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Imagen 02 -->
-                <div class="lg:col-span-5 order-2 lg:order-1">
-                    <div class="relative rounded-2xl overflow-hidden border border-dark-border bg-dark-card shadow-xl">
-                        <img src="imagen02.jpg" alt="Persona pensionada con dudas sobre su liquidación" class="w-full h-auto object-cover">
+            <!-- Titular Neón Principal -->
+            <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight tracking-tight max-w-3xl mx-auto text-white">
+                ¿Tu pensión de Colpensiones fue <span class="text-gradient-accent">bien calculada?</span>
+            </h1>
+
+            <p class="text-base sm:text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
+                Recalculamos toda tu vida laboral y los últimos 10 años en solo <strong class="text-white font-bold">24 horas</strong>. Recibe un informe detallado en PDF directamente en tu WhatsApp.
+            </p>
+
+            <!-- IMAGEN 01: HERO / CASO DE ÉXITO -->
+            <div class="pt-2">
+                <img src="https://i.ibb.co/SwjndBqG/secreto-2.png" alt="Caso de éxito y presentación de SuPensión" class="w-full rounded-2xl border border-dark-border shadow-2xl">
+            </div>
+
+            <!-- BOTÓN PRINCIPAL DE CONVERSIÓN CON GLOW -->
+            <div class="pt-2 max-w-md mx-auto space-y-3 relative z-10">
+                <a href="https://api.whatsapp.com/send?phone=573117715353&text=Hola,%20estoy%20interesado%20en%20sus%20servicios,%20mi%20nombre%20es..." 
+                   target="_blank" 
+                   class="btn-neon block w-full bg-dark-accent hover:bg-emerald-500 text-slate-950 font-extrabold text-lg sm:text-xl py-4 px-6 rounded-2xl transition-all duration-200 hover:scale-[1.02]">
+                    👉 SOLICITAR REVISIÓN POR WHATSAPP
+                </a>
+                <p class="text-xs text-slate-500 font-medium">
+                    🔒 Clic directo para hablar con un asesor • Sin citas ni desplazamientos
+                </p>
+            </div>
+        </section>
+
+        <!-- IMAGEN 02: SECCIÓN PUNTOS DE DOLOR / COMODIDAD -->
+        <section class="space-y-4">
+            <div class="text-center space-y-1">
+                <h2 class="text-xs font-bold text-dark-blueNeon uppercase tracking-widest">Facilidad y Comodidad</h2>
+                <p class="text-xl sm:text-2xl font-bold text-white">Sin filas ni desplazamientos desde la comodidad de tu hogar</p>
+            </div>
+            <div class="overflow-hidden rounded-2xl border border-dark-border shadow-xl">
+                <img src="https://i.ibb.co/JRTtt9dy/secreto-1.png" alt="Pensionado consultando desde casa" class="w-full h-auto object-cover">
+            </div>
+        </section>
+
+        <!-- 3. CAJONES DE BENEFICIOS CLAVE (GRID DE 3 FEATURE CARDS) -->
+        <section class="space-y-4">
+            <div class="text-center space-y-1">
+                <h2 class="text-xs font-bold text-dark-blueNeon uppercase tracking-widest">Servicio Directo</h2>
+                <p class="text-xl sm:text-2xl font-bold text-white">¿Qué hace único nuestro diagnóstico?</p>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-4">
+                <!-- FEATURE CARD 1 -->
+                <div class="bg-dark-card border border-dark-border p-6 rounded-2xl space-y-3 hover:border-emerald-500/50 transition shadow-lg">
+                    <div class="w-12 h-12 bg-emerald-950 text-dark-accent border border-emerald-500/30 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        ⚡
                     </div>
-                </div>
-                <!-- Contenido de Dolor -->
-                <div class="lg:col-span-7 order-1 lg:order-2 space-y-6">
-                    <div class="inline-flex items-center gap-2 bg-red-950/40 border border-red-900/60 px-3.5 py-1.5 rounded-full text-xs font-medium text-red-400">
-                        <i class="fa-solid fa-triangle-exclamation"></i> El problema oculto en Colpensiones
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-                        ¿Crees que estás recibiendo el valor exacto que te corresponde tras toda una vida de trabajo?
-                    </h2>
-                    <p class="text-gray-300 leading-relaxed">
-                        Miles de colombianos ya pensionados en Colpensiones —o personas provenientes de Fondos Privados que no pudieron trasladarse a tiempo— enfrentan cálculos erróneos, semanas no contabilizadas correctamente o promedios mal aplicados, perdiendo dinero mes a mes.
+                    <h3 class="font-bold text-white text-lg">Resultados en 24H</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Auditamos tu historial laboral completo y te entregamos un diagnóstico formal el mismo día.
                     </p>
-                    <div class="space-y-3 pt-2">
-                        <div class="flex items-start gap-3">
-                            <div class="bg-red-950/60 text-red-400 p-1.5 rounded-md mt-1"><i class="fa-solid fa-xmark text-sm"></i></div>
-                            <p class="text-sm text-gray-300"><strong>Abogados tradicionales sumamente costosos:</strong> Cobran tarifas exageradas por revisiones manuales lentas.</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <div class="bg-red-950/60 text-red-400 p-1.5 rounded-md mt-1"><i class="fa-solid fa-xmark text-sm"></i></div>
-                            <p class="text-sm text-gray-300"><strong>Incertidumbre total:</strong> No sabes si el cálculo de tus últimos 10 años o de tu historia laboral completa fue optimizado.</p>
-                        </div>
+                </div>
+
+                <!-- FEATURE CARD 2 -->
+                <div class="bg-dark-card border border-dark-border p-6 rounded-2xl space-y-3 hover:border-emerald-500/50 transition shadow-lg">
+                    <div class="w-12 h-12 bg-emerald-950 text-dark-accent border border-emerald-500/30 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        📲
                     </div>
+                    <h3 class="font-bold text-white text-lg">100% Online por WhatsApp</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Olvídate de hacer filas o ir a despachos. Todo lo gestionamos cómodamente desde tu celular.
+                    </p>
+                </div>
+
+                <!-- FEATURE CARD 3 -->
+                <div class="bg-dark-card border border-dark-border p-6 rounded-2xl space-y-3 hover:border-emerald-500/50 transition shadow-lg">
+                    <div class="w-12 h-12 bg-emerald-950 text-dark-accent border border-emerald-500/30 rounded-xl flex items-center justify-center text-2xl font-bold">
+                        📄
+                    </div>
+                    <h3 class="font-bold text-white text-lg">Informe PDF Detallado</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Un reporte escrito fácil de entender comparando tus últimos 10 años vs. toda tu vida laboral.
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 4. GRID DE FEATURE CARDS (TARJETAS DE CARACTERÍSTICAS) -->
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">¿Por qué nuestro servicio es superior y diferente?</h2>
-                <p class="text-gray-400">Desarrollamos la tecnología matemática para que obtengas precisión absoluta sin pagar honorarios abusivos.</p>
+        <!-- IMAGEN 04: CÓMO FUNCIONA -->
+        <section class="space-y-4">
+            <div class="text-center space-y-1">
+                <h2 class="text-xs font-bold text-dark-accent uppercase tracking-widest">Paso a Paso</h2>
+                <p class="text-xl sm:text-2xl font-bold text-white">¿Cómo funciona el proceso?</p>
+            </div>
+            <div class="overflow-hidden rounded-2xl border border-dark-border shadow-xl">
+                <img src="https://i.ibb.co/8gd7g6K9/secreto-3.png" alt="Paso a paso del proceso de solicitud" class="w-full h-auto object-cover">
+            </div>
+        </section>
+
+        <!-- 4. CAJONES DE PERFILES / REQUISITOS (INFO CARDS) -->
+        <section class="space-y-4">
+            <div class="text-center space-y-1">
+                <h2 class="text-xs font-bold text-dark-gold uppercase tracking-widest">A quién ayudamos</h2>
+                <p class="text-xl sm:text-2xl font-bold text-white">¿En qué situación te encuentras hoy?</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+                <!-- INFO CARD A -->
+                <div class="bg-dark-card border-l-4 border-l-emerald-500 border-y border-r border-dark-border p-6 rounded-r-2xl space-y-2 shadow-lg">
+                    <span class="text-[10px] font-bold text-emerald-400 bg-emerald-950 border border-emerald-500/30 px-2 py-0.5 rounded uppercase tracking-wider">Perfil 01</span>
+                    <h4 class="font-bold text-white text-base">Pensionado en Colpensiones</h4>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Si ya estás cobrando tu mesada pero tienes la duda de si Colpensiones te omitió semanas o calculó mal tu salario base.
+                    </p>
+                </div>
+
+                <!-- INFO CARD B -->
+                <div class="bg-dark-card border-l-4 border-l-sky-500 border-y border-r border-dark-border p-6 rounded-r-2xl space-y-2 shadow-lg">
+                    <span class="text-[10px] font-bold text-sky-400 bg-sky-950 border border-sky-500/30 px-2 py-0.5 rounded uppercase tracking-wider">Perfil 02</span>
+                    <h4 class="font-bold text-white text-base">Pensionado o atrapado en Fondo Privado</h4>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Si no pudiste trasladarte a Colpensiones y necesitas calcular exactamente cuánto perdiste y qué ruta legal te queda.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MÓDULO DEL ENTREGABLE (MUESTRA DEL PDF CON IMAGEN 03) -->
+        <section class="bg-dark-card border border-dark-border rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-dark-blueNeon/5 rounded-full blur-2xl"></div>
+
+            <div class="text-center space-y-2">
+                <span class="bg-slate-800 text-dark-blueNeon border border-sky-500/20 text-xs font-bold px-3 py-1 rounded-md uppercase tracking-wider">
+                    Lo que recibirás en tu WhatsApp
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">
+                    Dictamen Técnico y Descriptivo en PDF
+                </h2>
+            </div>
+
+            <!-- IMAGEN 03: SOFTWARE Y AUDITORÍA PENSIONAL -->
+            <div class="overflow-hidden rounded-2xl border border-slate-800 shadow-2xl">
+                <img src="https://i.ibb.co/bj9Xp3z4/secreto-5.png" alt="Interfaz del Software SuPensión y comparación de IBL" class="w-full h-auto object-cover">
+            </div>
+
+            <!-- Preview Card / Muestra del Reporte -->
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-emerald-500/20 text-dark-accent border border-emerald-500/30 rounded-xl flex items-center justify-center font-bold text-xs">
+                            PDF
+                        </div>
+                        <div>
+                            <p class="font-bold text-white text-sm">Informe de Auditoría Pensional</p>
+                            <p class="text-xs text-slate-400">Generado con Engine SuPensión®</p>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold bg-emerald-950 text-dark-accent border border-emerald-500/30 px-2.5 py-1 rounded-lg">Entrega en 24h</span>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-3 text-sm">
+                    <div class="bg-dark-bg p-3.5 rounded-xl border border-slate-800">
+                        <span class="text-xs text-slate-400 block">Cálculo Promedio Últimos 10 Años:</span>
+                        <span class="font-bold text-white text-base">$ 3.450.000 COP</span>
+                    </div>
+                    <div class="bg-dark-bg p-3.5 rounded-xl border border-slate-800">
+                        <span class="text-xs text-slate-400 block">Cálculo Toda la Vida Laboral:</span>
+                        <span class="font-bold text-white text-base">$ 4.120.000 COP</span>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-950/40 border border-emerald-500/40 p-4 rounded-xl flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-dark-accent uppercase tracking-wider">Diferencia a reclamar detectada</p>
+                        <p class="text-lg sm:text-xl font-extrabold text-white">+$ 670.000 / mes vitalicios</p>
+                    </div>
+                    <span class="text-2xl">✅</span>
+                </div>
+            </div>
+
+            <!-- Checklist de entregables -->
+            <div class="grid sm:grid-cols-2 gap-3 text-sm font-semibold text-slate-300 pt-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-dark-accent text-lg">✔</span> Comparativo de legislación aplicable.
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-dark-accent text-lg">✔</span> Conteo de semanas faltantes u omitidas.
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-dark-accent text-lg">✔</span> Explicación paso a paso en lenguaje claro.
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-dark-accent text-lg">✔</span> Ruta legal precisa si requieres demandar.
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. AUTORIDAD ÚNICA (BOMBA DE CONFIANZA) -->
+        <section class="bg-gradient-to-b from-slate-900 to-dark-card border border-amber-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6 text-center sm:text-left relative">
+            
+            <div class="inline-block bg-amber-500/10 border border-amber-500/30 text-dark-gold text-xs font-bold px-3 py-1 rounded-md uppercase tracking-wider">
+                ¿Por qué confiar en nuestro servicio?
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="glow-card p-8 rounded-2xl relative group hover:border-neon-emerald transition-all duration-300">
-                    <div class="w-12 h-12 bg-emerald-950/80 border border-emerald-800/50 rounded-xl flex items-center justify-center text-neon-emerald text-xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-bolt"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Resultados en 24 Horas</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Procesamos tu información de inmediato. No tendrás que esperar semanas ni meses para conocer el estado real de tu mesada pensional.
-                    </p>
-                </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+                Somos los desarrolladores del software que usan los mismos abogados laboralistas
+            </h2>
 
-                <!-- Card 2 -->
-                <div class="glow-card p-8 rounded-2xl relative group hover:border-tech-blue transition-all duration-300">
-                    <div class="w-12 h-12 bg-sky-950/80 border border-sky-800/50 rounded-xl flex items-center justify-center text-tech-blue text-xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-laptop-code"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Proveedores de Software</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Somos la empresa creadora del software Supension que utilizan los mismos abogados especialistas. Tienes acceso directo a la fuente tecnológica.
-                    </p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="glow-card p-8 rounded-2xl relative group hover:border-neon-gold transition-all duration-300">
-                    <div class="w-12 h-12 bg-amber-950/80 border border-amber-800/50 rounded-xl flex items-center justify-center text-neon-gold text-xl mb-6 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-house-laptop"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">100% Web y Sin Traslados</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Todo se gestiona de manera digital y segura. No necesitas gastar tiempo ni dinero trasladándote a una oficina física para recibir tu asesoría.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. PASO A PASO / CÓMO FUNCIONA -->
-    <section class="py-20 bg-dark-card/40 border-y border-dark-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">¿Cómo funciona nuestro servicio?</h2>
-                <p class="text-gray-400">Un proceso transparente, guiado y diseñado para tu total comodidad.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Pasos -->
-                <div class="lg:col-span-7 space-y-6">
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-neon-emerald/20 border border-neon-emerald text-neon-emerald font-bold flex items-center justify-center shrink-0">1</div>
-                        <div>
-                            <h3 class="text-lg font-bold">Agenda tu llamada o contáctanos</h3>
-                            <p class="text-sm text-gray-400 mt-1">Escríbenos directamente a nuestro WhatsApp para iniciar el proceso de forma ágil y empática.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-neon-emerald/20 border border-neon-emerald text-neon-emerald font-bold flex items-center justify-center shrink-0">2</div>
-                        <div>
-                            <h3 class="text-lg font-bold">Procesamiento con Software Especializado</h3>
-                            <p class="text-sm text-gray-400 mt-1">Cargamos y analizamos tu historial completo utilizando nuestra tecnología de punta Supension.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-10 h-10 rounded-full bg-neon-emerald/20 border border-neon-emerald text-neon-emerald font-bold flex items-center justify-center shrink-0">3</div>
-                        <div>
-                            <h3 class="text-lg font-bold">Recibe tu informe detallado en 24 horas</h3>
-                            <p class="text-sm text-gray-400 mt-1">Obtén un reporte en PDF con los pasos a seguir si tu pensión no quedó liquidada correctamente.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Imagen 04 -->
-                <div class="lg:col-span-5">
-                    <div class="relative rounded-2xl overflow-hidden border border-dark-border bg-dark-card shadow-xl">
-                        <img src="imagen04.jpg" alt="Proceso digital de reliquidación pensional" class="w-full h-auto object-cover">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. MÓDULO DEL ENTREGABLE (PRODUCTO / PDF / SOFTWARE) -->
-    <section class="py-20">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="glow-card rounded-3xl p-8 sm:p-12 border border-neon-emerald/40 relative overflow-hidden">
-                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-neon-emerald/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    <div class="lg:col-span-6 space-y-6">
-                        <div class="inline-flex items-center gap-2 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1 rounded-full text-xs font-semibold text-neon-emerald">
-                            <i class="fa-solid fa-file-pdf"></i> Entregable Garantizado
-                        </div>
-                        <h2 class="text-3xl font-extrabold tracking-tight">Informe Descriptivo en PDF</h2>
-                        <p class="text-gray-300 text-sm leading-relaxed">
-                            Conocerás de forma clara y transparente cómo te pensionaste, cómo se calculó con toda tu vida laboral, el comportamiento de tus últimos 10 años y la comparación exacta frente a Colpensiones.
-                        </p>
-                        <ul class="space-y-2 text-sm text-gray-300">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-emerald"></i> Desglose matemático completo</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-emerald"></i> Guía clara del paso a seguir</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-emerald"></i> Lenguaje amigable y sin tecnicismos complejos</li>
-                        </ul>
-                    </div>
-                    <!-- Imagen 03 -->
-                    <div class="lg:col-span-6">
-                        <div class="rounded-xl overflow-hidden border border-dark-border bg-dark-bg shadow-2xl">
-                            <img src="imagen03.jpg" alt="Informe Detallado en PDF sobre reliquidación de pensiones" class="w-full h-auto object-cover">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. AUTORIDAD ÚNICA (BOMBA DE CONFIANZA) -->
-    <section class="py-16 bg-dark-card/60 border-y border-dark-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h2 class="text-2xl sm:text-3xl font-extrabold">La tecnología detrás de los expertos</h2>
-            <p class="text-gray-400 max-w-2xl mx-auto text-sm">
-                No pagues de más contratando intermediarios costosos. Nosotros somos los creadores del software <strong>Supension</strong>, la plataforma que los bufetes de abogados usan para realizar estos cálculos. Ahora, tienes acceso directo a la fuente tecnológica.
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                A diferencia de intermediarios que subcontratan estos cálculos, nosotros creamos la plataforma <strong class="text-white">SuPensión®</strong>. Tu información laboral es auditada directamente en la fuente tecnológica líder del mercado colombiano.
             </p>
-        </div>
-    </section>
 
-    <!-- 8. TESTIMONIOS EN FORMATO COMUNIDAD -->
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Lo que opinan nuestros usuarios</h2>
-                <p class="text-gray-400">Personas reales que confiaron en nuestro estudio pensional digital.</p>
+            <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-around gap-4 text-xs font-semibold text-slate-400">
+                <span class="text-emerald-400">🛡️ Precisión Matemática 100%</span>
+                <span class="text-dark-gold">⚡ Entrega Garantizada en 24h</span>
+                <span class="text-dark-blueNeon">📲 Atención vía WhatsApp</span>
+            </div>
+        </section>
+
+        <!-- 7. TESTIMONIOS (CON IMAGEN 05 Y CARDS) -->
+        <section class="space-y-6">
+            <div class="text-center space-y-1">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+                    Lo que dicen quienes ya revisaron su pensión
+                </h2>
+                <p class="text-slate-400 text-sm">Casos reales analizados con nuestro software</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- IMAGEN 05: AVATARES DE TESTIMONIOS -->
+            <div class="overflow-hidden rounded-2xl border border-dark-border shadow-xl">
+                <img src="https://i.ibb.co/TxCY0Tbt/secreto-4.png" alt="Testimonios de Carlos, María Cristina y Roberto" class="w-full h-auto object-cover">
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-4">
                 <!-- Testimonio 1 -->
-                <div class="glow-card p-6 rounded-2xl flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="flex text-neon-gold text-sm gap-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm italic">
-                            "Me pensioné en Colpensiones y tenía la duda si el cálculo era correcto. En 24 horas me entregaron un informe clarísimo. Descubrí que sí podía mejorar mi situación y me indicaron exactamente los pasos a seguir. ¡Excelente servicio y muy empáticos!"
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-3 pt-6 mt-6 border-t border-dark-border">
-                        <div class="w-10 h-10 rounded-full bg-emerald-900/40 border border-emerald-700/50 flex items-center justify-center font-bold text-neon-emerald">
-                            MR
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm">Marco Aurelio Restrepo</h4>
-                            <span class="text-xs text-gray-400">Pensionado en Colpensiones (Medellín)</span>
-                        </div>
+                <div class="bg-dark-card border border-dark-border p-5 rounded-2xl space-y-3 shadow-lg">
+                    <div class="flex text-dark-gold text-sm">★★★★★</div>
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        "En 24 horas me entregaron un PDF súper claro. Resulta que me faltaban semanas por computar. Ahora ya inicié mi reclamo."
+                    </p>
+                    <div class="border-t border-slate-800 pt-3">
+                        <p class="font-bold text-white text-xs">Carlos Eduardo R.</p>
+                        <p class="text-[11px] text-slate-500">Pensionado Bogotá</p>
                     </div>
                 </div>
 
                 <!-- Testimonio 2 -->
-                <div class="glow-card p-6 rounded-2xl flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="flex text-neon-gold text-sm gap-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm italic">
-                            "Estuve en fondos privados y nunca pude trasladarme a tiempo. Estaba desorientada con mi pensión. Me atendieron por la web, sin moverme de mi casa, y el informe en PDF me explicó todo detalladamente. Muy profesionales."
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-3 pt-6 mt-6 border-t border-dark-border">
-                        <div class="w-10 h-10 rounded-full bg-sky-900/40 border border-sky-700/50 flex items-center justify-center font-bold text-tech-blue">
-                            GM
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm">Gloria Marina Ospina</h4>
-                            <span class="text-xs text-gray-400">Pensionada (Bogotá)</span>
-                        </div>
+                <div class="bg-dark-card border border-dark-border p-5 rounded-2xl space-y-3 shadow-lg">
+                    <div class="flex text-dark-gold text-sm">★★★★★</div>
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        "Pensé que por estar en fondo privado no había solución. El informe me aclaró todo sin tener que ir a ninguna oficina."
+                    </p>
+                    <div class="border-t border-slate-800 pt-3">
+                        <p class="font-bold text-white text-xs">María Cristina G.</p>
+                        <p class="text-[11px] text-slate-500">Pensionada Medellín</p>
                     </div>
                 </div>
 
                 <!-- Testimonio 3 -->
-                <div class="glow-card p-6 rounded-2xl flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="flex text-neon-gold text-sm gap-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm italic">
-                            "Los abogados me cobraban una fortuna solo por revisar mi caso. Encontré este servicio directo, me hicieron el cálculo en 24 horas y me demostraron con números reales cómo se comparaba con Colpensiones. 100% recomendados."
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-3 pt-6 mt-6 border-t border-dark-border">
-                        <div class="w-10 h-10 rounded-full bg-amber-900/40 border border-amber-700/50 flex items-center justify-center font-bold text-neon-gold">
-                            HC
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-sm">Humberto Cifuentes</h4>
-                            <span class="text-xs text-gray-400">Pensionado en Colpensiones (Cali)</span>
-                        </div>
+                <div class="bg-dark-card border border-dark-border p-5 rounded-2xl space-y-3 shadow-lg">
+                    <div class="flex text-dark-gold text-sm">★★★★★</div>
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        "Lo que más me dio confianza es que ellos son los dueños del programa que usan los abogados. El cálculo fue exacto."
+                    </p>
+                    <div class="border-t border-slate-800 pt-3">
+                        <p class="font-bold text-white text-xs">Roberto A. Salazar</p>
+                        <p class="text-[11px] text-slate-500">Pensionado Cali</p>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Imagen 05 -->
-            <div class="mt-12 max-w-2xl mx-auto rounded-2xl overflow-hidden border border-dark-border bg-dark-card shadow-xl">
-                <img src="imagen05.jpg" alt="Comunidad de clientes satisfechos con su estudio pensional" class="w-full h-auto object-cover">
+        <!-- 8. CALL TO ACTION FINAL CON RESPLANDOR -->
+        <section class="bg-gradient-to-b from-emerald-950/60 to-dark-card border border-emerald-500/40 rounded-3xl p-8 text-center space-y-5 relative overflow-hidden">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">
+                ¿Listo para salir de dudas sobre tu pensión?
+            </h2>
+            <p class="text-slate-300 text-sm sm:text-base max-w-lg mx-auto">
+                No dejes tu esfuerzo de toda una vida al azar. Revisa tu liquidación en 24 horas con total precisión.
+            </p>
+            <div class="pt-2 max-w-md mx-auto relative z-10">
+                <a href="https://api.whatsapp.com/send?phone=573117715353&text=Hola,%20estoy%20interesado%20en%20sus%20servicios,%20mi%20nombre%20es..." 
+                   target="_blank" 
+                   class="btn-neon block w-full bg-dark-accent hover:bg-emerald-500 text-slate-950 font-extrabold text-lg py-4 px-6 rounded-2xl transition-all duration-200 hover:scale-105">
+                    💬 HABLAR CON UN ASESOR POR WHATSAPP
+                </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 9. CALL TO ACTION FINAL & FOOTER -->
-    <footer class="bg-dark-card border-t border-dark-border pt-16 pb-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-            <div class="max-w-3xl mx-auto space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Da el primer paso hoy mismo</h2>
-                <p class="text-gray-300 text-sm sm:text-base">
-                    No dejes tu pensión al azar. Obtén tu cálculo en 24 horas, entérate si quedaste bien pensionado y conoce los pasos a seguir con la guía de expertos.
-                </p>
-                <div class="pt-4">
-                    <a href="https://api.whatsapp.com/send?phone=573117715353&text=Hola,%20estoy%20interesado%20en%20sus%20servicios,%20mi%20nombre%20es..." target="_blank" class="inline-flex items-center justify-center gap-3 bg-neon-emerald text-black font-bold text-lg px-8 py-4 rounded-xl btn-neon uppercase tracking-wide">
-                        <i class="fa-brands fa-whatsapp text-2xl"></i> Agendar llamada / Consultar
-                    </a>
-                </div>
-            </div>
+        <!-- FOOTER DISCRETO -->
+        <footer class="text-center text-xs text-slate-600 pt-6 border-t border-slate-800/80 space-y-1">
+            <p>© 2026 SuPensión® • Engine & Auditoría Digital de Pensiones en Colombia</p>
+            <p>Servicio prestado de forma independiente vía WhatsApp.</p>
+        </footer>
 
-            <hr class="border-dark-border my-8">
-
-            <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
-                <p>&copy; 2026 Estudio de Reliquidación Pensional. Todos los derechos reservados.</p>
-                <p class="flex items-center gap-1">Desarrollado con tecnología de alta precisión (Supension)</p>
-            </div>
-        </div>
-    </footer>
+    </main>
 
 </body>
 </html>
