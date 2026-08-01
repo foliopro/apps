@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Open Graph / Meta Tags Sociales -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Arturo Pro | Expertos en Pensión y Derecho Pensional en Colombia">
+    <meta property="og:description" content="Aumente su pensión, recupere retroactivos y asegure su retiro con el Dr. Carlos Arturo López y más de 30 años de experiencia pensional.">
+    <meta property="og:image" content="https://i.ibb.co/XrDTdqXf/logo.png-">
+    <meta property="og:url" content="https://arturopro.com">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <title>Arturo Pro - Asesoría Pensional de Alta Eficiencia</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#090D16',
+                        'dark-card': '#111827',
+                        'dark-border': '#1F2937',
+                        'gold-accent': '#F59E0B',
+                        'gold-glow': '#D97706',
+                        'neon-green': '#10B981',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.7);
+            transform: translateY(-2px);
+        }
+        .card-gold-glow {
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-gray-200 font-sans antialiased selection:bg-gold-accent selection:text-black">
+
+    <!-- 1. BARRA DE URGENCIA / GARANTÍA -->
+    <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-black py-2.5 px-4 text-center text-xs md:text-sm font-bold tracking-wide">
+        <i class="fa-solid fa-shield-halved mr-2"></i> MÁS DE 30 AÑOS DE EXPERIENCIA EN COLPENSIONES Y FONDOS PRIVADOS • <span class="underline">EVALUACIÓN DE CASO DISPONIBLE</span>
+    </div>
+
+    <!-- NAVBAR SIMPLE -->
+    <nav class="border-b border-dark-border bg-dark-bg/90 backdrop-blur sticky top-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <img src="https://i.ibb.co/XrDTdqXf/logo.png" alt="Arturo Pro Logo" class="h-10 w-auto">
+            <span class="text-xl font-black tracking-wider text-white">ARTURO <span class="text-gold-accent">PRO</span></span>
+        </div>
+        <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." 
+           target="_blank" 
+           class="hidden md:inline-flex items-center gap-2 bg-neon-green hover:bg-emerald-500 text-black font-extrabold px-5 py-2.5 rounded-full text-sm btn-glow">
+            <i class="fa-brands fa-whatsapp text-lg"></i> Consultar por WhatsApp
+        </a>
+    </nav>
+
+    <!-- 2. HERO ULTRA-DIRECTO -->
+    <section class="relative pt-12 pb-20 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 bg-dark-card border border-gold-accent/40 rounded-full px-4 py-1.5 text-xs text-gold-accent font-semibold">
+                <i class="fa-solid fa-award"></i> Asesoría Pensional Estratégica en Colombia
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">
+                Le ayudamos a <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-accent to-amber-200">pensionarse mejor</span>, aumentar su mesada y defender sus derechos.
+            </h1>
+            
+            <p class="text-lg text-gray-300 leading-relaxed">
+                Estudios pensionales de alta precisión, planeación estratégica, reliquidaciones y representación jurídica experta para trabajadores y pensionados.
+            </p>
+
+            <!-- PRESENTACIÓN GERENTE -->
+            <div class="p-4 bg-dark-card border border-dark-border rounded-xl flex items-center gap-4">
+                <div class="text-gold-accent text-3xl"><i class="fa-solid fa-user-tie"></i></div>
+                <div>
+                    <h3 class="text-white font-bold text-base">Liderado por el Dr. Carlos Arturo López</h3>
+                    <p class="text-xs text-gray-400">Gerente General con más de 30 años de experiencia especializada en Colpensiones y Fondos Privados (AFP).</p>
+                </div>
+            </div>
+
+            <!-- BOTONES HERO -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." 
+                   target="_blank" 
+                   class="flex items-center justify-center gap-3 bg-neon-green hover:bg-emerald-500 text-black font-black text-lg px-8 py-4 rounded-xl btn-glow">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Solicitar Estudio Pensional
+                </a>
+                <a href="#situaciones" 
+                   class="flex items-center justify-center gap-2 bg-dark-card hover:bg-gray-800 text-white border border-dark-border font-bold px-6 py-4 rounded-xl transition">
+                    Ver mi situación <i class="fa-solid fa-arrow-down text-sm"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="lg:col-span-5 relative">
+            <div class="absolute -inset-1 bg-gradient-to-r from-gold-accent to-emerald-500 rounded-2xl blur opacity-20"></div>
+            <div class="relative bg-dark-card rounded-2xl overflow-hidden border border-dark-border">
+                <img src="https://i.ibb.co/FqcJLw1r/if01.png" alt="Dr. Carlos Arturo López - Arturo Pro" class="w-full h-auto object-cover">
+                <div class="p-4 text-center bg-dark-card/90">
+                    <p class="text-xs text-gold-accent font-bold uppercase tracking-widest">Respaldo y Experiencia Directa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SECCIÓN DE DOLOR / SITUACIÓN -->
+    <section id="situaciones" class="py-16 bg-dark-card/50 border-y border-dark-border px-6 md:px-12">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <h2 class="text-3xl md:text-5xl font-black text-white">¿Cuál es su situación actual?</h2>
+                <p class="text-gray-400">Identifique su caso particular. No vendemos servicios genéricos, resolvemos problemas específicos.</p>
+            </div>
+
+            <!-- GRID TARJETAS DE SITUACIONES (1 a 7) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Tarjeta 1 -->
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border hover:border-gold-accent/50 transition space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="text-gold-accent text-xl mb-2"><i class="fa-solid fa-calculator"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Ya estoy pensionado y quiero saber si recibo lo correcto.</h3>
+                        <p class="text-sm text-gray-400">Revisamos si su pensión fue correctamente liquidada y determinamos si tiene derecho a un aumento en su mesada o a recuperar dinero que dejó de recibir.</p>
+                    </div>
+                    <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es...%20(Caso:%20Revisar%20mi%20Pensión)" target="_blank" class="block text-center bg-dark-bg hover:bg-gold-accent hover:text-black text-gold-accent font-bold py-2.5 rounded-lg border border-gold-accent/30 text-sm transition">Quiero revisar mi pensión</a>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border hover:border-gold-accent/50 transition space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="text-gold-accent text-xl mb-2"><i class="fa-solid fa-chart-line"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Estoy próximo a pensionarme y quiero la mejor pensión.</h3>
+                        <p class="text-sm text-gray-400">Analizamos su caso antes de que solicite la pensión para ayudarle a tomar las mejores decisiones y maximizar el valor que recibirá durante toda su vida.</p>
+                    </div>
+                    <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es...%20(Caso:%20Planear%20mi%20Pensión)" target="_blank" class="block text-center bg-dark-bg hover:bg-gold-accent hover:text-black text-gold-accent font-bold py-2.5 rounded-lg border border-gold-accent/30 text-sm transition">Quiero planear mi pensión</a>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border hover:border-gold-accent/50 transition space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="text-gold-accent text-xl mb-2"><i class="fa-solid fa-magnifying-glass-dollar"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Quiero saber cuánto voy a recibir cuando me pensione.</h3>
+                        <p class="text-sm text-gray-400">Realizamos una proyección personalizada con diferentes escenarios para mostrarle cuánto podría recibir y cómo mejorar el resultado.</p>
+                    </div>
+                    <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es...%20(Caso:%20Solicitar%20Proyección)" target="_blank" class="block text-center bg-dark-bg hover:bg-gold-accent hover:text-black text-gold-accent font-bold py-2.5 rounded-lg border border-gold-accent/30 text-sm transition">Solicitar proyección</a>
+                </div>
+
+                <!-- Tarjeta 4 -->
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border hover:border-gold-accent/50 transition space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="text-gold-accent text-xl mb-2"><i class="fa-solid fa-file-circle-exclamation"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Mi historia laboral tiene errores o le faltan semanas.</h3>
+                        <p class="text-sm text-gray-400">Verificamos su historia laboral, identificamos inconsistencias y gestionamos la recuperación de semanas o tiempos no reconocidos.</p>
+                    </div>
+                    <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es...%20(Caso:%20Revisar%20Historia%20Laboral)" target="_blank" class="block text-center bg-dark-bg hover:bg-gold-accent hover:text-black text-gold-accent font-bold py-2.5 rounded-lg border border-gold-accent/30 text-sm transition">Revisar historia laboral</a>
+                </div>
+
+                <!-- Tarjeta 5 -->
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border hover:border-gold-accent/50 transition space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="text-gold-accent text-xl mb-2"><i class="fa-solid fa-gavel"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Me negaron la pensión y quiero conocer mis opciones.</h3>
+                        <p class="text-sm text-gray-400">Estudios las razones de la negativa y definimos la mejor estrategia administrativa o judicial para proteger sus derechos.</p>
+                    </div>
+                    <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es...%20(Caso:%20Evaluación%20por%20Pensión%20Negada)" target="_blank" class="block text-center bg-dark-bg hover:bg-gold-accent hover:text-black text-gold-accent font-bold py-2.5 rounded-lg border border-gold-accent/30 text-sm transition">Quiero una evaluación</a>
+                </div>
+
+                <!-- Tarjeta 6 -->
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border hover:border-gold-accent/50 transition space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="text-gold-accent text-xl mb-2"><i class="fa-solid fa-right-left"></i></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Me trasladaron a un fondo y quiero recuperar mis derechos.</h3>
+                        <p class="text-sm text-gray-400">Analizamos si el traslado fue realizado correctamente y si existen fundamentos para reclamar la nulidad del traslado (retorno a Colpensiones).</p>
+                    </div>
+                    <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es...%20(Caso:%20Nulidad%20de%20Traslado)" target="_blank" class="block text-center bg-dark-bg hover:bg-gold-accent hover:text-black text-gold-accent font-bold py-2.5 rounded-lg border border-gold-accent/30 text-sm transition">Revisar mi traslado</a>
+                </div>
+
+            </div>
+
+            <!-- APOYO VISUAL DOLOR / SITUACIÓN -->
+            <div class="mt-8 rounded-2xl overflow-hidden border border-dark-border max-h-80 relative">
+                <img src="https://i.ibb.co/Td7Gd4g/if02.jpg" alt="Análisis de situación pensional" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent flex items-end p-6">
+                    <p class="text-sm text-gray-300 font-semibold"><i class="fa-solid fa-circle-info text-gold-accent mr-2"></i> No deje su pensión al azar. Cada año sin revisar puede representar pérdidas económicas irreparables.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. PRODUCTO ESTRELLA / ENTREGABLE (TARJETA 8) -->
+    <section class="py-20 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="bg-gradient-to-b from-dark-card to-dark-bg p-8 md:p-12 rounded-3xl card-gold-glow grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-7 space-y-6">
+                <span class="bg-gold-accent/20 text-gold-accent border border-gold-accent/40 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                    Nuestra Joya Diagnóstica
+                </span>
+                <h2 class="text-3xl md:text-5xl font-black text-white">Estudio Integral de Pensión</h2>
+                <p class="text-gray-300">
+                    No es un simple cálculo. Es un <strong>diagnóstico técnico y jurídico completo</strong> de su situación pensional para identificar oportunidades de mejora, corregir errores e incrementar su futuro financiero.
+                </p>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 pt-2 text-sm text-gray-300 font-medium">
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Historia Laboral</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Semanas Reales</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Cálculo IBL</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Régimen Aplicable</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Tasa Reemplazo</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Escenarios Futuros</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Retroactivos</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Reliquidación</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-neon-green"></i> Recomendaciones</div>
+                </div>
+
+                <div class="pt-4">
+                    <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es...%20(Interés:%20Estudio%20Integral)" target="_blank" class="inline-flex items-center gap-3 bg-gold-accent hover:bg-amber-400 text-black font-black text-lg px-8 py-4 rounded-xl transition">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> Solicitar Estudio Integral
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5">
+                <img src="https://i.ibb.co/ymMkpyKp/if03.png" alt="Estudio Integral Arturo Pro" class="rounded-2xl border border-dark-border shadow-2xl w-full h-auto">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. PASO A PASO / CÓMO FUNCIONA -->
+    <section class="py-16 bg-dark-card/30 border-y border-dark-border px-6 md:px-12">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="text-3xl font-black text-white">¿Cómo trabajamos su caso?</h2>
+                <p class="text-gray-400 mt-2">Un proceso transparente, simple y de alta precisión actuarial.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border space-y-3">
+                    <div class="w-12 h-12 bg-gold-accent/10 text-gold-accent font-black text-xl rounded-full flex items-center justify-center mx-auto border border-gold-accent/30">1</div>
+                    <h3 class="text-lg font-bold text-white">Recepción de Datos</h3>
+                    <p class="text-sm text-gray-400">Analizamos su historia laboral y documentos actuales de Colpensiones o AFP.</p>
+                </div>
+
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border space-y-3">
+                    <div class="w-12 h-12 bg-neon-green/10 text-neon-green font-black text-xl rounded-full flex items-center justify-center mx-auto border border-neon-green/30">2</div>
+                    <h3 class="text-lg font-bold text-white">Cálculo en Software Propio</h3>
+                    <p class="text-sm text-gray-400">Corremos las simulaciones con nuestra herramienta técnica especializada en legislación colombiana.</p>
+                </div>
+
+                <div class="bg-dark-card p-6 rounded-2xl border border-dark-border space-y-3">
+                    <div class="w-12 h-12 bg-gold-accent/10 text-gold-accent font-black text-xl rounded-full flex items-center justify-center mx-auto border border-gold-accent/30">3</div>
+                    <h3 class="text-lg font-bold text-white">Dictamen y Estrategia</h3>
+                    <p class="text-sm text-gray-400">Le entregamos el plan exacto para reclamar, ajustar o planear su mejor mesada posible.</p>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-dark-border">
+                <img src="https://i.ibb.co/YB5Dn2Js/if04png.png
+" alt="Metodología de trabajo Arturo Pro" class="w-full max-h-64 object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SERVICIOS ESPECIALIZADOS (DESGLOSE TÉCNICO) -->
+    <section class="py-20 px-6 md:px-12 max-w-7xl mx-auto space-y-12">
+        <div class="text-center max-w-3xl mx-auto space-y-2">
+            <h2 class="text-3xl md:text-4xl font-black text-white">Portafolio Especializado de Servicios</h2>
+            <p class="text-gray-400">Cobertura técnica y jurídica completa para personas, litigantes y empresas.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Bloque 1 -->
+            <div class="bg-dark-card p-6 rounded-2xl border border-dark-border">
+                <h3 class="text-lg font-bold text-gold-accent mb-3 flex items-center gap-2"><i class="fa-solid fa-file-invoice"></i> Estudios Pensionales</h3>
+                <ul class="text-sm text-gray-300 space-y-1.5">
+                    <li>• Estudio Integral y Diagnóstico Pensional</li>
+                    <li>• Planeación y Proyección Pensional</li>
+                    <li>• Optimización del IBL y Tasa de Reemplazo</li>
+                    <li>• Simulaciones de Mesada</li>
+                </ul>
+            </div>
+
+            <!-- Bloque 2 -->
+            <div class="bg-dark-card p-6 rounded-2xl border border-dark-border">
+                <h3 class="text-lg font-bold text-gold-accent mb-3 flex items-center gap-2"><i class="fa-solid fa-hand-holding-dollar"></i> Pensiones y Reajustes</h3>
+                <ul class="text-sm text-gray-300 space-y-1.5">
+                    <li>• Reliquidación, Reconocimiento e Incrementos</li>
+                    <li>• Vejez, Invalidez, Sobrevivientes, Sustitución</li>
+                    <li>• Indemnización Sustitutiva y Devolución de Saldos</li>
+                    <li>• Retroactivos y Reajustes Especiales</li>
+                </ul>
+            </div>
+
+            <!-- Bloque 3 -->
+            <div class="bg-dark-card p-6 rounded-2xl border border-dark-border">
+                <h3 class="text-lg font-bold text-gold-accent mb-3 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left"></i> Historia Laboral</h3>
+                <ul class="text-sm text-gray-300 space-y-1.5">
+                    <li>• Corrección y Recuperación de Semanas</li>
+                    <li>• Validación de Empleadores e Inconsistencias</li>
+                    <li>• Aportes Omitidos en Colpensiones y AFP</li>
+                </ul>
+            </div>
+
+            <!-- Bloque 4 -->
+            <div class="bg-dark-card p-6 rounded-2xl border border-dark-border">
+                <h3 class="text-lg font-bold text-gold-accent mb-3 flex items-center gap-2"><i class="fa-solid fa-scale-balanced"></i> Litigio y Demandas</h3>
+                <ul class="text-sm text-gray-300 space-y-1.5">
+                    <li>• Demandas contra Colpensiones y AFP</li>
+                    <li>• Nulidad e Ineficacia del Traslado</li>
+                    <li>• Recursos Administrativos y Cumplimiento de Sentencias</li>
+                </ul>
+            </div>
+
+            <!-- Bloque 5 -->
+            <div class="bg-dark-card p-6 rounded-2xl border border-dark-border">
+                <h3 class="text-lg font-bold text-gold-accent mb-3 flex items-center gap-2"><i class="fa-solid fa-calculator"></i> Cálculos Actuariales</h3>
+                <ul class="text-sm text-gray-300 space-y-1.5">
+                    <li>• Bonos Pensionales, Cuotas Partes y Reserva Actuarial</li>
+                    <li>• Conmutaciones Pensionales</li>
+                    <li>• Informes Periciales y Dictámenes Técnicos</li>
+                </ul>
+            </div>
+
+            <!-- Bloque 6 -->
+            <div class="bg-dark-card p-6 rounded-2xl border border-dark-border">
+                <h3 class="text-lg font-bold text-gold-accent mb-3 flex items-center gap-2"><i class="fa-solid fa-briefcase"></i> Empresas y Abogados</h3>
+                <ul class="text-sm text-gray-300 space-y-1.5">
+                    <li>• Auditorías Pensionales y Pasivos Laborales</li>
+                    <li>• Dictámenes, Peritajes y Liquidaciones Judiciales</li>
+                    <li>• Estudios Especializados para Abogados Litigantes</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 7. AUTORIDAD Y RESPALDO (POR QUÉ CONFIAR) -->
+    <section class="py-16 bg-dark-card/60 border-y border-dark-border px-6 md:px-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-6 space-y-6">
+                <h2 class="text-3xl md:text-4xl font-black text-white">¿Por qué confiar en Arturo Pro?</h2>
+                <p class="text-gray-300">Construimos credibilidad a través de resultados exactos y rigor jurídico.</p>
+
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-circle-check text-gold-accent text-xl mt-1"></i>
+                        <div>
+                            <strong class="text-white block">Más de 30 Años de Experiencia</strong>
+                            <span class="text-sm text-gray-400">Trayectoria liderada por el Dr. Carlos Arturo López en el régimen pensional colombiano.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-circle-check text-gold-accent text-xl mt-1"></i>
+                        <div>
+                            <strong class="text-white block">Software Propio de Cálculo Pensional</strong>
+                            <span class="text-sm text-gray-400">Tecnología exclusiva para simulaciones e informes de alta precisión matemática.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-circle-check text-gold-accent text-xl mt-1"></i>
+                        <div>
+                            <strong class="text-white block">Especialistas en Derecho Laboral y Seguridad Social</strong>
+                            <span class="text-sm text-gray-400">Acompañamiento personalizado y técnico durante todo el proceso.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="lg:col-span-6">
+                <div class="rounded-2xl overflow-hidden border border-dark-border shadow-2xl">
+                    <img src="https://i.ibb.co/rR2qWmHb/if05.png" alt="Tranquilidad pensional Arturo Pro" class="w-full h-auto object-cover">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 8. PREGUNTAS FRECUENTES -->
+    <section class="py-20 px-6 md:px-12 max-w-4xl mx-auto space-y-8">
+        <div class="text-center">
+            <h2 class="text-3xl font-black text-white">Preguntas Frecuentes</h2>
+            <p class="text-gray-400 mt-2">Respuestas rápidas a sus dudas pensionales más comunes.</p>
+        </div>
+
+        <div class="space-y-4">
+            <details class="bg-dark-card p-5 rounded-xl border border-dark-border group">
+                <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                    ¿Cómo saber si mi pensión está bien liquidada?
+                    <span class="text-gold-accent transition group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                </summary>
+                <p class="text-sm text-gray-400 mt-3">A través de un Estudio Pensional revisamos las semanas cotizadas, los salarios reportados (IBL) y las normas aplicables para verificar si el valor que le pagan coincide con lo legalmente debido.</p>
+            </details>
+
+            <details class="bg-dark-card p-5 rounded-xl border border-dark-border group">
+                <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                    ¿Qué documentos necesito para iniciar mi estudio?
+                    <span class="text-gold-accent transition group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                </summary>
+                <p class="text-sm text-gray-400 mt-3">Principalmente su Historia Laboral actualizada (Colpensiones o Fondo Privado) y su documento de identidad. Si ya está pensionado, la resolución de reconocimiento.</p>
+            </details>
+
+            <details class="bg-dark-card p-5 rounded-xl border border-dark-border group">
+                <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                    ¿Puedo aumentar el valor de mi pensión si ya estoy pensionado?
+                    <span class="text-gold-accent transition group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                </summary>
+                <p class="text-sm text-gray-400 mt-3">Sí. Si se detectan errores en el cálculo del IBL, semanas omitidas o mala aplicación de regímenes de transición, se puede solicitar la reliquidación de la mesada pensional.</p>
+            </details>
+
+            <details class="bg-dark-card p-5 rounded-xl border border-dark-border group">
+                <summary class="font-bold text-white cursor-pointer list-none flex justify-between items-center">
+                    ¿Puedo reclamar dinero retroactivo no pagado?
+                    <span class="text-gold-accent transition group-open:rotate-180"><i class="fa-solid fa-chevron-down"></i></span>
+                </summary>
+                <p class="text-sm text-gray-400 mt-3">Correcto. Al demostrar un reajuste o una mora injustificada, es posible reclamar las diferencias retroactivas acumuladas conforme a los términos de ley.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- 9. CALL TO ACTION FINAL & FORMULARIO SIMPLE -->
+    <section class="py-20 px-6 md:px-12 bg-gradient-to-t from-dark-card to-dark-bg border-t border-dark-border">
+        <div class="max-w-3xl mx-auto space-y-8 bg-dark-card p-8 md:p-10 rounded-3xl border border-gold-accent/30 shadow-2xl">
+            
+            <div class="text-center space-y-3">
+                <h2 class="text-3xl font-black text-white">Solicite su Evaluación Pensional</h2>
+                <p class="text-gray-400 text-sm">Complete el formulario o escríbanos directamente para que un especialista revise su caso.</p>
+            </div>
+
+            <!-- FORMULARIO DIRECTO -->
+            <form action="https://wa.me/573127939673" method="GET" target="_blank" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Nombre Completo</label>
+                    <input type="text" placeholder="Ej. Juan Pérez" required class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-accent">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Teléfono / WhatsApp</label>
+                        <input type="tel" placeholder="Ej. 310 000 0000" required class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-accent">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1">¿Cuál es su situación?</label>
+                        <select class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-accent">
+                            <option>Revisar si mi pensión está bien liquidada</option>
+                            <option>Estoy próximo a pensionarme</option>
+                            <option>Deseo una proyección de pensión</option>
+                            <option>Errores en mi historia laboral</option>
+                            <option>Me negaron la pensión</option>
+                            <option>Nulidad de traslado de fondo</option>
+                            <option>Estudio Integral Completo</option>
+                            <option>Otro caso pensional</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Comentarios o Detalles</label>
+                    <textarea rows="3" placeholder="Describa brevemente su consulta..." class="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-accent"></textarea>
+                </div>
+
+                <a href="https://wa.me/573127939673?text=Dr%20Carlos%20Arturo,%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." 
+                   target="_blank" 
+                   class="w-full flex items-center justify-center gap-3 bg-neon-green hover:bg-emerald-500 text-black font-black text-lg py-4 rounded-xl btn-glow transition">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Quiero que un especialista revise mi caso
+                </a>
+            </form>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 text-center text-xs text-gray-500 border-t border-dark-border">
+        <p>© 2026 Arturo Pro - Consultoría y Derecho Pensional. Todos los derechos reservados.</p>
+        <p class="mt-1">Liderado por el Dr. Carlos Arturo López • WhatsApp: +57 312 793 9673</p>
+    </footer>
+
+</body>
+</html>
