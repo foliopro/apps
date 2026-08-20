@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartilla Tributaria & Contable | CESAR AUGUSTO CANO PAREJA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cano: { dark: "#0a0f1d", navy: "#0f172a", card: "#131e36", gold: "#c59b27", goldLight: "#e0b84c", border: "#233354" }
+          },
+          fontFamily: { brand: ["Cinzel", "serif"], sans: ["Montserrat", "sans-serif"] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #080c17; color: #f1f5f9; font-family: "Montserrat", sans-serif; }
+    .gold-gradient-text { background: linear-gradient(135deg, #f8df8c 0%, #c59b27 50%, #9a7516 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .gold-gradient-bg { background: linear-gradient(135deg, #d8ac34 0%, #c59b27 50%, #9a7516 100%); }
+    .highlight-row { background-color: rgba(197, 155, 39, 0.22) !important; border-left: 3px solid #e0b84c !important; }
+    .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background-color: #233354; border-radius: 4px; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: #ffffff !important; color: #000000 !important; font-size: 10pt; }
+      .print-area { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+  <header class="bg-cano-navy/95 border-b border-cano-gold/30 sticky top-0 z-40 shadow-2xl no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+      <div class="flex items-center gap-3">
+        <img src="https://i.ibb.co/Fqbm4QKd/logo-Cano-Asesor.png" class="w-10 h-10 rounded-full border-2 border-cano-gold object-cover shadow-md">
+        <div>
+          <h1 class="text-sm sm:text-base font-black uppercase font-brand gold-gradient-text">Cartilla Tributaria & Contable</h1>
+          <p class="text-[11px] text-slate-400 font-medium">CESAR AUGUSTO CANO PAREJA</p>
+        </div>
+      </div>
+      <nav class="flex items-center gap-1.5 bg-cano-card p-1 rounded-xl border border-cano-border">
+        <button onclick="cambiarSeccion('quienes-somos')" id="tab-quienes-somos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300">Quiénes Somos</button>
+        <button onclick="cambiarSeccion('explorar-plazos')" id="tab-explorar-plazos" class="px-4 py-1.5 rounded-lg text-xs font-black gold-gradient-bg text-cano-dark shadow">Explorar Plazos</button>
+        <button onclick="cambiarSeccion('mis-plazos')" id="tab-mis-plazos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300">Mis Plazos</button>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 flex-grow w-full no-print">
+    <!-- VISTA 1: QUIÉNES SOMOS -->
+    <div id="vista-quienes-somos" class="hidden space-y-6">
+      <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-4 flex flex-col items-center text-center border-b lg:border-b-0 lg:border-r border-cano-border pb-6 lg:pb-0 lg:pr-6">
+            <img src="https://i.ibb.co/Fqbm4QKd/logo-Cano-Asesor.png" class="w-28 h-28 rounded-2xl border-2 border-cano-gold shadow-2xl object-cover mb-3">
+            <h2 class="text-lg font-black text-white font-brand">CESAR AUGUSTO CANO PAREJA</h2>
+            <p class="text-xs text-cano-goldLight font-mono">T.P. Oficial 39648 - T• Contador Público Universid EAFIT</p>
+            <div class="w-full mt-4 space-y-2 text-xs text-left bg-cano-dark/60 p-3.5 rounded-2xl border border-cano-border">
+              <p class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-location-dot text-cano-gold"></i> Cl 17 # 15 -49, Of 501, Armenia, Colombia</p>
+              <p class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-envelope text-cano-gold"></i> <a href="#" onclick="abrirModalCorreo(); return false;" class="text-cano-goldLight hover:underline font-bold">canoasesor@gmail.com</a></p>
+              <p class="text-slate-300 flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> <a href="https://wa.me/573117715353?text=Hola,%20vengo%20de%20su%20app%20y%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" class="text-emerald-400 hover:underline font-bold">+573117715353</a></p>
+            </div>
+            <div class="w-full h-32 rounded-xl overflow-hidden border border-cano-border mt-3">
+              <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Cl%2017%20%23%2015%20-49%2C%20Of%20501%2C%20Armenia%2C%20Colombia&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center mt-4">
+              <a href="https://wa.me/573117715353?text=Hola,%20vengo%20de%20su%20app%20y%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+              <a href="https://canoasesor.com/blog" target="_blank" class="px-3.5 py-2 bg-cano-card border border-cano-gold/40 text-cano-goldLight rounded-xl text-xs font-bold"><i class="fa-solid fa-newspaper"></i> Blog</a>
+            </div>
+          </div>
+          <div class="lg:col-span-8 space-y-4">
+            <h3 class="text-xs sm:text-sm font-bold text-cano-goldLight uppercase tracking-wider font-brand">"Blindaje fiscal y optimización tributaria: Asesoría tributaria y contable estratégica para el crecimiento empresarial."</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">"Especialista en estructuración tributaria, planeación fiscal estratégica y blindaje normativo para medianas y grandes empresas en Colombia. Más de 15 años optimizando la carga impositiva bajo estricto apego a la ley."</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">
+              <div class="p-3.5 rounded-2xl border bg-cano-card border-cano-gold shadow-md space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-cano-goldLight">Auditoría Externa</span>
+                  <span class="bg-cano-gold text-cano-dark text-[8px] font-black px-1.5 py-0.5 rounded uppercase">Principal #1</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Evaluación objetiva y exhaustiva de procesos contables y fiscales para detectar y corregir inconsistencias a tiempo.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Outsourcing Contable</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Gestión contable integral bajo normas NIIF con reportes e indicadores financieros mensuales para la alta gerencia.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Revisoría Fiscal</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Aseguramiento riguroso de la información, supervisión independiente y dictamen transparente de estados financieros.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Control Interno</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Diseño e implementación de políticas y manuales de control contable y tesorería para blindar los recursos de la empresa.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Asesoría Tributaria Estratégica</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Acompañamiento continuo y respuesta inmediata a consultas complejas sobre normas tributarias nacionales y municipales.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Elaboración Informcion Exogena</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Servicio profesional de Elaboración Informcion Exogena con enfoque en resultados óptimos y cumplimiento fiscal.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- VISTA 2: EXPLORAR PLAZOS -->
+    <div id="vista-explorar-plazos" class="space-y-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <div class="lg:col-span-4 bg-cano-navy/90 border border-cano-border rounded-3xl p-4 shadow-xl space-y-4">
+          <div class="flex flex-wrap gap-1.5" id="nav-categorias-container"></div>
+          <div class="space-y-3 max-h-[60vh] overflow-y-auto custom-scroll pr-1 text-xs" id="lista-secciones-subsecciones"></div>
+        </div>
+        <div class="lg:col-span-8 bg-cano-navy/90 border border-cano-border rounded-3xl p-5 shadow-xl space-y-4" id="panel-visor-derecho"></div>
+      </div>
+    </div>
+    <!-- VISTA 3: MIS PLAZOS -->
+    <div id="vista-mis-plazos" class="hidden space-y-6">
+      <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 shadow-xl no-print space-y-4">
+        <div>
+          <h3 class="text-base font-black text-white font-brand">Genere su Calendario Individual por NIT</h3>
+          <p class="text-xs text-amber-400 font-medium mt-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i> El correo y el número de WhatsApp son obligatorios e importantes para poder enviarle y registrar su calendario completamente gratis.</p>
+        </div>
+        <form id="form-cliente-lead" onsubmit="procesarMisPlazos(event)" class="space-y-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">Nombre / Razón Social <span class="text-red-400">*</span></label>
+              <input type="text" id="lead-nombre" required placeholder="Ej: Empresa S.A.S." class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white focus:border-cano-gold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">NIT / Cédula (Sin DV) <span class="text-red-400">*</span></label>
+              <input type="text" id="lead-nit" required placeholder="Ej: 900123456" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white font-mono font-bold focus:border-cano-gold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">Correo Electrónico <span class="text-red-400">*</span></label>
+              <input type="email" id="lead-correo" required placeholder="correo@empresa.com" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white focus:border-cano-gold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">WhatsApp de Contacto <span class="text-red-400">*</span></label>
+              <input type="tel" id="lead-whatsapp" required placeholder="3101234567" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white font-mono font-bold focus:border-cano-gold focus:outline-none">
+            </div>
+          </div>
+          <div class="border-t border-cano-border pt-3">
+            <div class="flex flex-wrap justify-between items-center mb-2">
+              <p class="font-bold text-slate-300 uppercase">Seleccione obligaciones a incluir:</p>
+              <button type="button" onclick="marcarTodasObligaciones(false)" class="text-red-400 text-[11px] hover:underline font-bold"><i class="fa-solid fa-square-xmark mr-1"></i> Borrar Opciones (Deseleccionar)</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" id="checklist-mis-plazos"></div>
+          </div>
+          <button type="submit" class="px-6 py-2.5 gold-gradient-bg text-cano-dark font-black text-xs uppercase rounded-xl shadow-lg">Generar Mi Calendario Personalizado</button>
+        </form>
+      </div>
+      <div id="contenedor-reporte-nit" class="hidden space-y-4">
+        <div class="flex flex-wrap justify-between items-center bg-cano-card p-4 rounded-2xl border border-cano-border no-print">
+          <p class="text-xs text-cano-goldLight font-bold"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ¡Calendario generado con éxito!</p>
+          <button onclick="window.print()" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold uppercase transition flex items-center gap-1.5 shadow"><i class="fa-solid fa-file-pdf"></i> Imprimir / Guardar en PDF</button>
+        </div>
+        <div class="bg-white text-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 print-area">
+          <div class="border-b-2 border-slate-900 pb-3 mb-4 flex justify-between items-end">
+            <div>
+              <h2 class="text-lg font-black uppercase font-brand">Cartilla Tributaria & Contable</h2>
+              <p class="text-xs text-slate-600 font-bold">CESAR AUGUSTO CANO PAREJA • WhatsApp: 573117715353</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs font-black uppercase" id="rep-cl-nombre">Cliente</p>
+              <p class="text-xs font-mono font-bold">NIT: <span id="rep-cl-nit">0</span></p>
+            </div>
+          </div>
+          <table class="w-full text-xs text-left border-collapse border border-slate-300">
+            <thead><tr class="bg-slate-900 text-white uppercase text-[10px]"><th class="p-2 border">Obligación</th><th class="p-2 border">Clasificación</th><th class="p-2 border">Plazo Asignado</th></tr></thead>
+            <tbody id="tabla-reporte-lead"></tbody>
+          </table>
+          <div class="mt-8 pt-4 border-t border-slate-300 text-center text-xs">
+            <p class="font-bold">CESAR AUGUSTO CANO PAREJA</p>
+            <p class="text-[10px] text-slate-500">Firma Profesional</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- MODAL FORMULARIO CORREO -->
+  <div id="modal-correo" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-cano-navy border border-cano-gold rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-cano-border pb-3">
+        <h3 class="text-sm font-bold text-white uppercase font-brand"><i class="fa-solid fa-envelope text-cano-gold mr-1.5"></i> Enviar Mensaje al Contador</h3>
+        <button onclick="cerrarModalCorreo()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-cano-goldLight uppercase mb-1">Para el correo:</label>
+          <input type="text" readonly value="canoasesor@gmail.com" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="block font-bold text-cano-goldLight uppercase mb-1">Asunto:</label>
+          <input type="text" id="mail-asunto" value="Hola, vengo de su app y estoy interesado en sus servicios." class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">
+        </div>
+        <div>
+          <label class="block font-bold text-cano-goldLight uppercase mb-1">Su Correo Electrónico:</label>
+          <input type="email" id="mail-remitente" placeholder="su_correo@empresa.com" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">
+        </div>
+        <div>
+          <label class="block font-bold text-cano-goldLight uppercase mb-1">Mensaje / Inquietud:</label>
+          <textarea id="mail-cuerpo" rows="3" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">Estimado equipo, me gustaria recibir más información sobre sus asesorías.</textarea>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2 border-t border-cano-border">
+        <button onclick="cerrarModalCorreo()" class="px-4 py-2 bg-cano-card text-slate-300 rounded-xl text-xs font-bold">Cancelar</button>
+        <button onclick="enviarCorreoContador()" class="px-5 py-2 gold-gradient-bg text-cano-dark rounded-xl text-xs font-black uppercase">Enviar Correo</button>
+      </div>
+    </div>
+  </div>
+  <footer class="bg-cano-dark border-t border-cano-border py-6 px-4 no-print text-center text-xs text-slate-400 space-y-2">
+    <p>© 2026 <strong>CESAR AUGUSTO CANO PAREJA</strong>. Todos los derechos reservados.</p>
+    <p><a href="https://wa.me/573117715353?text=Hola%20Cesar%2C%20dime%20como%20puedo%20adquirir%20mi%20propio%20calendario" target="_blank" class="text-cano-goldLight hover:underline font-bold">Si da clic aqui para descubrir como tener tu propio Calendario Tributario y compartirlo con tus clientes.</a></p>
+  </footer>
+  <script>
+    var TXT_URL = "https://foliopro.github.io/apps/app_contadores_plazos.txt";
+    var ESTRUCTURA_TRIBUTARIA = [];
+    var categoriaActivaIndex = 0;
+    var subseccionActivaKey = null;
+    var MESES_MAP = { "01":"Ene","1":"Ene","02":"Feb","2":"Feb","03":"Mar","3":"Mar","04":"Abr","4":"Abr","05":"May","5":"May","06":"Jun","6":"Jun","07":"Jul","7":"Jul","08":"Ago","8":"Ago","09":"Sep","9":"Sep","10":"Oct","11":"Nov","12":"Dic" };
+    function formatearFechaMmm(val) {
+      if (!val) return "";
+      var p = String(val).trim().split("/");
+      return (p.length === 2 && MESES_MAP[p[1]]) ? (p[0].padStart(2, "0") + " " + MESES_MAP[p[1]]) : val;
+    }
+    function parsearTxtACalendario(txt) {
+      var lineas = txt.split("\n");
+      var categorias = [];
+      var catActual = null, secActual = null, subActual = null;
+      for (var i = 0; i < lineas.length; i++) {
+        var l = lineas[i].trim();
+        if (!l) continue;
+        if (/^[A-Z]\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]/.test(l) && !l.includes(".")) {
+          catActual = { id: l.substring(0, 1), nombre: l, secciones: [] };
+          categorias.push(catActual);
+          secActual = null; subActual = null;
+        } else if (/^[A-Z]\.[0-9]+\./.test(l) && l.split(".").length === 3) {
+          secActual = { nombre: l, subsecciones: [] };
+          if (catActual) catActual.secciones.push(secActual);
+          subActual = null;
+        } else if (/^[A-Z]\.[0-9]+\.[0-9]+\./.test(l)) {
+          subActual = { id: l.split(" ")[0].replace(/\./g, "_"), nombre: l, textosPrevios: [], encabezados: [], filas: [], notasFinales: [] };
+          if (secActual) secActual.subsecciones.push(subActual);
+        } else if (subActual) {
+          if (l.startsWith("Texto:")) subActual.textosPrevios.push(l.replace("Texto:", "").trim());
+          else if (l.startsWith("Nota:")) subActual.notasFinales.push(l.replace("Nota:", "").trim());
+          else if (l.includes(";") && subActual.encabezados.length === 0) subActual.encabezados = l.split(";").map(function(h){ return h.trim(); });
+          else {
+            var p = l.split(/\s+/);
+            if (p.length >= 2) subActual.filas.push({ digito: p[0], fechas: p.slice(1).map(function(f){ return formatearFechaMmm(f); }) });
+          }
+        }
+      }
+      return categorias;
+    }
+    async function cargarDatosTxt() {
+      try {
+        var resp = await fetch(TXT_URL);
+        if (!resp.ok) throw new Error();
+        ESTRUCTURA_TRIBUTARIA = parsearTxtACalendario(await resp.text());
+      } catch(e) {
+        console.warn("Carga TXT:", e);
+      }
+      renderizarIndiceLateral();
+      renderizarChecklistMisPlazos();
+    }
+    function cambiarSeccion(tabId) {
+      document.getElementById("vista-quienes-somos").classList.add("hidden");
+      document.getElementById("vista-explorar-plazos").classList.add("hidden");
+      document.getElementById("vista-mis-plazos").classList.add("hidden");
+      ["tab-quienes-somos", "tab-explorar-plazos", "tab-mis-plazos"].forEach(function(id) {
+        document.getElementById(id).className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300";
+      });
+      document.getElementById("vista-" + tabId).classList.remove("hidden");
+      document.getElementById("tab-" + tabId).className = "px-4 py-1.5 rounded-lg text-xs font-black gold-gradient-bg text-cano-dark shadow";
+    }
+    function renderizarIndiceLateral() {
+      var catCont = document.getElementById("nav-categorias-container");
+      var secCont = document.getElementById("lista-secciones-subsecciones");
+      catCont.innerHTML = ""; secCont.innerHTML = "";
+      if (ESTRUCTURA_TRIBUTARIA.length === 0) return;
+      ESTRUCTURA_TRIBUTARIA.forEach(function(cat, cIdx) {
+        var btn = document.createElement("button");
+        btn.className = "px-3 py-1 rounded-xl text-[11px] font-black uppercase " + (cIdx === categoriaActivaIndex ? "gold-gradient-bg text-cano-dark shadow" : "bg-cano-card border border-cano-border text-slate-300");
+        btn.innerText = cat.nombre;
+        btn.onclick = function() { categoriaActivaIndex = cIdx; renderizarIndiceLateral(); };
+        catCont.appendChild(btn);
+      });
+      var cat = ESTRUCTURA_TRIBUTARIA[categoriaActivaIndex];
+      if (!cat) return;
+      cat.secciones.forEach(function(sec) {
+        var secBox = document.createElement("div");
+        secBox.className = "space-y-1 border border-cano-border bg-cano-card/60 p-2.5 rounded-2xl";
+        secBox.innerHTML = "<h4 class=\"font-black text-[11px] uppercase text-cano-goldLight\">" + sec.nombre + "</h4>";
+        var subList = document.createElement("div");
+        subList.className = "space-y-1 pl-2";
+        sec.subsecciones.forEach(function(sub, sIdx) {
+          if (!subseccionActivaKey && sIdx === 0) subseccionActivaKey = sub.id;
+          var esActiva = subseccionActivaKey === sub.id;
+          var subBtn = document.createElement("button");
+          subBtn.className = "w-full text-left p-1.5 rounded-xl text-xs " + (esActiva ? "bg-cano-navy border border-cano-gold text-white font-bold" : "text-slate-400");
+          subBtn.innerText = sub.nombre;
+          subBtn.onclick = function() { subseccionActivaKey = sub.id; renderizarIndiceLateral(); };
+          subList.appendChild(subBtn);
+        });
+        secBox.appendChild(subList);
+        secCont.appendChild(secBox);
+      });
+      renderizarVisorSubseccion();
+    }
+    function renderizarVisorSubseccion() {
+      var visor = document.getElementById("panel-visor-derecho");
+      var obj = null;
+      for (var i = 0; i < ESTRUCTURA_TRIBUTARIA.length; i++) {
+        var c = ESTRUCTURA_TRIBUTARIA[i];
+        for (var j = 0; j < c.secciones.length; j++) {
+          var s = c.secciones[j];
+          for (var k = 0; k < s.subsecciones.length; k++) {
+            var sub = s.subsecciones[k];
+            if (sub.id === subseccionActivaKey) { obj = { cat: c, sec: s, sub: sub }; break; }
+          }
+        }
+      }
+      if (!obj) return;
+      var cat = obj.cat, sec = obj.sec, sub = obj.sub;
+      var htmlHeader = "<div class=\"border-b border-cano-border pb-2\"><span class=\"text-[10px] text-cano-goldLight uppercase font-bold\">" + cat.nombre + " • " + sec.nombre + "</span><h3 class=\"text-base font-black text-white\">" + sub.nombre + "</h3></div>";
+      var htmlTextos = sub.textosPrevios.map(function(t){ return "<p class=\"text-xs text-slate-300 italic\">" + t + "</p>"; }).join("");
+      var htmlTabla = "";
+      if (sub.encabezados.length > 0) {
+        var esU2D = sub.encabezados[0].includes("U2D");
+        if (esU2D && sub.filas.length > 20) {
+          var mitad = Math.ceil(sub.filas.length / 2);
+          var trs = "";
+          for (var r = 0; r < mitad; r++) {
+            var f1 = sub.filas[r], f2 = sub.filas[r + mitad];
+            trs += "<tr class=\"border-b border-cano-border/50 text-center\"><td class=\"p-1.5 text-cano-goldLight font-bold\">" + f1.digito + "</td><td class=\"p-1.5 text-white\">" + (f1.fechas[0]||"") + "</td><td class=\"p-1.5 text-cano-goldLight font-bold\">" + (f2?f2.digito:"") + "</td><td class=\"p-1.5 text-white\">" + (f2&&f2.fechas[0]?f2.fechas[0]:"") + "</td></tr>";
+          }
+          htmlTabla = "<table class=\"w-full text-xs border border-cano-border\"><thead class=\"bg-cano-card text-cano-goldLight text-[10px]\"><tr><th>" + sub.encabezados[0] + "</th><th>Fecha</th><th>" + sub.encabezados[0] + "</th><th>Fecha</th></tr></thead><tbody>" + trs + "</tbody></table>";
+        } else {
+          var ths = sub.encabezados.map(function(h){ return "<th class=\"p-2\">" + h + "</th>"; }).join("");
+          var trs = sub.filas.map(function(f) {
+            var tds = f.fechas.map(function(fc){ return "<td class=\"p-1.5 text-center text-white\">" + fc + "</td>"; }).join("");
+            return "<tr class=\"border-b border-cano-border/50\"><td class=\"p-1.5 text-center font-bold text-cano-goldLight\">" + f.digito + "</td>" + tds + "</tr>";
+          }).join("");
+          htmlTabla = "<div class=\"overflow-x-auto\"><table class=\"w-full text-xs border border-cano-border\"><thead class=\"bg-cano-card text-cano-goldLight text-[10px]\"><tr>" + ths + "</tr></thead><tbody>" + trs + "</tbody></table></div>";
+        }
+      }
+      visor.innerHTML = "<div class=\"space-y-3\">" + htmlHeader + htmlTextos + htmlTabla + "</div>";
+    }
+    function renderizarChecklistMisPlazos() {
+      var cont = document.getElementById("checklist-mis-plazos");
+      if (!cont) return;
+      cont.innerHTML = "";
+      ESTRUCTURA_TRIBUTARIA.forEach(function(cat) {
+        cat.secciones.forEach(function(sec) {
+          sec.subsecciones.forEach(function(sub) {
+            if (sub.filas.length > 0) {
+              var lbl = document.createElement("label");
+              lbl.className = "flex items-center gap-2 p-2 rounded-xl bg-cano-card border border-cano-border text-slate-300 cursor-pointer";
+              lbl.innerHTML = "<input type=\"checkbox\" name=\"chk_mis_plazos\" value=\"" + sub.id + "\" checked class=\"rounded text-cano-gold\"><span>" + sub.nombre + "</span>";
+              cont.appendChild(lbl);
+            }
+          });
+        });
+      });
+    }
+    function marcarTodasObligaciones(st) {
+      document.querySelectorAll("input[name='chk_mis_plazos']").forEach(function(c){ c.checked = st; });
+    }
+    function procesarMisPlazos(e) {
+      e.preventDefault();
+      var nombre = document.getElementById("lead-nombre").value;
+      var nit = document.getElementById("lead-nit").value.replace(/\D/g, "");
+      var correo = document.getElementById("lead-correo").value;
+      var wpp = document.getElementById("lead-whatsapp").value;
+      var uDig = nit.slice(-1);
+      var u2Dig = nit.slice(-2);
+      document.getElementById("rep-cl-nombre").innerText = nombre;
+      document.getElementById("rep-cl-nit").innerText = nit;
+      var checks = Array.from(document.querySelectorAll("input[name='chk_mis_plazos']:checked")).map(function(c){ return c.value; });
+      var tbody = document.getElementById("tabla-reporte-lead");
+      tbody.innerHTML = "";
+      ESTRUCTURA_TRIBUTARIA.forEach(function(cat) {
+        cat.secciones.forEach(function(sec) {
+          sec.subsecciones.forEach(function(sub) {
+            if (checks.includes(sub.id)) {
+              var fEncontrada = "Consultar calendario";
+              for (var f of sub.filas) {
+                if (f.digito === uDig || f.digito.includes(u2Dig)) { fEncontrada = f.fechas.join(" | "); break; }
+              }
+              tbody.innerHTML += "<tr class=\"border-b\"><td class=\"p-2 font-bold\">" + sub.nombre + "</td><td class=\"p-2 text-slate-600\">" + cat.nombre + "</td><td class=\"p-2 font-bold text-amber-800\">" + fEncontrada + "</td></tr>";
+            }
+          });
+        });
+      });
+      document.getElementById("contenedor-reporte-nit").classList.remove("hidden");
+      alert("¡Calendario generado y registrado! El cliente " + nombre + " (Correo: " + correo + ", Wpp: " + wpp + ") ha solicitado su reporte. Realiza el seguimiento respectivo.");
+    }
+    function abrirModalCorreo() {
+      document.getElementById("modal-correo").classList.remove("hidden");
+    }
+    function cerrarModalCorreo() {
+      document.getElementById("modal-correo").classList.add("hidden");
+    }
+    function enviarCorreoContador() {
+      var remitente = document.getElementById("mail-remitente").value;
+      var asunto = document.getElementById("mail-asunto").value;
+      var cuerpo = document.getElementById("mail-cuerpo").value;
+      var mailtoLink = "mailto:canoasesor@gmail.com?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent("Remitente: " + remitente + "\n\n" + cuerpo);
+      window.location.href = mailtoLink;
+      cerrarModalCorreo();
+    }
+    window.onload = cargarDatosTxt;
+  </script>
+</body>
+</html>
