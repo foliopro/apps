@@ -64,7 +64,6 @@
               <p class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-envelope text-cano-gold"></i> <a href="#" onclick="abrirModalCorreo(); return false;" class="text-cano-goldLight hover:underline font-bold">canoasesor@gmail.com</a></p>
               <p class="text-slate-300 flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> <a href="https://wa.me/573117715353?text=Hola,%20vengo%20de%20su%20app%20y%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" class="text-emerald-400 hover:underline font-bold">+573117715353</a></p>
             </div>
-            <!-- Redes sociales con íconos -->
             <div class="flex flex-wrap gap-2 justify-center mt-3" id="app-redes-container">
               <a href="https://facebook.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="facebook"><i class="fa-brands fa-facebook-f"></i></a>
               <a href="https://linkedin.com/in/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -124,7 +123,7 @@
         </div>
       </div>
     </div>
-    <!-- VISTA 2: EXPLORAR PLAZOS (CON AUTO-SCROLL MÓVIL) -->
+    <!-- VISTA 2: EXPLORAR PLAZOS -->
     <div id="vista-explorar-plazos" class="space-y-5">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <div class="lg:col-span-4 bg-cano-navy/90 border border-cano-border rounded-3xl p-4 shadow-xl space-y-4">
@@ -294,6 +293,11 @@
       });
       document.getElementById("vista-" + tabId).classList.remove("hidden");
       document.getElementById("tab-" + tabId).className = "px-4 py-1.5 rounded-lg text-xs font-black gold-gradient-bg text-cano-dark shadow";
+      
+      // Si hace clic en Explorar Plazos, regresa arriba del todo (inicio)
+      if (tabId === "explorar-plazos") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
     function renderizarIndiceLateral() {
       var catCont = document.getElementById("nav-categorias-container");
@@ -325,7 +329,12 @@
             subseccionActivaKey = sub.id; 
             renderizarIndiceLateral(); 
             if (window.innerWidth < 1024) {
-              document.getElementById("panel-visor-derecho").scrollIntoView({ behavior: "smooth" });
+              // Scroll preciso al inicio del visor de la tabla / sección de consulta
+              var visorElem = document.getElementById("panel-visor-derecho");
+              var headerOffset = 70;
+              var elementPosition = visorElem.getBoundingClientRect().top;
+              var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+              window.scrollTo({ top: offsetPosition, behavior: "smooth" });
             }
           };
           subList.appendChild(subBtn);
