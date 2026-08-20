@@ -64,6 +64,12 @@
               <p class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-envelope text-cano-gold"></i> <a href="#" onclick="abrirModalCorreo(); return false;" class="text-cano-goldLight hover:underline font-bold">canoasesor@gmail.com</a></p>
               <p class="text-slate-300 flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> <a href="https://wa.me/573117715353?text=Hola,%20vengo%20de%20su%20app%20y%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" class="text-emerald-400 hover:underline font-bold">+573117715353</a></p>
             </div>
+            <!-- Redes sociales con íconos -->
+            <div class="flex flex-wrap gap-2 justify-center mt-3" id="app-redes-container">
+<a href="https://facebook.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+<a href="https://linkedin.com/in/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+<a href="https://instagram.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
             <div class="w-full h-32 rounded-xl overflow-hidden border border-cano-border mt-3">
               <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Cl%2017%20%23%2015%20-49%2C%20Of%20501%2C%20Armenia%2C%20Colombia&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
             </div>
@@ -372,7 +378,7 @@
             if (sub.filas.length > 0) {
               var lbl = document.createElement("label");
               lbl.className = "flex items-center gap-2 p-2 rounded-xl bg-cano-card border border-cano-border text-slate-300 cursor-pointer";
-              lbl.innerHTML = "<input type=\"checkbox\" name=\"chk_mis_plazos\" value=\"" + sub.id + "\" checked class=\"rounded text-cano-gold\"><span>" + sub.nombre + "</span>";
+              lbl.innerHTML = "<input type=\"checkbox\" name=\"chk_mis_plazos\" value=\"" + sub.id + "\" class=\"rounded text-cano-gold\"><span>" + sub.nombre + "</span>";
               cont.appendChild(lbl);
             }
           });
@@ -409,9 +415,13 @@
         });
       });
       document.getElementById("contenedor-reporte-nit").classList.remove("hidden");
-      alert("¡Calendario generado y registrado! El cliente " + nombre + " (Correo: " + correo + ", Wpp: " + wpp + ") ha solicitado su reporte. Realiza el seguimiento respectivo.");
+      
+      var msgSeguimiento = "Hola " + nombre + ", soy de CESAR AUGUSTO CANO PAREJA. Validamos que solicitaste tu calendario tributario para el NIT " + nit + ". ¿Pudiste descargarlo sin problema? Si tienes alguna inquietud o requieres asesoría, con gusto te ayudamos.";
+      console.log("REGISTRO DE CLIENTE PARA SEGUIMIENTO:", { nombre, nit, correo, wpp, msgSeguimiento });
+      alert("¡Calendario generado con éxito! El sistema ha registrado los datos del cliente para que realices el seguimiento por WhatsApp (" + wpp + ") o correo (" + correo + ").");
     }
     function abrirModalCorreo() {
+      document.getElementById("modal-correo-destino").value = "canoasesor@gmail.com";
       document.getElementById("modal-correo").classList.remove("hidden");
     }
     function cerrarModalCorreo() {
