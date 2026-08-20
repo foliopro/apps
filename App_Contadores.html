@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Administrador Marca Blanca | CanoAsesor</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Cinzel & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cano: {
+              dark: '#0a0f1d',
+              navy: '#0f172a',
+              card: '#131e36',
+              gold: '#c59b27',
+              goldLight: '#e0b84c',
+              goldDark: '#9a7516',
+              border: '#233354'
+            }
+          },
+          fontFamily: {
+            brand: ['Cinzel', 'serif'],
+            sans: ['Montserrat', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #080c17;
+      color: #f1f5f9;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #f8df8c 0%, #c59b27 50%, #9a7516 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gold-gradient-bg {
+      background: linear-gradient(135deg, #d8ac34 0%, #c59b27 50%, #9a7516 100%);
+    }
+    .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background-color: #233354; border-radius: 4px; }
+    
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: #ffffff !important; color: #000000 !important; font-size: 10pt; }
+      .print-area { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+      .page-break { page-break-after: always; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- BARRA SUPERIOR / IDENTIDAD DE MARCA -->
+  <header class="bg-cano-navy/90 backdrop-blur border-b border-cano-gold/30 sticky top-0 z-40 shadow-2xl no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
+      
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-full border-2 border-cano-gold shadow-lg bg-cano-card flex items-center justify-center font-brand font-bold text-cano-gold text-lg overflow-hidden">
+          <img id="header-logo-preview" src="" alt="Logo" class="w-full h-full object-cover hidden">
+          <span id="header-logo-fallback"><i class="fa-solid fa-scale-balanced text-cano-goldLight"></i></span>
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-xl font-black tracking-wider uppercase font-brand gold-gradient-text">
+            Panel Administrador Marca Blanca
+          </h1>
+          <p class="text-xs text-slate-400 font-medium flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Sistema de Gestión & Creación de Apps Contables
+          </p>
+        </div>
+      </div>
+
+      <!-- Acciones de Persistencia JSON, PDF y Creación de App -->
+      <div class="flex flex-wrap items-center gap-2">
+        <label class="px-3.5 py-2 rounded-xl bg-cano-card hover:bg-cano-border border border-cano-gold/40 text-cano-goldLight hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-file-import"></i> Subir JSON
+          <input type="file" id="file-json-input" accept=".json" class="hidden" onchange="cargarArchivoJSON(event)">
+        </label>
+        
+        <button onclick="descargarJSON()" class="px-3.5 py-2 rounded-xl bg-cano-card hover:bg-cano-border border border-cano-gold/40 text-cano-goldLight hover:text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-file-arrow-down"></i> Guardar JSON
+        </button>
+
+        <button onclick="generarPDFDossier()" class="px-4 py-2 rounded-xl gold-gradient-bg text-cano-dark font-black text-xs uppercase tracking-wider hover:opacity-90 transition flex items-center gap-1.5 shadow-lg">
+          <i class="fa-solid fa-file-pdf"></i> Imprimir Dossier PDF
+        </button>
+
+        <button onclick="compilarAppCliente()" class="px-4 py-2 rounded-xl gold-gradient-bg text-cano-dark font-black text-xs uppercase tracking-wider hover:opacity-90 transition flex items-center gap-1.5 shadow-lg" title="Compilar y Descargar la App Web Final del Contador">
+          <i class="fa-solid fa-rocket"></i> Crear App (HTML)
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL DEL PANEL -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow w-full space-y-8 no-print">
+
+    <!-- 1. BLOQUE DE IDENTIDAD, MARCA Y LOGO -->
+    <div class="bg-cano-navy/80 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+      <div class="border-b border-cano-border/80 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg gold-gradient-bg text-cano-dark flex items-center justify-center font-bold text-sm shadow">
+            <i class="fa-solid fa-id-badge"></i>
+          </div>
+          <div>
+            <h2 class="text-base font-bold text-white uppercase tracking-wider font-brand">1. Identidad & Branding del Contador / Firma</h2>
+            <p class="text-xs text-slate-400">Personalice los datos base, logo corporativo, contacto y ubicación física.</p>
+          </div>
+        </div>
+        <span class="text-[11px] bg-cano-card border border-cano-gold/30 text-cano-goldLight px-3 py-1 rounded-full font-mono font-semibold">Configuración Base</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        
+        <!-- Vista previa de Logo y URL -->
+        <div class="md:col-span-4 bg-cano-dark/80 p-5 rounded-2xl border border-cano-border flex flex-col items-center text-center space-y-4">
+          <div class="w-32 h-32 rounded-2xl border-2 border-cano-gold shadow-2xl bg-cano-card flex items-center justify-center font-brand font-bold text-cano-gold text-3xl overflow-hidden">
+            <img id="main-logo-display" src="" alt="Logo" class="w-full h-full object-cover hidden">
+            <span id="main-logo-fallback"><i class="fa-solid fa-scale-balanced text-cano-gold text-4xl"></i></span>
+          </div>
+          
+          <div class="w-full text-left space-y-2">
+            <label class="block text-[11px] font-bold text-cano-goldLight uppercase">URL o Enlace del Logo (Opcional)</label>
+            <input type="text" id="cfg-logo-url" value="" placeholder="Pegue la URL del logo" 
+                   class="w-full px-3 py-2 bg-cano-navy border border-cano-border rounded-xl text-xs text-slate-200 focus:border-cano-gold focus:outline-none"
+                   oninput="actualizarLogoPreview(this.value)">
+          </div>
+        </div>
+
+        <!-- Campos de Texto del Contador -->
+        <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">Nombre de la App / Cartilla</label>
+            <input type="text" id="cfg-app-name" value="Cartilla Tributaria & Contable" 
+                   class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs font-bold text-white focus:border-cano-gold focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">Nombre del Contador / Despacho</label>
+            <input type="text" id="cfg-contador-nombre" value="CanoAsesor • Asesoría Contable & Tributaria" 
+                   class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs font-bold text-white focus:border-cano-gold focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">Tarjeta Profesional / Título</label>
+            <input type="text" id="cfg-contador-tp" value="T.P. Oficial • Contador Público & Revisor Fiscal" 
+                   class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs text-slate-200 focus:border-cano-gold focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">Correo Electrónico de Contacto</label>
+            <input type="email" id="cfg-contador-correo" value="contacto@canoasesor.com" placeholder="contacto@ejemplo.com" 
+                   class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs text-white focus:border-cano-gold focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">WhatsApp del Contador (Con indicativo)</label>
+            <input type="text" id="cfg-contador-wa" value="573101234567" placeholder="Ej: 573101234567" 
+                   class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs font-mono font-bold text-white focus:border-cano-gold focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">Dirección Física (Oficina)</label>
+            <input type="text" id="cfg-contador-dir" value="cl 20 # 40-30, Cali, Colombia" placeholder="Ej: cl 20 # 40-30, Cali, Colombia" 
+                   class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs text-white focus:border-cano-gold focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1"><i class="fa-solid fa-newspaper mr-1"></i> Link del Blog (Opcional)</label>
+            <input type="url" id="cfg-contador-blog" value="https://canoasesor.com/blog" placeholder="https://tudominio.com/blog" 
+                   class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs text-slate-200 focus:border-cano-gold focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1"><i class="fa-brands fa-whatsapp text-emerald-400 mr-1"></i> Tu WhatsApp (Footer Venta B2B)</label>
+            <input type="text" id="cfg-dev-wa" value="573117715353" placeholder="573117715353" 
+                   class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs font-mono font-bold text-white focus:border-cano-gold focus:outline-none">
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">Redes Sociales (Formato: Red|URL - Una por línea)</label>
+            <textarea id="cfg-contador-redes" rows="3" class="w-full px-3.5 py-2 bg-cano-card border border-cano-border rounded-xl text-xs font-mono text-slate-200 focus:border-cano-gold focus:outline-none">facebook|https://facebook.com/canoasesor
+linkedin|https://linkedin.com/in/canoasesor
+instagram|https://instagram.com/canoasesor</textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2. BLOQUE DE LEMA & DESCRIPCIÓN DEL PERFIL -->
+    <div class="bg-cano-navy/80 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+      
+      <div class="border-b border-cano-border/80 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg gold-gradient-bg text-cano-dark flex items-center justify-center font-bold text-sm shadow">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <div>
+            <h2 class="text-base font-bold text-white uppercase tracking-wider font-brand">2. Lema & Perfil Profesional (3 Propuestas)</h2>
+            <p class="text-xs text-slate-400">Ingrese la idea base, genere 3 enfoques persuasivos y seleccione el definitivo.</p>
+          </div>
+        </div>
+        <button onclick="depurarLemaYPerfil()" class="px-3.5 py-1.5 rounded-xl bg-red-950/60 hover:bg-red-900 border border-red-500/40 text-red-300 text-xs font-bold transition flex items-center gap-1.5 shadow">
+          <i class="fa-solid fa-trash-can"></i> Borrar No Seleccionados
+        </button>
+      </div>
+
+      <!-- SECCIÓN LEMA -->
+      <div class="bg-cano-dark/60 p-5 rounded-2xl border border-cano-border space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div class="w-full sm:w-2/3">
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">Lema / Slogan Base</label>
+            <input type="text" id="input-lema-base" value="Asesoría tributaria y contable estratégica para el crecimiento empresarial" 
+                   class="w-full px-3.5 py-2 bg-cano-card border border-cano-border rounded-xl text-xs text-white focus:border-cano-gold focus:outline-none">
+          </div>
+          <button onclick="generarPropuestasLema()" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-cano-card hover:bg-cano-border border border-cano-gold/50 text-cano-goldLight hover:text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
+            <i class="fa-solid fa-arrows-rotate text-cano-gold"></i> Generar 3 Lemas
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2" id="grid-propuestas-lema"></div>
+      </div>
+
+      <!-- SECCIÓN DESCRIPCIÓN DEL PERFIL -->
+      <div class="bg-cano-dark/60 p-5 rounded-2xl border border-cano-border space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div class="w-full sm:w-2/3">
+            <label class="block text-xs font-bold text-cano-goldLight uppercase mb-1">Descripción Base del Perfil / Firma</label>
+            <textarea id="input-perfil-base" rows="2" class="w-full px-3.5 py-2 bg-cano-card border border-cano-border rounded-xl text-xs text-white focus:border-cano-gold focus:outline-none">Especialistas en planeación fiscal, revisoría y contabilidad en Colombia, garantizando tranquilidad normativa.</textarea>
+          </div>
+          <button onclick="generarPropuestasPerfil()" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-cano-card hover:bg-cano-border border border-cano-gold/50 text-cano-goldLight hover:text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow">
+            <i class="fa-solid fa-arrows-rotate text-cano-gold"></i> Generar 3 Descripciones
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2" id="grid-propuestas-perfil"></div>
+      </div>
+
+    </div>
+
+    <!-- 3. BLOQUE DINÁMICO DE SERVICIOS -->
+    <div class="bg-cano-navy/80 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+      
+      <div class="border-b border-cano-border/80 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg gold-gradient-bg text-cano-dark flex items-center justify-center font-bold text-sm shadow">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div>
+            <h2 class="text-base font-bold text-white uppercase tracking-wider font-brand">3. Portafolio de Servicios (3 Enfoques por Servicio)</h2>
+            <p class="text-xs text-slate-400">Escriba sus servicios (uno por línea), genere argumentos persuasivos, reordene o ponga como #1.</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button onclick="depurarServiciosDescartados()" class="px-3.5 py-1.5 rounded-xl bg-red-950/60 hover:bg-red-900 border border-red-500/40 text-red-300 text-xs font-bold transition flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-filter-circle-xmark"></i> Depurar No Seleccionados
+          </button>
+        </div>
+      </div>
+
+      <!-- Entrada en bruto de servicios -->
+      <div class="bg-cano-dark/60 p-5 rounded-2xl border border-cano-border space-y-3">
+        <label class="block text-xs font-bold text-cano-goldLight uppercase">Lista de Servicios (Un servicio por cada renglón):</label>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <textarea id="input-servicios-raw" rows="5" class="w-full px-3.5 py-2.5 bg-cano-card border border-cano-border rounded-xl text-xs font-mono text-white focus:border-cano-gold focus:outline-none leading-relaxed">Planeación y Renta
+Outsourcing Contable
+Revisoría Fiscal
+Auditoría Externa
+Control Interno
+Asesoría Tributaria Estratégica</textarea>
+
+          <div class="flex sm:flex-col justify-center gap-2 min-w-[200px]">
+            <button onclick="procesarYGenerarServicios()" class="w-full px-4 py-3 rounded-xl gold-gradient-bg text-cano-dark font-black text-xs uppercase tracking-wider hover:opacity-90 transition flex items-center justify-center gap-2 shadow-lg">
+              <i class="fa-solid fa-sparkles"></i> Generar 3 Opciones Por Servicio
+            </button>
+            <button onclick="agregarServicioVacio()" class="w-full px-4 py-2 rounded-xl bg-cano-card hover:bg-cano-border border border-cano-gold/30 text-slate-300 hover:text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-plus"></i> Añadir Servicio Individual
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor de Tarjetas de Servicios con sus 3 opciones -->
+      <div id="contenedor-servicios-cards" class="space-y-4"></div>
+
+    </div>
+
+    <!-- BOTÓN FINAL DE PERSISTENCIA Y GUARDADO -->
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-cano-card p-6 rounded-3xl border border-cano-gold/30 shadow-2xl">
+      <div>
+        <h3 class="text-sm font-bold text-white uppercase font-brand gold-gradient-text">¿Todo listo para guardar y compilar?</h3>
+        <p class="text-xs text-slate-400">Guarde la configuración en JSON para respaldar o haga clic en Crear App (HTML) para descargar la app lista.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="guardarEnLocalStorage()" class="px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 shadow-md">
+          <i class="fa-solid fa-floppy-disk"></i> Guardar Todo en Memoria
+        </button>
+        <button onclick="descargarJSON()" class="px-5 py-2.5 rounded-xl gold-gradient-bg text-cano-dark text-xs font-black uppercase tracking-wider hover:opacity-90 transition flex items-center gap-2 shadow-md">
+          <i class="fa-solid fa-download"></i> Exportar JSON del Cliente
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- VISTA OCULTA: DOCUMENTO DOSSIER PARA EXPORTAR A PDF                       -->
+  <!-- ========================================================================= -->
+  <div id="area-impresion-dossier" class="hidden bg-white text-slate-900 p-8 print-area">
+    <div class="border-b-2 border-slate-900 pb-4 mb-6 flex justify-between items-center">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 rounded-xl border border-slate-300 bg-slate-100 flex items-center justify-center font-brand font-bold text-slate-700 text-xl overflow-hidden">
+          <img id="pdf-logo-display" src="" alt="Logo" class="w-full h-full object-cover hidden">
+          <span id="pdf-logo-fallback"><i class="fa-solid fa-scale-balanced text-amber-700"></i></span>
+        </div>
+        <div>
+          <h2 class="text-xl font-black uppercase text-slate-900 font-brand" id="pdf-app-name">Cartilla Tributaria & Contable</h2>
+          <p class="text-xs font-bold text-amber-700" id="pdf-contador-nombre">CanoAsesor • Asesoría Contable & Tributaria</p>
+          <p class="text-[10px] text-slate-500 font-mono" id="pdf-contador-tp">T.P. Oficial • Contador Público</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <span class="bg-slate-900 text-white text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">Dossier de Aprobación</span>
+        <p class="text-[10px] text-slate-500 mt-1">Seleccione una opción [X] por cada ítem</p>
+      </div>
+    </div>
+
+    <div class="space-y-6 text-xs">
+      <div class="border border-slate-300 rounded-xl p-4 bg-slate-50">
+        <h3 class="font-bold text-slate-900 uppercase mb-2 border-b pb-1">1. Selección de Lema / Slogan Comercial:</h3>
+        <div id="pdf-opciones-lema" class="space-y-2"></div>
+      </div>
+
+      <div class="border border-slate-300 rounded-xl p-4 bg-slate-50">
+        <h3 class="font-bold text-slate-900 uppercase mb-2 border-b pb-1">2. Selección de Descripción del Perfil / Despacho:</h3>
+        <div id="pdf-opciones-perfil" class="space-y-2"></div>
+      </div>
+
+      <div class="border border-slate-300 rounded-xl p-4 bg-slate-50">
+        <h3 class="font-bold text-slate-900 uppercase mb-2 border-b pb-1">3. Propuestas Comerciales para Cada Servicio:</h3>
+        <div id="pdf-opciones-servicios" class="space-y-4"></div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-slate-300 grid grid-cols-2 gap-8 text-center text-xs">
+        <div>
+          <div class="border-b border-slate-400 w-48 mx-auto mb-2"></div>
+          <p class="font-bold text-slate-900" id="pdf-firma-contador">Firma del Contador / Asesor</p>
+          <p class="text-[10px] text-slate-500">Aprobación de Contenidos</p>
+        </div>
+        <div>
+          <div class="border-b border-slate-400 w-48 mx-auto mb-2"></div>
+          <p class="font-bold text-slate-900">Desarrollador de Marca Blanca</p>
+          <p class="text-[10px] text-slate-500">Recepción para Compilación de App</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER VIRAL CON COLORES CANOASESOR -->
+  <footer class="bg-cano-dark border-t border-cano-border py-8 px-4 sm:px-6 no-print">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full border border-cano-gold/50 bg-cano-card flex items-center justify-center text-cano-gold text-xs">
+          <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+        <p>© 2026 <strong class="text-white font-brand">CanoAsesor</strong>. Plataforma de Marca Blanca para Contadores.</p>
+      </div>
+      <p class="text-center md:text-right">Diseñado con inteligencia tributaria, branding ejecutivo y prospección automatizada.</p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- MOTOR JAVASCRIPT: PANEL, REORDENAMIENTO & COMPILADOR DE APP FINAL         -->
+  <!-- ========================================================================= -->
+  <script>
+    let ESTADO_APP = {
+      app_name: "Cartilla Tributaria & Contable",
+      contador_nombre: "CanoAsesor • Asesoría Contable & Tributaria",
+      contador_tp: "T.P. Oficial • Contador Público & Revisor Fiscal",
+      contador_wa: "573101234567",
+      contador_correo: "contacto@canoasesor.com",
+      contador_dir: "cl 20 # 40-30, Cali, Colombia",
+      contador_blog: "https://canoasesor.com/blog",
+      dev_wa: "573117715353",
+      redes_raw: "facebook|https://facebook.com/canoasesor\nlinkedin|https://linkedin.com/in/canoasesor\ninstagram|https://instagram.com/canoasesor",
+      logo_url: "",
+      lema_base: "Asesoría tributaria y contable estratégica para el crecimiento empresarial",
+      lema_opciones: [
+        "Blindaje fiscal y optimización tributaria para el crecimiento seguro de su empresa.",
+        "Transformamos sus números en decisiones financieras rentables y libres de sanciones.",
+        "Asesoría contable y tributaria estratégica: cumplimiento riguroso con visión de ahorro."
+      ],
+      lema_seleccionado: 0,
+      perfil_base: "Especialistas en planeación fiscal, revisoría y contabilidad en Colombia, garantizando tranquilidad normativa.",
+      perfil_opciones: [
+        "Especialista en estructuración tributaria, planeación fiscal estratégica y blindaje normativo para medianas y grandes empresas en Colombia. Más de 15 años optimizando la carga impositiva bajo estricto apego a la ley.",
+        "Aliado estratégico en asesoría contable, auditoría preventiva ante la DIAN y revisoría fiscal independiente orientada a generar valor sostenible y rentabilidad para inversionistas.",
+        "Despacho contable de alto nivel enfocado en transformar la información contable en blindaje patrimonial, mitigación total de riesgos tributarios y gestión financiera de vanguardia."
+      ],
+      perfil_seleccionado: 0,
+      servicios: [
+        {
+          nombre: "Planeación y Renta",
+          opciones: [
+            "Optimización legal de la carga impositiva y liquidación estratégica de declaraciones de renta PJ y PN con cero contingencias.",
+            "Auditoría tributaria preventiva y estructuración patrimonial para aprovechar al máximo deducciones y beneficios fiscales.",
+            "Planeación fiscal integral con monitoreo periódico para evitar sanciones y requerimientos onerosos de la DIAN."
+          ],
+          seleccionado: 0
+        },
+        {
+          nombre: "Outsourcing Contable",
+          opciones: [
+            "Gestión contable integral bajo normas NIIF con reportes e indicadores financieros mensuales para la alta gerencia.",
+            "Contabilidad digital oportuna, conciliaciones bancarias al día y control exhaustivo de libros oficiales.",
+            "Soporte contable en la nube que permite a los directivos tomar decisiones gerenciales con cifras reales y actualizadas."
+          ],
+          seleccionado: 0
+        },
+        {
+          nombre: "Revisoría Fiscal",
+          opciones: [
+            "Aseguramiento riguroso de la información, supervisión independiente y dictamen transparente de estados financieros.",
+            "Control interno preventivo y auditoría integral para garantizar el estricto cumplimiento estatutario y legal.",
+            "Blindaje corporativo para socios y juntas directivas con recomendaciones estratégicas de mejora continua."
+          ],
+          seleccionado: 0
+        },
+        {
+          nombre: "Auditoría Externa",
+          opciones: [
+            "Evaluación objetiva y exhaustiva de procesos contables y fiscales para detectar y corregir inconsistencias a tiempo.",
+            "Verificación preventiva de saldos, partidas conciliatorias y cumplimiento de estándares internacionales de auditoría.",
+            "Diagnóstico financiero independiente con informes de hallazgos y plan de contingencia inmediata."
+          ],
+          seleccionado: 0
+        },
+        {
+          nombre: "Control Interno",
+          opciones: [
+            "Diseño e implementación de políticas y manuales de control contable y tesorería para blindar los recursos de la empresa.",
+            "Mitigación sistemática de fraudes, errores operativos y fugas de capital mediante auditorías periódicas.",
+            "Estandarización de flujos de trabajo administrativos que garantizan eficiencia operativa y trazabilidad total."
+          ],
+          seleccionado: 0
+        },
+        {
+          nombre: "Asesoría Tributaria Estratégica",
+          opciones: [
+            "Acompañamiento continuo y respuesta inmediata a consultas complejas sobre normas tributarias nacionales y municipales.",
+            "Defensa y respuesta calificada a emplazamientos, requerimientos especiales y pliegos de cargos de la DIAN.",
+            "Diagnóstico de oportunidades fiscales y actualización permanente frente a las constantes reformas tributarias."
+          ],
+          seleccionado: 0
+        }
+      ]
+    };
+
+    window.onload = function() {
+      const guardado = localStorage.getItem("canoasesor_marca_blanca");
+      if (guardado) {
+        try {
+          ESTADO_APP = JSON.parse(guardado);
+        } catch(e) { console.error("Error al cargar localStorage", e); }
+      }
+      cargarValoresAInterfaz();
+    };
+
+    function cargarValoresAInterfaz() {
+      document.getElementById('cfg-app-name').value = ESTADO_APP.app_name || '';
+      document.getElementById('cfg-contador-nombre').value = ESTADO_APP.contador_nombre || '';
+      document.getElementById('cfg-contador-tp').value = ESTADO_APP.contador_tp || '';
+      document.getElementById('cfg-contador-wa').value = ESTADO_APP.contador_wa || '';
+      document.getElementById('cfg-contador-correo').value = ESTADO_APP.contador_correo || '';
+      document.getElementById('cfg-contador-dir').value = ESTADO_APP.contador_dir || '';
+      document.getElementById('cfg-contador-blog').value = ESTADO_APP.contador_blog || '';
+      document.getElementById('cfg-dev-wa').value = ESTADO_APP.dev_wa || '';
+      document.getElementById('cfg-contador-redes').value = ESTADO_APP.redes_raw || '';
+      document.getElementById('cfg-logo-url').value = ESTADO_APP.logo_url || '';
+      
+      document.getElementById('input-lema-base').value = ESTADO_APP.lema_base || '';
+      document.getElementById('input-perfil-base').value = ESTADO_APP.perfil_base || '';
+
+      const lineasServicios = ESTADO_APP.servicios.map(s => s.nombre).join('\n');
+      document.getElementById('input-servicios-raw').value = lineasServicios;
+
+      actualizarLogoPreview(ESTADO_APP.logo_url);
+      renderizarPropuestasLema();
+      renderizarPropuestasPerfil();
+      renderizarTarjetasServicios();
+    }
+
+    function actualizarLogoPreview(url) {
+      const img1 = document.getElementById('main-logo-display');
+      const img2 = document.getElementById('header-logo-preview');
+      const img3 = document.getElementById('pdf-logo-display');
+      const f1 = document.getElementById('main-logo-fallback');
+      const f2 = document.getElementById('header-logo-fallback');
+      const f3 = document.getElementById('pdf-logo-fallback');
+
+      if (url && url.trim() !== "") {
+        img1.src = url.trim();
+        img2.src = url.trim();
+        if (img3) img3.src = url.trim();
+        img1.classList.remove('hidden');
+        img2.classList.remove('hidden');
+        if (img3) img3.classList.remove('hidden');
+        if (f1) f1.classList.add('hidden');
+        if (f2) f2.classList.add('hidden');
+        if (f3) f3.classList.add('hidden');
+        ESTADO_APP.logo_url = url.trim();
+      } else {
+        img1.classList.add('hidden');
+        img2.classList.add('hidden');
+        if (img3) img3.classList.add('hidden');
+        if (f1) f1.classList.remove('hidden');
+        if (f2) f2.classList.remove('hidden');
+        if (f3) f3.classList.remove('hidden');
+        ESTADO_APP.logo_url = "";
+      }
+    }
+
+    function generarPropuestasLema() {
+      const base = document.getElementById('input-lema-base').value.trim() || "Asesoría Contable y Tributaria";
+      ESTADO_APP.lema_base = base;
+      
+      ESTADO_APP.lema_opciones = [
+        `"Blindaje fiscal y optimización tributaria: ${base}."`,
+        `"Transformamos sus cifras en tranquilidad financiera y ahorro fiscal estratégico."`,
+        `"Cumplimiento tributario oportuno y asesoría estratégica de alto nivel corporativo."`
+      ];
+      ESTADO_APP.lema_seleccionado = 0;
+      renderizarPropuestasLema();
+    }
+
+    function renderizarPropuestasLema() {
+      const cont = document.getElementById('grid-propuestas-lema');
+      cont.innerHTML = '';
+      ESTADO_APP.lema_opciones.forEach((opc, idx) => {
+        const div = document.createElement('div');
+        const activa = ESTADO_APP.lema_seleccionado === idx;
+        div.className = `p-3 rounded-xl border text-xs cursor-pointer transition flex flex-col justify-between ${activa ? 'bg-cano-card border-cano-gold text-white shadow-lg' : 'bg-cano-navy/60 border-cano-border text-slate-400 hover:border-slate-500'}`;
+        div.onclick = () => { ESTADO_APP.lema_seleccionado = idx; renderizarPropuestasLema(); };
+        div.innerHTML = `
+          <div class="flex items-start gap-2 mb-2">
+            <input type="radio" name="radio_lema" ${activa ? 'checked' : ''} class="mt-0.5 text-cano-gold focus:ring-cano-gold">
+            <span class="font-bold text-cano-goldLight uppercase text-[10px]">Opción ${idx + 1}</span>
+          </div>
+          <textarea class="w-full bg-transparent text-xs p-1 focus:outline-none resize-none text-slate-200" rows="3" onchange="ESTADO_APP.lema_opciones[${idx}] = this.value">${opc}</textarea>
+        `;
+        cont.appendChild(div);
+      });
+    }
+
+    function depurarLemaYPerfil() {
+      const lemaGanador = ESTADO_APP.lema_opciones[ESTADO_APP.lema_seleccionado];
+      ESTADO_APP.lema_opciones = [lemaGanador];
+      ESTADO_APP.lema_seleccionado = 0;
+
+      const perfilGanador = ESTADO_APP.perfil_opciones[ESTADO_APP.perfil_seleccionado];
+      ESTADO_APP.perfil_opciones = [perfilGanador];
+      ESTADO_APP.perfil_seleccionado = 0;
+
+      renderizarPropuestasLema();
+      renderizarPropuestasPerfil();
+      alert("¡Lema y Perfil depurados con éxito!");
+    }
+
+    function generarPropuestasPerfil() {
+      const base = document.getElementById('input-perfil-base').value.trim();
+      ESTADO_APP.perfil_base = base;
+
+      ESTADO_APP.perfil_opciones = [
+        `Especialista en estructuración tributaria, planeación fiscal estratégica y blindaje normativo. ${base}`,
+        `Despacho contable de alto nivel enfocado en mitigar contingencias ante la DIAN, optimizar la carga fiscal y potenciar la rentabilidad empresarial.`,
+        `Aliado estratégico en contabilidad gerencial, auditoría preventiva y revisoría fiscal independiente orientada a resultados transparentes y sostenibles.`
+      ];
+      ESTADO_APP.perfil_seleccionado = 0;
+      renderizarPropuestasPerfil();
+    }
+
+    function renderizarPropuestasPerfil() {
+      const cont = document.getElementById('grid-propuestas-perfil');
+      cont.innerHTML = '';
+      ESTADO_APP.perfil_opciones.forEach((opc, idx) => {
+        const div = document.createElement('div');
+        const activa = ESTADO_APP.perfil_seleccionado === idx;
+        div.className = `p-3 rounded-xl border text-xs cursor-pointer transition flex flex-col justify-between ${activa ? 'bg-cano-card border-cano-gold text-white shadow-lg' : 'bg-cano-navy/60 border-cano-border text-slate-400 hover:border-slate-500'}`;
+        div.onclick = () => { ESTADO_APP.perfil_seleccionado = idx; renderizarPropuestasPerfil(); };
+        div.innerHTML = `
+          <div class="flex items-start gap-2 mb-2">
+            <input type="radio" name="radio_perfil" ${activa ? 'checked' : ''} class="mt-0.5 text-cano-gold focus:ring-cano-gold">
+            <span class="font-bold text-cano-goldLight uppercase text-[10px]">Opción ${idx + 1}</span>
+          </div>
+          <textarea class="w-full bg-transparent text-xs p-1 focus:outline-none resize-none text-slate-200" rows="4" onchange="ESTADO_APP.perfil_opciones[${idx}] = this.value">${opc}</textarea>
+        `;
+        cont.appendChild(div);
+      });
+    }
+
+    function sincronizarTextAreaServicios() {
+      const lineas = ESTADO_APP.servicios.map(s => s.nombre).join('\n');
+      document.getElementById('input-servicios-raw').value = lineas;
+    }
+
+    function procesarYGenerarServicios() {
+      const raw = document.getElementById('input-servicios-raw').value.trim();
+      if (!raw) return;
+
+      const lineas = raw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      ESTADO_APP.servicios = lineas.map(nombre => {
+        return {
+          nombre: nombre,
+          opciones: [
+            `Optimización integral y gestión especializada en ${nombre} con enfoque de ahorro y cero contingencias fiscales.`,
+            `Auditoría preventiva y acompañamiento continuo en ${nombre} para garantizar cumplimiento normativo riguroso ante la DIAN.`,
+            `Estructuración profesional en ${nombre} orientada a la toma de decisiones gerenciales eficientes y blindaje patrimonial.`
+          ],
+          seleccionado: 0
+        };
+      });
+
+      renderizarTarjetasServicios();
+    }
+
+    function renderizarTarjetasServicios() {
+      const cont = document.getElementById('contenedor-servicios-cards');
+      cont.innerHTML = '';
+      const total = ESTADO_APP.servicios.length;
+
+      ESTADO_APP.servicios.forEach((serv, sIdx) => {
+        const card = document.createElement('div');
+        const esPrincipal = sIdx === 0;
+        card.className = `p-5 rounded-2xl border space-y-3 transition ${esPrincipal ? 'bg-cano-navy border-cano-gold shadow-xl ring-1 ring-cano-gold/50' : 'bg-cano-dark/80 border-cano-border'}`;
+        
+        let htmlOpciones = '';
+        serv.opciones.forEach((opc, oIdx) => {
+          const activa = serv.seleccionado === oIdx;
+          htmlOpciones += `
+            <div onclick="seleccionarOpcionServicio(${sIdx}, ${oIdx})" class="p-3 rounded-xl border text-xs cursor-pointer transition flex flex-col justify-between ${activa ? 'bg-cano-card border-cano-gold text-white shadow-md' : 'bg-cano-navy/50 border-cano-border text-slate-400 hover:border-slate-500'}">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-[10px] uppercase text-cano-goldLight">Enfoque ${oIdx + 1}</span>
+                <input type="radio" name="radio_serv_${sIdx}" ${activa ? 'checked' : ''} class="text-cano-gold">
+              </div>
+              <textarea class="w-full bg-transparent text-xs p-1 focus:outline-none resize-none text-slate-200" rows="3" onchange="ESTADO_APP.servicios[${sIdx}].opciones[${oIdx}] = this.value">${opc}</textarea>
+            </div>
+          `;
+        });
+
+        let badgePrincipal = esPrincipal 
+          ? `<span class="bg-cano-gold text-cano-dark px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider flex items-center gap-1"><i class="fa-solid fa-star text-cano-dark"></i> Servicio Principal #1</span>`
+          : `<button onclick="hacerServicioPrincipal(${sIdx})" class="px-2 py-0.5 rounded bg-cano-card hover:bg-cano-border border border-cano-gold/40 text-cano-goldLight text-[10px] font-bold transition flex items-center gap-1" title="Mover directo al puesto #1 como servicio principal"><i class="fa-regular fa-star"></i> Poner como #1</button>`;
+
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-cano-border pb-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="w-6 h-6 rounded-md ${esPrincipal ? 'gold-gradient-bg text-cano-dark' : 'bg-cano-card text-cano-goldLight border border-cano-border'} flex items-center justify-center font-black text-xs">${sIdx + 1}</span>
+              <input type="text" value="${serv.nombre}" onchange="ESTADO_APP.servicios[${sIdx}].nombre = this.value; sincronizarTextAreaServicios();" class="bg-transparent font-black text-sm text-white focus:outline-none border-b border-transparent focus:border-cano-gold">
+              ${badgePrincipal}
+            </div>
+
+            <div class="flex items-center gap-1.5 self-end sm:self-center">
+              <div class="flex items-center bg-cano-card rounded-lg border border-cano-border p-0.5">
+                <button onclick="moverServicio(${sIdx}, -1)" ${sIdx === 0 ? 'disabled class="px-2 py-1 text-slate-600 cursor-not-allowed text-xs"' : 'class="px-2 py-1 text-cano-goldLight hover:text-white hover:bg-cano-border rounded transition text-xs"'}>
+                  <i class="fa-solid fa-arrow-up"></i>
+                </button>
+                <button onclick="moverServicio(${sIdx}, 1)" ${sIdx === total - 1 ? 'disabled class="px-2 py-1 text-slate-600 cursor-not-allowed text-xs"' : 'class="px-2 py-1 text-cano-goldLight hover:text-white hover:bg-cano-border rounded transition text-xs"'}>
+                  <i class="fa-solid fa-arrow-down"></i>
+                </button>
+              </div>
+
+              <button onclick="regenerarOpcionesServicioIndividual(${sIdx})" class="px-2.5 py-1 text-[11px] text-cano-goldLight hover:text-white bg-cano-card hover:bg-cano-border rounded-lg border border-cano-gold/30 transition flex items-center gap-1">
+                <i class="fa-solid fa-arrows-rotate"></i> Recalcular 3
+              </button>
+              
+              <button onclick="eliminarServicio(${sIdx})" class="px-2 py-1 text-[11px] text-red-400 hover:text-red-200 bg-cano-card hover:bg-red-950/50 rounded-lg border border-red-500/30 transition ml-1" title="Eliminar servicio">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+            ${htmlOpciones}
+          </div>
+        `;
+        cont.appendChild(card);
+      });
+    }
+
+    function moverServicio(sIdx, direccion) {
+      const nuevoIdx = sIdx + direccion;
+      if (nuevoIdx < 0 || nuevoIdx >= ESTADO_APP.servicios.length) return;
+      const item = ESTADO_APP.servicios.splice(sIdx, 1)[0];
+      ESTADO_APP.servicios.splice(nuevoIdx, 0, item);
+      sincronizarTextAreaServicios();
+      renderizarTarjetasServicios();
+    }
+
+    function hacerServicioPrincipal(sIdx) {
+      if (sIdx === 0) return;
+      const item = ESTADO_APP.servicios.splice(sIdx, 1)[0];
+      ESTADO_APP.servicios.unshift(item);
+      sincronizarTextAreaServicios();
+      renderizarTarjetasServicios();
+    }
+
+    function seleccionarOpcionServicio(sIdx, oIdx) {
+      ESTADO_APP.servicios[sIdx].seleccionado = oIdx;
+      renderizarTarjetasServicios();
+    }
+
+    function regenerarOpcionesServicioIndividual(sIdx) {
+      const nombre = ESTADO_APP.servicios[sIdx].nombre;
+      ESTADO_APP.servicios[sIdx].opciones = [
+        `Asesoría de alto impacto en ${nombre} con visión estratégica de ahorro fiscal y eficiencia contable.`,
+        `Supervisión y control exhaustivo en ${nombre} bajo estándares internacionales y estricto apego legal.`,
+        `Soluciones personalizadas en ${nombre} diseñadas para mitigar contingencias y optimizar la rentabilidad del negocio.`
+      ];
+      renderizarTarjetasServicios();
+    }
+
+    function eliminarServicio(sIdx) {
+      if (confirm(`¿Eliminar el servicio "${ESTADO_APP.servicios[sIdx].nombre}"?`)) {
+        ESTADO_APP.servicios.splice(sIdx, 1);
+        sincronizarTextAreaServicios();
+        renderizarTarjetasServicios();
+      }
+    }
+
+    function agregarServicioVacio() {
+      const nuevoNombre = prompt("Ingrese el nombre del nuevo servicio:", "Nuevo Servicio Especializado");
+      if (nuevoNombre && nuevoNombre.trim() !== "") {
+        const nombreLimpio = nuevoNombre.trim();
+        ESTADO_APP.servicios.push({
+          nombre: nombreLimpio,
+          opciones: [
+            `Servicio profesional de ${nombreLimpio} con enfoque en resultados óptimos y cumplimiento fiscal.`,
+            `Auditoría y asesoría preventiva en ${nombreLimpio} para evitar sanciones y contingencias.`,
+            `Gestión estratégica en ${nombreLimpio} orientada al crecimiento sostenible de su empresa.`
+          ],
+          seleccionado: 0
+        });
+        sincronizarTextAreaServicios();
+        renderizarTarjetasServicios();
+      }
+    }
+
+    function depurarServiciosDescartados() {
+      ESTADO_APP.servicios.forEach(s => {
+        const opcionGanadora = s.opciones[s.seleccionado];
+        s.opciones = [opcionGanadora];
+        s.seleccionado = 0;
+      });
+      renderizarTarjetasServicios();
+      alert("¡Servicios depurados con éxito!");
+    }
+
+    function sincronizarEstadoDesdeCampos() {
+      ESTADO_APP.app_name = document.getElementById('cfg-app-name').value;
+      ESTADO_APP.contador_nombre = document.getElementById('cfg-contador-nombre').value;
+      ESTADO_APP.contador_tp = document.getElementById('cfg-contador-tp').value;
+      ESTADO_APP.contador_wa = document.getElementById('cfg-contador-wa').value;
+      ESTADO_APP.contador_correo = document.getElementById('cfg-contador-correo').value;
+      ESTADO_APP.contador_dir = document.getElementById('cfg-contador-dir').value;
+      ESTADO_APP.contador_blog = document.getElementById('cfg-contador-blog').value;
+      ESTADO_APP.dev_wa = document.getElementById('cfg-dev-wa').value;
+      ESTADO_APP.redes_raw = document.getElementById('cfg-contador-redes').value;
+      ESTADO_APP.logo_url = document.getElementById('cfg-logo-url').value;
+      ESTADO_APP.lema_base = document.getElementById('input-lema-base').value;
+      ESTADO_APP.perfil_base = document.getElementById('input-perfil-base').value;
+    }
+
+    function guardarEnLocalStorage() {
+      sincronizarEstadoDesdeCampos();
+      localStorage.setItem("canoasesor_marca_blanca", JSON.stringify(ESTADO_APP));
+      alert("¡Configuración guardada en memoria local!");
+    }
+
+    function descargarJSON() {
+      sincronizarEstadoDesdeCampos();
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(ESTADO_APP, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const nombreArchivo = (ESTADO_APP.contador_nombre.replace(/[^a-z0-9]/gi, '_').toLowerCase()) || "cliente_contador";
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `${nombreArchivo}_marca_blanca.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function cargarArchivoJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const jsonCargado = JSON.parse(e.target.result);
+          ESTADO_APP = jsonCargado;
+          cargarValoresAInterfaz();
+          alert("¡Archivo JSON cargado exitosamente!");
+        } catch(err) {
+          alert("Error al leer el archivo JSON.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function generarPDFDossier() {
+      sincronizarEstadoDesdeCampos();
+
+      document.getElementById('pdf-app-name').innerText = ESTADO_APP.app_name;
+      document.getElementById('pdf-contador-nombre').innerText = ESTADO_APP.contador_nombre;
+      document.getElementById('pdf-contador-tp').innerText = ESTADO_APP.contador_tp;
+      document.getElementById('pdf-firma-contador').innerText = ESTADO_APP.contador_nombre;
+
+      const img3 = document.getElementById('pdf-logo-display');
+      const f3 = document.getElementById('pdf-logo-fallback');
+      if (ESTADO_APP.logo_url && ESTADO_APP.logo_url.trim() !== "") {
+        img3.src = ESTADO_APP.logo_url;
+        img3.classList.remove('hidden');
+        if (f3) f3.classList.add('hidden');
+      } else {
+        img3.classList.add('hidden');
+        if (f3) f3.classList.remove('hidden');
+      }
+
+      const contLema = document.getElementById('pdf-opciones-lema');
+      contLema.innerHTML = '';
+      ESTADO_APP.lema_opciones.forEach((opc, idx) => {
+        contLema.innerHTML += `
+          <div class="flex items-start gap-3 p-2 bg-white rounded border border-slate-200">
+            <span class="font-bold border border-slate-400 px-2 py-0.5 rounded text-[10px]">Opción ${idx + 1} [ &nbsp; ]</span>
+            <p class="text-xs text-slate-800">${opc}</p>
+          </div>
+        `;
+      });
+
+      const contPerfil = document.getElementById('pdf-opciones-perfil');
+      contPerfil.innerHTML = '';
+      ESTADO_APP.perfil_opciones.forEach((opc, idx) => {
+        contPerfil.innerHTML += `
+          <div class="flex items-start gap-3 p-2 bg-white rounded border border-slate-200">
+            <span class="font-bold border border-slate-400 px-2 py-0.5 rounded text-[10px]">Opción ${idx + 1} [ &nbsp; ]</span>
+            <p class="text-xs text-slate-800">${opc}</p>
+          </div>
+        `;
+      });
+
+      const contServ = document.getElementById('pdf-opciones-servicios');
+      contServ.innerHTML = '';
+      ESTADO_APP.servicios.forEach((serv, sIdx) => {
+        let htmlOpc = '';
+        serv.opciones.forEach((opc, oIdx) => {
+          htmlOpc += `
+            <div class="flex items-start gap-2 p-1.5 bg-white rounded border border-slate-200">
+              <span class="font-bold border border-slate-400 px-1.5 py-0.5 rounded text-[9px]">Opción ${oIdx + 1} [ &nbsp; ]</span>
+              <p class="text-[11px] text-slate-700">${opc}</p>
+            </div>
+          `;
+        });
+
+        contServ.innerHTML += `
+          <div class="border border-slate-200 p-3 rounded-lg bg-slate-100/60 space-y-2">
+            <h4 class="font-bold text-slate-900 text-xs uppercase">${sIdx + 1}. ${serv.nombre}</h4>
+            <div class="space-y-1.5">${htmlOpc}</div>
+          </div>
+        `;
+      });
+
+      window.print();
+    }
+
+    // =========================================================================
+    // COMPILADOR DE LA APP CLIENTE FINAL
+    // =========================================================================
+    function compilarAppCliente() {
+      sincronizarEstadoDesdeCampos();
+      var cfg = ESTADO_APP;
+      var lemaFinal = cfg.lema_opciones[cfg.lema_seleccionado] || cfg.lema_base;
+      var perfilFinal = cfg.perfil_opciones[cfg.perfil_seleccionado] || cfg.perfil_base;
+      var correoContador = cfg.contador_correo || "contacto@canoasesor.com";
+      var dirContador = cfg.contador_dir || "Cali, Colombia";
+
+      var serviciosHtml = '';
+      cfg.servicios.forEach(function(s, idx) {
+        var opcTxt = (s.opciones && s.opciones[s.seleccionado]) ? s.opciones[s.seleccionado] : (s.opciones[0] || "");
+        serviciosHtml += '              <div class="p-3.5 rounded-2xl border ' + (idx === 0 ? 'bg-cano-card border-cano-gold shadow-md' : 'bg-cano-navy/60 border-cano-border') + ' space-y-1">\n' +
+                         '                <div class="flex items-center justify-between">\n' +
+                         '                  <span class="font-bold text-xs ' + (idx === 0 ? 'text-cano-goldLight' : 'text-white') + '">' + s.nombre + '</span>\n' +
+                         (idx === 0 ? '                  <span class="bg-cano-gold text-cano-dark text-[8px] font-black px-1.5 py-0.5 rounded uppercase">Principal #1</span>\n' : '') +
+                         '                </div>\n' +
+                         '                <p class="text-[11px] text-slate-300 leading-tight">' + opcTxt + '</p>\n' +
+                         '              </div>\n';
+      });
+
+      var logoTagHeader = cfg.logo_url 
+        ? '<img src="' + cfg.logo_url + '" class="w-10 h-10 rounded-full border-2 border-cano-gold object-cover shadow-md">'
+        : '<div class="w-10 h-10 rounded-full border-2 border-cano-gold bg-cano-card flex items-center justify-center font-brand font-bold text-cano-gold text-sm"><i class="fa-solid fa-scale-balanced"></i></div>';
+
+      var logoTagPerfil = cfg.logo_url
+        ? '<img src="' + cfg.logo_url + '" class="w-28 h-28 rounded-2xl border-2 border-cano-gold shadow-2xl object-cover mb-3">'
+        : '<div class="w-28 h-28 rounded-2xl border-2 border-cano-gold bg-cano-card flex items-center justify-center font-brand font-bold text-cano-gold text-3xl mb-3"><i class="fa-solid fa-scale-balanced"></i></div>';
+
+      var devWaLink = cfg.dev_wa || "573117715353";
+      var msgB2B = encodeURIComponent("Hola Cesar, dime como puedo adquirir mi propio calendario");
+      var mapsQuery = encodeURIComponent(dirContador);
+
+      var appCode = '<!DOCTYPE html>\n' +
+'<html lang="es">\n' +
+'<head>\n' +
+'  <meta charset="UTF-8">\n' +
+'  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+'  <title>' + cfg.app_name + ' | ' + cfg.contador_nombre + '</title>\n' +
+'  <script src="https://cdn.tailwindcss.com"><\/script>\n' +
+'  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">\n' +
+'  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">\n' +
+'  <script>\n' +
+'    tailwind.config = {\n' +
+'      theme: {\n' +
+'        extend: {\n' +
+'          colors: {\n' +
+'            cano: { dark: "#0a0f1d", navy: "#0f172a", card: "#131e36", gold: "#c59b27", goldLight: "#e0b84c", border: "#233354" }\n' +
+'          },\n' +
+'          fontFamily: { brand: ["Cinzel", "serif"], sans: ["Montserrat", "sans-serif"] }\n' +
+'        }\n' +
+'      }\n' +
+'    }\n' +
+'  <\/script>\n' +
+'  <style>\n' +
+'    body { background-color: #080c17; color: #f1f5f9; font-family: "Montserrat", sans-serif; }\n' +
+'    .gold-gradient-text { background: linear-gradient(135deg, #f8df8c 0%, #c59b27 50%, #9a7516 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }\n' +
+'    .gold-gradient-bg { background: linear-gradient(135deg, #d8ac34 0%, #c59b27 50%, #9a7516 100%); }\n' +
+'    .highlight-row { background-color: rgba(197, 155, 39, 0.22) !important; border-left: 3px solid #e0b84c !important; }\n' +
+'    .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }\n' +
+'    .custom-scroll::-webkit-scrollbar-thumb { background-color: #233354; border-radius: 4px; }\n' +
+'    @media print {\n' +
+'      .no-print { display: none !important; }\n' +
+'      body { background-color: #ffffff !important; color: #000000 !important; font-size: 10pt; }\n' +
+'      .print-area { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }\n' +
+'    }\n' +
+'  </style>\n' +
+'</head>\n' +
+'<body class="min-h-screen flex flex-col justify-between">\n' +
+'  <header class="bg-cano-navy/95 border-b border-cano-gold/30 sticky top-0 z-40 shadow-2xl no-print">\n' +
+'    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col md:flex-row justify-between items-center gap-3">\n' +
+'      <div class="flex items-center gap-3">\n' +
+'        ' + logoTagHeader + '\n' +
+'        <div>\n' +
+'          <h1 class="text-sm sm:text-base font-black uppercase font-brand gold-gradient-text">' + cfg.app_name + '</h1>\n' +
+'          <p class="text-[11px] text-slate-400 font-medium">' + cfg.contador_nombre + '</p>\n' +
+'        </div>\n' +
+'      </div>\n' +
+'      <nav class="flex items-center gap-1.5 bg-cano-card p-1 rounded-xl border border-cano-border">\n' +
+'        <button onclick="cambiarSeccion(\'quienes-somos\')" id="tab-quienes-somos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300">Quiénes Somos</button>\n' +
+'        <button onclick="cambiarSeccion(\'explorar-plazos\')" id="tab-explorar-plazos" class="px-4 py-1.5 rounded-lg text-xs font-black gold-gradient-bg text-cano-dark shadow">Explorar Plazos</button>\n' +
+'        <button onclick="cambiarSeccion(\'mis-plazos\')" id="tab-mis-plazos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300">Mis Plazos</button>\n' +
+'      </nav>\n' +
+'    </div>\n' +
+'  </header>\n' +
+'  <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 flex-grow w-full no-print">\n' +
+'    <!-- VISTA 1: QUIÉNES SOMOS -->\n' +
+'    <div id="vista-quienes-somos" class="hidden space-y-6">\n' +
+'      <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-2xl">\n' +
+'        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">\n' +
+'          <div class="lg:col-span-4 flex flex-col items-center text-center border-b lg:border-b-0 lg:border-r border-cano-border pb-6 lg:pb-0 lg:pr-6">\n' +
+'            ' + logoTagPerfil + '\n' +
+'            <h2 class="text-lg font-black text-white font-brand">' + cfg.contador_nombre + '</h2>\n' +
+'            <p class="text-xs text-cano-goldLight font-mono">' + cfg.contador_tp + '</p>\n' +
+'            <!-- Datos de contacto y mapa -->\n' +
+'            <div class="w-full mt-4 space-y-2 text-xs text-left bg-cano-dark/60 p-3.5 rounded-2xl border border-cano-border">\n' +
+'              <p class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-location-dot text-cano-gold"></i> ' + dirContador + '</p>\n' +
+'              <p class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-envelope text-cano-gold"></i> <a href="#" onclick="abrirModalCorreo(); return false;" class="text-cano-goldLight hover:underline font-bold">' + correoContador + '</a></p>\n' +
+'              <p class="text-slate-300 flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> <a href="https://wa.me/' + cfg.contador_wa + '?text=Hola,%20vengo%20de%20su%20app%20y%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" class="text-emerald-400 hover:underline font-bold">+' + cfg.contador_wa + '</a></p>\n' +
+'            </div>\n' +
+'            <div class="w-full h-32 rounded-xl overflow-hidden border border-cano-border mt-3">\n' +
+'              <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=' + mapsQuery + '&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>\n' +
+'            </div>\n' +
+'            <div class="flex flex-wrap gap-2 justify-center mt-4">\n' +
+'              <a href="https://wa.me/' + cfg.contador_wa + '?text=Hola,%20vengo%20de%20su%20app%20y%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>\n' +
+(cfg.contador_blog ? '              <a href="' + cfg.contador_blog + '" target="_blank" class="px-3.5 py-2 bg-cano-card border border-cano-gold/40 text-cano-goldLight rounded-xl text-xs font-bold"><i class="fa-solid fa-newspaper"></i> Blog</a>\n' : '') +
+'            </div>\n' +
+'          </div>\n' +
+'          <div class="lg:col-span-8 space-y-4">\n' +
+'            <h3 class="text-sm font-bold text-cano-goldLight uppercase tracking-wider font-brand">' + lemaFinal + '</h3>\n' +
+'            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">"' + perfilFinal + '"</p>\n' +
+'            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">\n' +
+serviciosHtml +
+'            </div>\n' +
+'          </div>\n' +
+'        </div>\n' +
+'      </div>\n' +
+'    </div>\n' +
+'    <!-- VISTA 2: EXPLORAR PLAZOS -->\n' +
+'    <div id="vista-explorar-plazos" class="space-y-5">\n' +
+'      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">\n' +
+'        <div class="lg:col-span-4 bg-cano-navy/90 border border-cano-border rounded-3xl p-4 shadow-xl space-y-4">\n' +
+'          <div class="flex flex-wrap gap-1.5" id="nav-categorias-container"></div>\n' +
+'          <div class="space-y-3 max-h-[60vh] overflow-y-auto custom-scroll pr-1 text-xs" id="lista-secciones-subsecciones"></div>\n' +
+'        </div>\n' +
+'        <div class="lg:col-span-8 bg-cano-navy/90 border border-cano-border rounded-3xl p-5 shadow-xl space-y-4" id="panel-visor-derecho"></div>\n' +
+'      </div>\n' +
+'    </div>\n' +
+'    <!-- VISTA 3: MIS PLAZOS -->\n' +
+'    <div id="vista-mis-plazos" class="hidden space-y-6">\n' +
+'      <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 shadow-xl no-print space-y-4">\n' +
+'        <div>\n' +
+'          <h3 class="text-base font-black text-white font-brand">Genere su Calendario Individual por NIT</h3>\n' +
+'          <p class="text-xs text-amber-400 font-medium mt-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i> El correo y el número de WhatsApp son obligatorios e importantes para poder enviarle y registrar su calendario completamente gratis.</p>\n' +
+'        </div>\n' +
+'        <form id="form-cliente-lead" onsubmit="procesarMisPlazos(event)" class="space-y-4 text-xs">\n' +
+'          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">\n' +
+'            <div>\n' +
+'              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">Nombre / Razón Social <span class="text-red-400">*</span></label>\n' +
+'              <input type="text" id="lead-nombre" required placeholder="Ej: Empresa S.A.S." class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white focus:border-cano-gold focus:outline-none">\n' +
+'            </div>\n' +
+'            <div>\n' +
+'              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">NIT / Cédula (Sin DV) <span class="text-red-400">*</span></label>\n' +
+'              <input type="text" id="lead-nit" required placeholder="Ej: 900123456" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white font-mono font-bold focus:border-cano-gold focus:outline-none">\n' +
+'            </div>\n' +
+'            <div>\n' +
+'              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">Correo Electrónico <span class="text-red-400">*</span></label>\n' +
+'              <input type="email" id="lead-correo" required placeholder="correo@empresa.com" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white focus:border-cano-gold focus:outline-none">\n' +
+'            </div>\n' +
+'            <div>\n' +
+'              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">WhatsApp de Contacto <span class="text-red-400">*</span></label>\n' +
+'              <input type="tel" id="lead-whatsapp" required placeholder="3101234567" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white font-mono font-bold focus:border-cano-gold focus:outline-none">\n' +
+'            </div>\n' +
+'          </div>\n' +
+'          <div class="border-t border-cano-border pt-3">\n' +
+'            <div class="flex flex-wrap justify-between items-center mb-2">\n' +
+'              <p class="font-bold text-slate-300 uppercase">Seleccione obligaciones a incluir:</p>\n' +
+'              <button type="button" onclick="marcarTodasObligaciones(false)" class="text-red-400 text-[11px] hover:underline font-bold"><i class="fa-solid fa-square-xmark mr-1"></i> Borrar Opciones (Deseleccionar)</button>\n' +
+'            </div>\n' +
+'            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" id="checklist-mis-plazos"></div>\n' +
+'          </div>\n' +
+'          <button type="submit" class="px-6 py-2.5 gold-gradient-bg text-cano-dark font-black text-xs uppercase rounded-xl shadow-lg">Generar Mi Calendario Personalizado</button>\n' +
+'        </form>\n' +
+'      </div>\n' +
+'      <div id="contenedor-reporte-nit" class="hidden space-y-4">\n' +
+'        <div class="flex flex-wrap justify-between items-center bg-cano-card p-4 rounded-2xl border border-cano-border no-print">\n' +
+'          <p class="text-xs text-cano-goldLight font-bold"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ¡Calendario generado con éxito y registrado al contador!</p>\n' +
+'          <button onclick="window.print()" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold uppercase transition flex items-center gap-1.5 shadow"><i class="fa-solid fa-file-pdf"></i> Imprimir / Guardar PDF</button>\n' +
+'        </div>\n' +
+'        <div class="bg-white text-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 print-area">\n' +
+'          <div class="border-b-2 border-slate-900 pb-3 mb-4 flex justify-between items-end">\n' +
+'            <div>\n' +
+'              <h2 class="text-lg font-black uppercase font-brand">' + cfg.app_name + '</h2>\n' +
+'              <p class="text-xs text-slate-600 font-bold">' + cfg.contador_nombre + ' • WhatsApp: ' + cfg.contador_wa + '</p>\n' +
+'            </div>\n' +
+'            <div class="text-right">\n' +
+'              <p class="text-xs font-black uppercase" id="rep-cl-nombre">Cliente</p>\n' +
+'              <p class="text-xs font-mono font-bold">NIT: <span id="rep-cl-nit">0</span></p>\n' +
+'            </div>\n' +
+'          </div>\n' +
+'          <table class="w-full text-xs text-left border-collapse border border-slate-300">\n' +
+'            <thead><tr class="bg-slate-900 text-white uppercase text-[10px]"><th class="p-2 border">Obligación</th><th class="p-2 border">Clasificación</th><th class="p-2 border">Plazo Asignado</th></tr></thead>\n' +
+'            <tbody id="tabla-reporte-lead"></tbody>\n' +
+'          </table>\n' +
+'          <div class="mt-8 pt-4 border-t border-slate-300 text-center text-xs">\n' +
+'            <p class="font-bold">' + cfg.contador_nombre + '</p>\n' +
+'            <p class="text-[10px] text-slate-500">Firma Profesional</p>\n' +
+'          </div>\n' +
+'        </div>\n' +
+'      </div>\n' +
+'    </div>\n' +
+'  </main>\n' +
+'  <!-- MODAL FORMULARIO CORREO -->\n' +
+'  <div id="modal-correo" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">\n' +
+'    <div class="bg-cano-navy border border-cano-gold rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl">\n' +
+'      <div class="flex justify-between items-center border-b border-cano-border pb-3">\n' +
+'        <h3 class="text-sm font-bold text-white uppercase font-brand"><i class="fa-solid fa-envelope text-cano-gold mr-1.5"></i> Enviar Mensaje al Contador</h3>\n' +
+'        <button onclick="cerrarModalCorreo()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>\n' +
+'      </div>\n' +
+'      <div class="space-y-3 text-xs">\n' +
+'        <div>\n' +
+'          <label class="block font-bold text-cano-goldLight uppercase mb-1">Para el correo:</label>\n' +
+'          <input type="text" readonly value="' + correoContador + '" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-slate-300 font-mono">\n' +
+'        </div>\n' +
+'        <div>\n' +
+'          <label class="block font-bold text-cano-goldLight uppercase mb-1">Asunto:</label>\n' +
+'          <input type="text" id="mail-asunto" value="Hola, vengo de su app y estoy interesado en sus servicios." class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">\n' +
+'        </div>\n' +
+'        <div>\n' +
+'          <label class="block font-bold text-cano-goldLight uppercase mb-1">Su Correo Electrónico:</label>\n' +
+'          <input type="email" id="mail-remitente" placeholder="su_correo@empresa.com" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">\n' +
+'        </div>\n' +
+'        <div>\n' +
+'          <label class="block font-bold text-cano-goldLight uppercase mb-1">Mensaje / Inquietud:</label>\n' +
+'          <textarea id="mail-cuerpo" rows="3" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">Estimado equipo, me gustaria recibir más información sobre sus asesorías.</textarea>\n' +
+'        </div>\n' +
+'      </div>\n' +
+'      <div class="flex justify-end gap-2 pt-2 border-t border-cano-border">\n' +
+'        <button onclick="cerrarModalCorreo()" class="px-4 py-2 bg-cano-card text-slate-300 rounded-xl text-xs font-bold">Cancelar</button>\n' +
+'        <button onclick="enviarCorreoContador()" class="px-5 py-2 gold-gradient-bg text-cano-dark rounded-xl text-xs font-black uppercase">Enviar Correo</button>\n' +
+'      </div>\n' +
+'    </div>\n' +
+'  </div>\n' +
+'  <footer class="bg-cano-dark border-t border-cano-border py-6 px-4 no-print text-center text-xs text-slate-400 space-y-2">\n' +
+'    <p>© 2026 <strong>' + cfg.contador_nombre + '</strong>. Todos los derechos reservados.</p>\n' +
+'    <p><a href="https://wa.me/' + devWaLink + '?text=' + msgB2B + '" target="_blank" class="text-cano-goldLight hover:underline font-bold">Si da clic aqui para descubrir como tener tu propio Calendario Tributario y compartirlo con tus clientes.</a></p>\n' +
+'  </footer>\n' +
+'  <script>\n' +
+'    var TXT_URL = "https://foliopro.github.io/apps/app_contadores_plazos.txt";\n' +
+'    var ESTRUCTURA_TRIBUTARIA = [];\n' +
+'    var categoriaActivaIndex = 0;\n' +
+'    var subseccionActivaKey = null;\n' +
+'    var pestanaTrimestre = 0;\n' +
+'    var MESES_MAP = { "01":"Ene","1":"Ene","02":"Feb","2":"Feb","03":"Mar","3":"Mar","04":"Abr","4":"Abr","05":"May","5":"May","06":"Jun","6":"Jun","07":"Jul","7":"Jul","08":"Ago","8":"Ago","09":"Sep","9":"Sep","10":"Oct","11":"Nov","12":"Dic" };\n' +
+'    function formatearFechaMmm(val) {\n' +
+'      if (!val) return "";\n' +
+'      var p = String(val).trim().split("/");\n' +
+'      return (p.length === 2 && MESES_MAP[p[1]]) ? (p[0].padStart(2, "0") + " " + MESES_MAP[p[1]]) : val;\n' +
+'    }\n' +
+'    function parsearTxtACalendario(txt) {\n' +
+'      var lineas = txt.split("\\n");\n' +
+'      var categorias = [];\n' +
+'      var catActual = null, secActual = null, subActual = null;\n' +
+'      for (var i = 0; i < lineas.length; i++) {\n' +
+'        var l = lineas[i].trim();\n' +
+'        if (!l) continue;\n' +
+'        if (/^[A-Z]\\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]/.test(l) && !l.includes(".")) {\n' +
+'          catActual = { id: l.substring(0, 1), nombre: l, secciones: [] };\n' +
+'          categorias.push(catActual);\n' +
+'          secActual = null; subActual = null;\n' +
+'        } else if (/^[A-Z]\\.[0-9]+\\./.test(l) && l.split(".").length === 3) {\n' +
+'          secActual = { nombre: l, subsecciones: [] };\n' +
+'          if (catActual) catActual.secciones.push(secActual);\n' +
+'          subActual = null;\n' +
+'        } else if (/^[A-Z]\\.[0-9]+\\.[0-9]+\\./.test(l)) {\n' +
+'          subActual = { id: l.split(" ")[0].replace(/\\./g, "_"), nombre: l, textosPrevios: [], encabezados: [], filas: [], notasFinales: [] };\n' +
+'          if (secActual) secActual.subsecciones.push(subActual);\n' +
+'        } else if (subActual) {\n' +
+'          if (l.startsWith("Texto:")) subActual.textosPrevios.push(l.replace("Texto:", "").trim());\n' +
+'          else if (l.startsWith("Nota:")) subActual.notasFinales.push(l.replace("Nota:", "").trim());\n' +
+'          else if (l.includes(";") && subActual.encabezados.length === 0) subActual.encabezados = l.split(";").map(function(h){ return h.trim(); });\n' +
+'          else {\n' +
+'            var p = l.split(/\\s+/);\n' +
+'            if (p.length >= 2) subActual.filas.push({ digito: p[0], fechas: p.slice(1).map(function(f){ return formatearFechaMmm(f); }) });\n' +
+'          }\n' +
+'        }\n' +
+'      }\n' +
+'      return categorias;\n' +
+'    }\n' +
+'    async function cargarDatosTxt() {\n' +
+'      try {\n' +
+'        var resp = await fetch(TXT_URL);\n' +
+'        if (!resp.ok) throw new Error();\n' +
+'        ESTRUCTURA_TRIBUTARIA = parsearTxtACalendario(await resp.text());\n' +
+'      } catch(e) {\n' +
+'        console.warn("Carga TXT:", e);\n' +
+'      }\n' +
+'      renderizarIndiceLateral();\n' +
+'      renderizarChecklistMisPlazos();\n' +
+'    }\n' +
+'    function cambiarSeccion(tabId) {\n' +
+'      document.getElementById("vista-quienes-somos").classList.add("hidden");\n' +
+'      document.getElementById("vista-explorar-plazos").classList.add("hidden");\n' +
+'      document.getElementById("vista-mis-plazos").classList.add("hidden");\n' +
+'      ["tab-quienes-somos", "tab-explorar-plazos", "tab-mis-plazos"].forEach(function(id) {\n' +
+'        document.getElementById(id).className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300";\n' +
+'      });\n' +
+'      document.getElementById("vista-" + tabId).classList.remove("hidden");\n' +
+'      document.getElementById("tab-" + tabId).className = "px-4 py-1.5 rounded-lg text-xs font-black gold-gradient-bg text-cano-dark shadow";\n' +
+'    }\n' +
+'    function renderizarIndiceLateral() {\n' +
+'      var catCont = document.getElementById("nav-categorias-container");\n' +
+'      var secCont = document.getElementById("lista-secciones-subsecciones");\n' +
+'      catCont.innerHTML = ""; secCont.innerHTML = "";\n' +
+'      if (ESTRUCTURA_TRIBUTARIA.length === 0) return;\n' +
+'      ESTRUCTURA_TRIBUTARIA.forEach(function(cat, cIdx) {\n' +
+'        var btn = document.createElement("button");\n' +
+'        btn.className = "px-3 py-1 rounded-xl text-[11px] font-black uppercase " + (cIdx === categoriaActivaIndex ? "gold-gradient-bg text-cano-dark shadow" : "bg-cano-card border border-cano-border text-slate-300");\n' +
+'        btn.innerText = cat.nombre;\n' +
+'        btn.onclick = function() { categoriaActivaIndex = cIdx; renderizarIndiceLateral(); };\n' +
+'        catCont.appendChild(btn);\n' +
+'      });\n' +
+'      var cat = ESTRUCTURA_TRIBUTARIA[categoriaActivaIndex];\n' +
+'      if (!cat) return;\n' +
+'      cat.secciones.forEach(function(sec) {\n' +
+'        var secBox = document.createElement("div");\n' +
+'        secBox.className = "space-y-1 border border-cano-border bg-cano-card/60 p-2.5 rounded-2xl";\n' +
+'        secBox.innerHTML = "<h4 class=\\"font-black text-[11px] uppercase text-cano-goldLight\\">" + sec.nombre + "</h4>";\n' +
+'        var subList = document.createElement("div");\n' +
+'        subList.className = "space-y-1 pl-2";\n' +
+'        sec.subsecciones.forEach(function(sub, sIdx) {\n' +
+'          if (!subseccionActivaKey && sIdx === 0) subseccionActivaKey = sub.id;\n' +
+'          var esActiva = subseccionActivaKey === sub.id;\n' +
+'          var subBtn = document.createElement("button");\n' +
+'          subBtn.className = "w-full text-left p-1.5 rounded-xl text-xs " + (esActiva ? "bg-cano-navy border border-cano-gold text-white font-bold" : "text-slate-400");\n' +
+'          subBtn.innerText = sub.nombre;\n' +
+'          subBtn.onclick = function() { subseccionActivaKey = sub.id; renderizarIndiceLateral(); };\n' +
+'          subList.appendChild(subBtn);\n' +
+'        });\n' +
+'        secBox.appendChild(subList);\n' +
+'        secCont.appendChild(secBox);\n' +
+'      });\n' +
+'      renderizarVisorSubseccion();\n' +
+'    }\n' +
+'    function renderizarVisorSubseccion() {\n' +
+'      var visor = document.getElementById("panel-visor-derecho");\n' +
+'      var obj = null;\n' +
+'      for (var i = 0; i < ESTRUCTURA_TRIBUTARIA.length; i++) {\n' +
+'        var c = ESTRUCTURA_TRIBUTARIA[i];\n' +
+'        for (var j = 0; j < c.secciones.length; j++) {\n' +
+'          var s = c.secciones[j];\n' +
+'          for (var k = 0; k < s.subsecciones.length; k++) {\n' +
+'            var sub = s.subsecciones[k];\n' +
+'            if (sub.id === subseccionActivaKey) { obj = { cat: c, sec: s, sub: sub }; break; }\n' +
+'          }\n' +
+'        }\n' +
+'      }\n' +
+'      if (!obj) return;\n' +
+'      var cat = obj.cat, sec = obj.sec, sub = obj.sub;\n' +
+'      var htmlHeader = "<div class=\\"border-b border-cano-border pb-2\\"><span class=\\"text-[10px] text-cano-goldLight uppercase font-bold\\">" + cat.nombre + " • " + sec.nombre + "</span><h3 class=\\"text-base font-black text-white\\">" + sub.nombre + "</h3></div>";\n' +
+'      var htmlTextos = sub.textosPrevios.map(function(t){ return "<p class=\\"text-xs text-slate-300 italic\\">" + t + "</p>"; }).join("");\n' +
+'      var htmlTabla = "";\n' +
+'      if (sub.encabezados.length > 0) {\n' +
+'        var esU2D = sub.encabezados[0].includes("U2D");\n' +
+'        if (esU2D && sub.filas.length > 20) {\n' +
+'          var mitad = Math.ceil(sub.filas.length / 2);\n' +
+'          var trs = "";\n' +
+'          for (var r = 0; r < mitad; r++) {\n' +
+'            var f1 = sub.filas[r], f2 = sub.filas[r + mitad];\n' +
+'            trs += "<tr class=\\"border-b border-cano-border/50 text-center\\"><td class=\\"p-1.5 text-cano-goldLight font-bold\\">" + f1.digito + "</td><td class=\\"p-1.5 text-white\\">" + (f1.fechas[0]||"") + "</td><td class=\\"p-1.5 text-cano-goldLight font-bold\\">" + (f2?f2.digito:"") + "</td><td class=\\"p-1.5 text-white\\">" + (f2&&f2.fechas[0]?f2.fechas[0]:"") + "</td></tr>";\n' +
+'          }\n' +
+'          htmlTabla = "<table class=\\"w-full text-xs border border-cano-border\\"><thead class=\\"bg-cano-card text-cano-goldLight text-[10px]\\"><tr><th>" + sub.encabezados[0] + "</th><th>Fecha</th><th>" + sub.encabezados[0] + "</th><th>Fecha</th></tr></thead><tbody>" + trs + "</tbody></table>";\n' +
+'        } else {\n' +
+'          var ths = sub.encabezados.map(function(h){ return "<th class=\\"p-2\\">" + h + "</th>"; }).join("");\n' +
+'          var trs = sub.filas.map(function(f) {\n' +
+'            var tds = f.fechas.map(function(fc){ return "<td class=\\"p-1.5 text-center text-white\\">" + fc + "</td>"; }).join("");\n' +
+'            return "<tr class=\\"border-b border-cano-border/50\\"><td class=\\"p-1.5 text-center font-bold text-cano-goldLight\\">" + f.digito + "</td>" + tds + "</tr>";\n' +
+'          }).join("");\n' +
+'          htmlTabla = "<div class=\\"overflow-x-auto\\"><table class=\\"w-full text-xs border border-cano-border\\"><thead class=\\"bg-cano-card text-cano-goldLight text-[10px]\\"><tr>" + ths + "</tr></thead><tbody>" + trs + "</tbody></table></div>";\n' +
+'        }\n' +
+'      }\n' +
+'      visor.innerHTML = "<div class=\\"space-y-3\\">" + htmlHeader + htmlTextos + htmlTabla + "</div>";\n' +
+'    }\n' +
+'    function renderizarChecklistMisPlazos() {\n' +
+'      var cont = document.getElementById("checklist-mis-plazos");\n' +
+'      if (!cont) return;\n' +
+'      cont.innerHTML = "";\n' +
+'      ESTRUCTURA_TRIBUTARIA.forEach(function(cat) {\n' +
+'        cat.secciones.forEach(function(sec) {\n' +
+'          sec.subsecciones.forEach(function(sub) {\n' +
+'            if (sub.filas.length > 0) {\n' +
+'              var lbl = document.createElement("label");\n' +
+'              lbl.className = "flex items-center gap-2 p-2 rounded-xl bg-cano-card border border-cano-border text-slate-300 cursor-pointer";\n' +
+'              lbl.innerHTML = "<input type=\\"checkbox\\" name=\\"chk_mis_plazos\\" value=\\"" + sub.id + "\\" class=\\"rounded text-cano-gold\\"><span>" + sub.nombre + "</span>";\n' +
+'              cont.appendChild(lbl);\n' +
+'            }\n' +
+'          });\n' +
+'        });\n' +
+'      });\n' +
+'    }\n' +
+'    function marcarTodasObligaciones(st) {\n' +
+'      document.querySelectorAll("input[name=\'chk_mis_plazos\']").forEach(function(c){ c.checked = st; });\n' +
+'    }\n' +
+'    function procesarMisPlazos(e) {\n' +
+'      e.preventDefault();\n' +
+'      var nombre = document.getElementById("lead-nombre").value;\n' +
+'      var nit = document.getElementById("lead-nit").value.replace(/\\D/g, "");\n' +
+'      var correo = document.getElementById("lead-correo").value;\n' +
+'      var wpp = document.getElementById("lead-whatsapp").value;\n' +
+'      var uDig = nit.slice(-1);\n' +
+'      var u2Dig = nit.slice(-2);\n' +
+'      document.getElementById("rep-cl-nombre").innerText = nombre;\n' +
+'      document.getElementById("rep-cl-nit").innerText = nit;\n' +
+'      var checks = Array.from(document.querySelectorAll("input[name=\'chk_mis_plazos\']:checked")).map(function(c){ return c.value; });\n' +
+'      var tbody = document.getElementById("tabla-reporte-lead");\n' +
+'      tbody.innerHTML = "";\n' +
+'      ESTRUCTURA_TRIBUTARIA.forEach(function(cat) {\n' +
+'        cat.secciones.forEach(function(sec) {\n' +
+'          sec.subsecciones.forEach(function(sub) {\n' +
+'            if (checks.includes(sub.id)) {\n' +
+'              var fEncontrada = "Consultar calendario";\n' +
+'              for (var f of sub.filas) {\n' +
+'                if (f.digito === uDig || f.digito.includes(u2Dig)) { fEncontrada = f.fechas.join(" | "); break; }\n' +
+'              }\n' +
+'              tbody.innerHTML += "<tr class=\\"border-b\\"><td class=\\"p-2 font-bold\\">" + sub.nombre + "</td><td class=\\"p-2 text-slate-600\\">" + cat.nombre + "</td><td class=\\"p-2 font-bold text-amber-800\\">" + fEncontrada + "</td></tr>";\n' +
+'            }\n' +
+'          });\n' +
+'        });\n' +
+'      });\n' +
+'      document.getElementById("contenedor-reporte-nit").classList.remove("hidden");\n' +
+'      \n' +
+'      // Mensaje de seguimiento automático para el contador\n' +
+'      console.log("LEAD CAPTURADO PARA SEGUIMIENTO:", { nombre, nit, correo, wpp });\n' +
+'      alert("¡Calendario generado con éxito! El sistema ha registrado los datos del cliente para que realices el seguimiento por WhatsApp o correo.");\n' +
+'    }\n' +
+'    function abrirModalCorreo() {\n' +
+'      document.getElementById("modal-correo").classList.remove("hidden");\n' +
+'    }\n' +
+'    function cerrarModalCorreo() {\n' +
+'      document.getElementById("modal-correo").classList.add("hidden");\n' +
+'    }\n' +
+'    function enviarCorreoContador() {\n' +
+'      var remitente = document.getElementById("mail-remitente").value;\n' +
+'      var asunto = document.getElementById("mail-asunto").value;\n' +
+'      var cuerpo = document.getElementById("mail-cuerpo").value;\n' +
+'      var mailtoLink = "mailto:' + correoContador + '?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent("Remitente: " + remitente + "\\n\\n" + cuerpo);\n' +
+'      window.location.href = mailtoLink;\n' +
+'      cerrarModalCorreo();\n' +
+'    }\n' +
+'    window.onload = cargarDatosTxt;\n' +
+'  <\/script>\n' +
+'</body>\n' +
+'</html>';
+
+      var blob = new Blob([appCode], { type: "text/html;charset=utf-8" });
+      var a = document.createElement('a');
+      var filename = (cfg.contador_nombre.replace(/[^a-z0-9]/gi, '_').toLowerCase()) || "app_contador";
+      a.href = URL.createObjectURL(blob);
+      a.download = filename + "_app_tributaria.html";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      alert("¡App " + cfg.app_name + " compilada y descargada con éxito!");
+    }
+  </script>
+</body>
+</html>
