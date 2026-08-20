@@ -1,0 +1,351 @@
+A Impuestos Nacionales
+
+A.1. Impuestos sobre la Renta y Patrimonio
+
+A.1.1. Renta Grandes Contribuyentes
+Texto: Los Grandes Contribuyentes cancelan su obligación en tres (3) cuotas.
+UD;1ª Cuota (20%);2ª Cuota & Declaración;3ª Cuota
+1 10/02 13/04 10/06
+2 11/02 14/04 11/06
+3 12/02 15/04 12/06
+4 13/02 16/04 16/06
+5 16/02 20/04 17/06
+6 17/02 21/04 18/06
+7 18/02 22/04 19/06
+8 19/02 23/04 22/06
+9 20/02 24/04 23/06
+0 23/02 27/04 24/06
+Nota: Fechas actualizadas conforme a traslados oficiales de días cívicos.
+
+A.1.2. Renta Personas Jurídicas y demás contribuyentes
+Texto: Declaración y pago de la primera cuota en mayo, y segunda cuota en julio.
+UD;Declaración y 1ª Cuota;Pago 2ª Cuota
+1 12/05 09/07
+2 13/05 10/07
+3 14/05 13/07
+4 15/05 14/07
+5 19/05 15/07
+6 20/05 16/07
+7 21/05 17/07
+8 22/05 21/07
+9 25/05 22/07
+0 26/05 23/07
+
+A.1.3. Renta Personas Naturales y Sucesiones Ilíquidas
+Texto: Vencimientos para declaración y pago en una sola cuota según los dos últimos dígitos del NIT.
+U2D;Fecha Límite
+01-02 12/08
+03-04 13/08
+05-06 14/08
+07-08 18/08
+09-10 19/08
+11-12 20/08
+13-14 21/08
+15-16 24/08
+17-18 25/08
+19-20 26/08
+21-22 27/08
+23-24 28/08
+25-26 31/08
+27-28 01/09
+29-30 02/09
+31-32 03/09
+33-34 04/09
+35-36 07/09
+37-38 08/09
+39-40 09/09
+41-42 10/09
+43-44 11/09
+45-46 14/09
+47-48 15/09
+49-50 16/09
+51-52 17/09
+53-54 18/09
+55-56 21/09
+57-58 22/09
+59-60 23/09
+61-62 24/09
+63-64 25/09
+65-66 28/09
+67-68 01/10
+69-70 02/10
+71-72 05/10
+73-74 06/10
+75-76 07/10
+77-78 08/10
+79-80 09/10
+81-82 13/10
+83-84 14/10
+85-86 15/10
+87-88 16/10
+89-90 19/10
+91-92 20/10
+93-94 21/10
+95-96 22/10
+97-98 23/10
+99-00 26/10
+
+A.1.4. Declaración de Activos en el Exterior
+Texto: Aplica en las mismas fechas del impuesto sobre la renta según el tipo de contribuyente (Grandes Contribuyentes en abril, Personas Jurídicas en mayo y Personas Naturales entre agosto y octubre).
+UD;Grandes Contribuyentes;Personas Jurídicas
+1 13/04 12/05
+2 14/04 13/05
+3 15/04 14/05
+4 16/04 15/05
+5 20/04 19/05
+6 21/04 20/05
+7 22/04 21/05
+8 23/04 22/05
+9 24/04 25/05
+0 27/04 26/05
+
+A.1.5. Impuesto al Patrimonio
+Texto: Declaración y primera cuota en mayo según último dígito; segunda cuota fija el 14 de septiembre para todos los contribuyentes.
+UD;Declaración y 1ª Cuota;Pago 2ª Cuota
+1 12/05 14/09
+2 13/05 14/09
+3 14/05 14/09
+4 15/05 14/09
+5 19/05 14/09
+6 20/05 14/09
+7 21/05 14/09
+8 22/05 14/09
+9 25/05 14/09
+0 26/05 14/09
+
+A.2. Retenciones y Pagos Periódicos Ordinarios
+
+A.2.1. Retención en la Fuente
+Texto: Declaración y pago mensual correspondiente al Formulario 350.
+UD;Ene;Feb;Mar;Abr;May;Jun;Jul;Ago;Sep;Oct;Nov;Dic
+1 10/02 10/03 13/04 12/05 10/06 09/07 12/08 09/09 09/10 11/11 10/12 13/01
+2 11/02 11/03 14/04 13/05 11/06 10/07 13/08 10/09 13/10 12/11 11/12 14/01
+3 12/02 12/03 15/04 14/05 12/06 13/07 14/08 11/09 14/10 13/11 14/12 15/01
+4 13/02 13/03 16/04 15/05 16/06 14/07 18/08 14/09 15/10 17/11 15/12 18/01
+5 16/02 16/03 20/04 19/05 17/06 15/07 19/08 15/09 16/10 18/11 16/12 19/01
+6 17/02 17/03 21/04 20/05 18/06 16/07 20/08 16/09 19/10 19/11 17/12 20/01
+7 18/02 18/03 22/04 21/05 19/06 17/07 21/08 17/09 20/10 20/11 18/12 21/01
+8 19/02 19/03 23/04 22/05 22/06 21/07 24/08 18/09 21/10 23/11 21/12 22/01
+9 20/02 20/03 24/04 25/05 23/06 22/07 25/08 21/09 22/10 24/11 22/12 25/01
+0 23/02 24/03 27/04 26/05 24/06 23/07 26/08 22/09 23/10 25/11 23/12 26/01
+
+A.2.2. Impuesto sobre las Ventas - IVA Bimestral
+Texto: Contribuyentes con ingresos brutos a 31 de diciembre superiores o iguales a 92.000 UVT.
+UD;Ene-Feb;Mar-Abr;May-Jun;Jul-Ago;Sep-Oct;Nov-Dic
+1 10/03 12/05 09/07 09/09 11/11 13/01
+2 11/03 13/05 10/07 10/09 12/11 14/01
+3 12/03 14/05 13/07 11/09 13/11 15/01
+4 13/03 15/05 14/07 14/09 17/11 18/01
+5 16/03 19/05 15/07 15/09 18/11 19/01
+6 17/03 20/05 16/07 16/09 19/11 20/01
+7 18/03 21/05 17/07 17/09 20/11 21/01
+8 19/03 22/05 21/07 18/09 23/11 22/01
+9 20/03 25/05 22/07 21/09 24/11 25/01
+0 24/03 26/05 23/07 22/09 25/11 26/01
+
+A.2.3. Impuesto sobre las Ventas - IVA Cuatrimestral
+Texto: Contribuyentes con ingresos brutos a 31 de diciembre inferiores a 92.000 UVT.
+UD;Ene-Abr;May-Ago;Sep-Dic
+1 12/05 09/09 13/01
+2 13/05 10/09 14/01
+3 14/05 11/09 15/01
+4 15/05 14/09 18/01
+5 19/05 15/09 19/01
+6 20/05 16/09 20/01
+7 21/05 17/09 21/01
+8 22/05 18/09 22/01
+9 25/05 21/09 25/01
+0 26/05 22/09 26/01
+
+A.2.4. Impuesto Nacional al Consumo - INC
+Texto: Declaración y pago bimestral del impuesto al consumo.
+UD;Ene-Feb;Mar-Abr;May-Jun;Jul-Ago;Sep-Oct;Nov-Dic
+1 10/03 12/05 09/07 09/09 11/11 13/01
+2 11/03 13/05 10/07 10/09 12/11 14/01
+3 12/03 14/05 13/07 11/09 13/11 15/01
+4 13/03 15/05 14/07 14/09 17/11 18/01
+5 16/03 19/05 15/07 15/09 18/11 19/01
+6 17/03 20/05 16/07 16/09 19/11 20/01
+7 18/03 21/05 17/07 17/09 20/11 21/01
+8 19/03 22/05 21/07 18/09 23/11 22/01
+9 20/03 25/05 22/07 21/09 24/11 25/01
+0 24/03 26/05 23/07 22/09 25/11 26/01
+
+A.3. Régimen Simple de Tributación - RST
+
+A.3.1. Declaración Anual Consolidada RST
+Texto: Declaración anual del Régimen Simple de Tributación por parejas del último dígito del NIT.
+U2D;Declaración y Pago
+1-2 20/04
+3-4 21/04
+5-6 22/04
+7-8 23/04
+9-0 24/04
+
+A.3.2. Declaración Anual Consolidada de IVA - RST
+Texto: Para contribuyentes del RST responsables de IVA.
+U2D;Declaración y Pago
+1-2 16/02
+3-4 17/02
+5-6 18/02
+7-8 19/02
+9-0 20/02
+
+A.3.3. Anticipo Bimestral RST
+Texto: Pagos bimestrales anticipados a través del Formulario 260.
+UD;Ene-Feb;Mar-Abr;May-Jun;Jul-Ago;Sep-Oct;Nov-Dic
+1 12/05 10/06 09/07 09/09 11/11 13/01
+2 13/05 11/06 10/07 10/09 12/11 14/01
+3 14/05 12/06 13/07 11/09 13/11 15/01
+4 15/05 16/06 14/07 14/09 17/11 18/01
+5 19/05 17/06 15/07 15/09 18/11 19/01
+6 20/05 18/06 16/07 16/09 19/11 20/01
+7 21/05 19/06 17/07 17/09 20/11 21/01
+8 22/05 22/06 21/07 18/09 23/11 22/01
+9 25/05 23/06 22/07 21/09 24/11 25/01
+0 26/05 24/06 23/07 22/09 25/11 26/01
+
+A.4. Deberes Formales e Información Exógena
+
+A.4.1. Información Exógena - Grandes Contribuyentes
+UD;Fecha Límite
+1 27/04
+2 28/04
+3 04/05
+4 05/05
+5 06/05
+6 07/05
+7 08/05
+8 11/05
+9 12/05
+0 13/05
+
+A.4.2. Información Exógena - Personas Jurídicas y Naturales
+U2D;Fecha Límite
+01-05 14/05
+06-10 15/05
+11-15 19/05
+16-20 20/05
+21-25 21/05
+26-30 22/05
+31-35 25/05
+36-40 26/05
+41-45 27/05
+46-50 28/05
+51-55 29/05
+56-60 01/06
+61-65 02/06
+66-70 03/06
+71-75 04/06
+76-80 05/06
+81-85 09/06
+86-90 10/06
+91-95 11/06
+96-00 12/06
+
+A.4.3. Precios de Transferencia - Declaración Informativa y Documentación
+UD;Declaración Informativa;Doc. Comprobatoria
+1 09/09 09/09
+2 10/09 10/09
+3 11/09 11/09
+4 14/09 14/09
+5 15/09 15/09
+6 16/09 16/09
+7 17/09 17/09
+8 18/09 18/09
+9 21/09 21/09
+0 22/09 22/09
+Nota: El Informe País por País vence el 15/12 para todos los dígitos.
+
+A.4.4. RUB - Registro Único de Beneficiarios Finales
+Texto: Actualización trimestral independiente de si el día es hábil o no.
+Concepto;Fecha Límite
+Trimestre 1 (Enero) 02/02
+Trimestre 2 (Abril) 04/05
+Trimestre 3 (Julio) 03/08
+Trimestre 4 (Octubre) 03/11
+
+A.5. Impuestos Ambientales, Sectoriales y Fijos
+
+A.5.1. Productos Azucarados y Ultraprocesados
+Texto: Impuesto a bebidas ultraprocesadas azucaradas y productos comestibles ultraprocesados.
+Bimestre;Fecha Límite
+Ene - Feb 13/03
+Mar - Abr 15/05
+May - Jun 14/07
+Jul - Ago 14/09
+Sep - Oct 17/11
+Nov - Dic 18/01
+
+A.5.2. Impuesto Nacional al Carbono
+Bimestre;Fecha Límite
+Ene - Feb 13/03
+Mar - Abr 15/05
+May - Jun 14/07
+Jul - Ago 14/09
+Sep - Oct 17/11
+Nov - Dic 18/01
+
+A.5.3. Impuesto a la Gasolina y ACPM
+Mes;Fecha Límite
+Enero 13/02
+Febrero 13/03
+Marzo 16/04
+Abril 15/05
+Mayo 16/06
+Junio 14/07
+Julio 18/08
+Agosto 14/09
+Septiembre 15/10
+Octubre 17/11
+Noviembre 15/12
+Diciembre 18/01
+
+A.5.4. Productos Plásticos de un Solo Uso
+Concepto;Fecha Límite
+Declaración Anual 13/02
+
+A.5.5. IVA Prestadores de Servicios desde el Exterior
+Bimestre;Fecha Límite
+Ene - Feb 13/03
+Mar - Abr 15/05
+May - Jun 14/07
+Jul - Ago 14/09
+Sep - Oct 17/11
+Nov - Dic 18/01
+
+A.5.6. Gravamen a los Movimientos Financieros - GMF
+Texto: Declaración y pago semanal. La semana inicia el sábado y finaliza el viernes; vence el segundo día hábil de la semana siguiente.
+
+B Impuestos Municipales y Distritales
+
+B.1. Bogotá D.C. - Industria y Comercio (ICA)
+
+B.1.1. ICA Bimestral Régimen Común
+Bimestre;Fecha Límite
+Bimestre 1 (Ene-Feb) 11/04
+Bimestre 2 (Mar-Abr) 13/06
+Bimestre 3 (May-Jun) 15/08
+Bimestre 4 (Jul-Ago) 17/10
+Bimestre 5 (Sep-Oct) 12/12
+Bimestre 6 (Nov-Dic) 20/02
+
+B.1.2. ReteICA Bimestral Bogotá
+Bimestre;Fecha Límite
+Bimestre 1 (Ene-Feb) 28/03
+Bimestre 2 (Mar-Abr) 23/05
+Bimestre 3 (May-Jun) 25/07
+Bimestre 4 (Jul-Ago) 26/09
+Bimestre 5 (Sep-Oct) 28/11
+Bimestre 6 (Nov-Dic) 30/01
+
+B.2. Medellín - Industria y Comercio (ICA)
+
+B.2.1. Declaración Anual ICA Medellín
+Texto: Presentación anual según el calendario tributario municipal de Medellín.
+UD;Fecha Límite
+1-2 18/04
+3-4 19/04
+5-6 20/04
+7-8 21/04
+9-0 22/04
