@@ -66,9 +66,9 @@
             </div>
             <!-- Redes sociales con íconos -->
             <div class="flex flex-wrap gap-2 justify-center mt-3" id="app-redes-container">
-<a href="https://facebook.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="facebook"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="https://linkedin.com/in/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
-<a href="https://instagram.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://facebook.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="https://linkedin.com/in/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="instagram"><i class="fa-brands fa-instagram"></i></a>
             </div>
             <div class="w-full h-32 rounded-xl overflow-hidden border border-cano-border mt-3">
               <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Cl%2017%20%23%2015%20-49%2C%20Of%20501%2C%20Armenia%2C%20Colombia&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
@@ -124,7 +124,7 @@
         </div>
       </div>
     </div>
-    <!-- VISTA 2: EXPLORAR PLAZOS -->
+    <!-- VISTA 2: EXPLORAR PLAZOS (CON AUTO-SCROLL MÓVIL) -->
     <div id="vista-explorar-plazos" class="space-y-5">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <div class="lg:col-span-4 bg-cano-navy/90 border border-cano-border rounded-3xl p-4 shadow-xl space-y-4">
@@ -208,7 +208,7 @@
       <div class="space-y-3 text-xs">
         <div>
           <label class="block font-bold text-cano-goldLight uppercase mb-1">Para el correo:</label>
-          <input type="text" readonly value="canoasesor@gmail.com" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-slate-300 font-mono">
+          <input type="text" id="modal-correo-destino" readonly class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-slate-300 font-mono">
         </div>
         <div>
           <label class="block font-bold text-cano-goldLight uppercase mb-1">Asunto:</label>
@@ -321,7 +321,13 @@
           var subBtn = document.createElement("button");
           subBtn.className = "w-full text-left p-1.5 rounded-xl text-xs " + (esActiva ? "bg-cano-navy border border-cano-gold text-white font-bold" : "text-slate-400");
           subBtn.innerText = sub.nombre;
-          subBtn.onclick = function() { subseccionActivaKey = sub.id; renderizarIndiceLateral(); };
+          subBtn.onclick = function() { 
+            subseccionActivaKey = sub.id; 
+            renderizarIndiceLateral(); 
+            if (window.innerWidth < 1024) {
+              document.getElementById("panel-visor-derecho").scrollIntoView({ behavior: "smooth" });
+            }
+          };
           subList.appendChild(subBtn);
         });
         secBox.appendChild(subList);
@@ -417,8 +423,8 @@
       document.getElementById("contenedor-reporte-nit").classList.remove("hidden");
       
       var msgSeguimiento = "Hola " + nombre + ", soy de CESAR AUGUSTO CANO PAREJA. Validamos que solicitaste tu calendario tributario para el NIT " + nit + ". ¿Pudiste descargarlo sin problema? Si tienes alguna inquietud o requieres asesoría, con gusto te ayudamos.";
-      console.log("REGISTRO DE CLIENTE PARA SEGUIMIENTO:", { nombre, nit, correo, wpp, msgSeguimiento });
-      alert("¡Calendario generado con éxito! El sistema ha registrado los datos del cliente para que realices el seguimiento por WhatsApp (" + wpp + ") o correo (" + correo + ").");
+      console.log("ESTE CLIENTE SOLICITÓ SU CALENDARIO Y DEBE SER CONTACTADO:", { nombre, nit, correo, wpp, msgSeguimiento });
+      alert("¡Calendario generado con éxito! El cliente " + nombre + " (Correo: " + correo + ", Wpp: " + wpp + ") ha solicitado su reporte. Recuerda realizarle seguimiento personalizado.");
     }
     function abrirModalCorreo() {
       document.getElementById("modal-correo-destino").value = "canoasesor@gmail.com";
