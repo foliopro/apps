@@ -51,7 +51,7 @@
     </div>
   </header>
   <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 flex-grow w-full no-print">
-    <!-- VISTA 1: QUIÉNES SOMOS (CENTRADOS) -->
+    <!-- VISTA 1: QUIÉNES SOMOS (Centrado) -->
     <div id="vista-quienes-somos" class="hidden space-y-6">
       <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-2xl">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -104,7 +104,7 @@
             </div>
           </div>
         </div>
-        <!-- DATOS DE CONTACTO Y MAPA 9:16 LIMPIO -->
+        <!-- DATOS DE CONTACTO Y MAPA ABAJO DE SERVICIOS -->
         <div class="mt-8 pt-6 border-t border-cano-border grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <div class="space-y-3">
             <div class="space-y-2 text-xs bg-cano-dark/60 p-4 rounded-2xl border border-cano-border">
@@ -122,7 +122,7 @@
               <a href="https://canoasesor.com/blog" target="_blank" class="px-3.5 py-2 bg-cano-card border border-cano-gold/40 text-cano-goldLight rounded-xl text-xs font-bold"><i class="fa-solid fa-newspaper"></i> Blog</a>
             </div>
           </div>
-          <!-- Mapa 9:16 limpio focalizado exclusivamente en la calle -->
+          <!-- MAPA VERTICAL 9:16 LIMPIO -->
           <div class="w-full aspect-[9/16] max-h-[340px] rounded-2xl overflow-hidden border border-cano-border shadow-lg bg-cano-dark">
             <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Calle%2017%20%23%2015%20-49%2C%20Armenia%2C%20Colombia&t=&z=19&ie=UTF8&iwloc=near&output=embed"></iframe>
           </div>
@@ -139,7 +139,7 @@
         <div class="lg:col-span-8 bg-cano-navy/90 border border-cano-border rounded-3xl p-5 shadow-xl space-y-4" id="panel-visor-derecho"></div>
       </div>
     </div>
-    <!-- VISTA 3: MIS PLAZOS (MANTIENE POSICIÓN Y DISPARA LEAD SILENCIOSO) -->
+    <!-- VISTA 3: MIS PLAZOS -->
     <div id="vista-mis-plazos" class="hidden space-y-6">
       <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 shadow-xl no-print space-y-4">
         <div>
@@ -177,7 +177,7 @@
       </div>
       <div id="contenedor-reporte-nit" class="hidden space-y-4">
         <div class="flex flex-wrap justify-between items-center bg-cano-card p-4 rounded-2xl border border-cano-border no-print">
-          <p class="text-xs text-cano-goldLight font-bold" id="lead-exito-msg"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Calendario generado con éxito. Estaremos enviándolo a tu correo y No. de WhatsApp. Esperamos que sea de beneficio para usted.</p>
+          <p class="text-xs text-cano-goldLight font-bold text-center" id="lead-exito-msg"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Calendario generado con éxito. Estaremos enviándolo a tu correo y No. de WhatsApp. Esperamos que sea de beneficio para usted.</p>
           <button onclick="window.print()" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold uppercase transition flex items-center gap-1.5 shadow"><i class="fa-solid fa-file-pdf"></i> Imprimir / Guardar en PDF</button>
         </div>
         <div class="bg-white text-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 print-area">
@@ -435,16 +435,17 @@
       });
       document.getElementById("contenedor-reporte-nit").classList.remove("hidden");
       
-      // ENVÍO DE CORREO SILENCIOSO AL CONTADOR EN SEGUNDO PLANO
       var asuntoAdmin = encodeURIComponent("NUEVO LEAD TRIBUTARIO: " + nombre);
       var cuerpoAdmin = encodeURIComponent("El siguiente usuario acaba de generar su calendario personalizado:\n\n" +
         "• Razón Social: " + nombre + "\n" +
         "• NIT: " + nit + "\n" +
         "• Correo: " + correo + "\n" +
         "• WhatsApp: " + wpp + "\n\n" +
-        "RECOMENDACIÓN DE SEGUIMIENTO:\n" +
-        "Escríbele un mensaje por WhatsApp o correo para saludarlo, preguntarle si pudo descargar su PDF sin inconvenientes, cómo le ha parecido la aplicación y ofrecerle asesoría sin compromiso.\n\n" +
-        "(Recuerda que en la app están publicadas tus redes sociales para resolverle cualquier duda).");
+        "ACCIÓN REQUERIDA:\n" +
+        "Escríbele manualmente o automáticamente a su correo y whatsapp para hacerle seguimiento.\n" +
+        "Pregúntale si pudo descargar desde la aplicación el calendario o sino para enviárselo.\n" +
+        "Si necesita alguna asesoría, con gusto puede llamarte sin ningún compromiso.\n" +
+        "(En la app están las redes para resolver inquietudes).");
       
       var iframeInvisible = document.createElement("iframe");
       iframeInvisible.style.display = "none";
