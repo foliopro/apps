@@ -54,7 +54,7 @@
     <!-- VISTA 1: QUIÉNES SOMOS -->
     <div id="vista-quienes-somos" class="hidden space-y-6">
       <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-2xl">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-4 flex flex-col items-center text-center border-b lg:border-b-0 lg:border-r border-cano-border pb-6 lg:pb-0 lg:pr-6">
             <img src="https://i.ibb.co/Fqbm4QKd/logo-Cano-Asesor.png" class="w-28 h-28 rounded-2xl border-2 border-cano-gold shadow-2xl object-cover mb-3">
             <h2 class="text-lg font-black text-white font-brand">CESAR AUGUSTO CANO PAREJA</h2>
@@ -104,7 +104,7 @@
             </div>
           </div>
         </div>
-        <!-- DATOS DE CONTACTO, REDES, BOTONES Y MAPA 9:16 UBICADOS DEBAJO DE LOS SERVICIOS -->
+        <!-- DATOS DE CONTACTO Y MAPA 9:16 ENFOCADO EXCLUSIVAMENTE EN LA DIRECCIÓN -->
         <div class="mt-8 pt-6 border-t border-cano-border grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <div class="space-y-3">
             <div class="space-y-2 text-xs bg-cano-dark/60 p-4 rounded-2xl border border-cano-border">
@@ -122,9 +122,9 @@
               <a href="https://canoasesor.com/blog" target="_blank" class="px-3.5 py-2 bg-cano-card border border-cano-gold/40 text-cano-goldLight rounded-xl text-xs font-bold"><i class="fa-solid fa-newspaper"></i> Blog</a>
             </div>
           </div>
-          <!-- Mapa Google en formato estrictamente vertical 9:16 centrado solo en la dirección -->
+          <!-- Mapa Google 9:16 centrado limpio solo en la dirección -->
           <div class="w-full aspect-[9/16] max-h-[340px] rounded-2xl overflow-hidden border border-cano-border shadow-lg bg-cano-dark">
-            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Cl%2017%20%23%2015%20-49%2C%20Of%20501%2C%20Armenia%2C%20Colombia&t=&z=17&ie=UTF8&iwloc=&output=embed"></iframe>
+            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Cl%2017%20%23%2015%20-49%2C%20Of%20501%2C%20Armenia%2C%20Colombia&t=&z=19&ie=UTF8&iwloc=&output=embed"></iframe>
           </div>
         </div>
       </div>
@@ -139,7 +139,7 @@
         <div class="lg:col-span-8 bg-cano-navy/90 border border-cano-border rounded-3xl p-5 shadow-xl space-y-4" id="panel-visor-derecho"></div>
       </div>
     </div>
-    <!-- VISTA 3: MIS PLAZOS -->
+    <!-- VISTA 3: MIS PLAZOS (CON MENSAJE LIMPIO PARA EL CLIENTE Y DISPARO AL CONTADOR) -->
     <div id="vista-mis-plazos" class="hidden space-y-6">
       <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 shadow-xl no-print space-y-4">
         <div>
@@ -177,7 +177,7 @@
       </div>
       <div id="contenedor-reporte-nit" class="hidden space-y-4">
         <div class="flex flex-wrap justify-between items-center bg-cano-card p-4 rounded-2xl border border-cano-border no-print">
-          <p class="text-xs text-cano-goldLight font-bold"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ¡Calendario generado con éxito!</p>
+          <p class="text-xs text-cano-goldLight font-bold" id="lead-exito-msg"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Calendario generado con éxito. Estaremos enviándolo a tu correo y No. de WhatsApp. Esperamos que sea de beneficio para usted.</p>
           <button onclick="window.print()" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold uppercase transition flex items-center gap-1.5 shadow"><i class="fa-solid fa-file-pdf"></i> Imprimir / Guardar en PDF</button>
         </div>
         <div class="bg-white text-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 print-area">
@@ -435,9 +435,24 @@
       });
       document.getElementById("contenedor-reporte-nit").classList.remove("hidden");
       
-      var msgSeguimiento = "Hola " + nombre + ", soy de CESAR AUGUSTO CANO PAREJA. Validamos que solicitaste tu calendario tributario para el NIT " + nit + ". ¿Pudiste descargarlo sin problema? Si tienes alguna inquietud o requieres asesoría, con gusto te ayudamos.";
-      console.log("ESTE CLIENTE SOLICITÓ SU CALENDARIO Y DEBE SER CONTACTADO:", { nombre, nit, correo, wpp, msgSeguimiento });
-      alert("¡Calendario generado con éxito! El cliente " + nombre + " (Correo: " + correo + ", Wpp: " + wpp + ") ha solicitado su reporte. Recuerda realizarle seguimiento personalizado.");
+      // ENVÍO DE DATOS AUTOMÁTICO AL CORREO DEL CONTADOR Y WHATSAPP
+      var subjectLead = encodeURIComponent("NUEVO LEAD TRIBUTARIO: " + nombre);
+      var bodyLead = encodeURIComponent("El siguiente usuario acaba de generar su calendario personalizado:\n\n" +
+        "• Razón Social: " + nombre + "\n" +
+        "• NIT: " + nit + "\n" +
+        "• Correo: " + correo + "\n" +
+        "• WhatsApp: " + wpp + "\n\n" +
+        "ACCIÓN REQUERIDA:\n" +
+        "No olvides hacerle seguimiento. Escríbele manualmente o por WhatsApp para saludarlo, preguntarle si pudo descargar el PDF desde la aplicación, cómo le ha parecido y ofrecerle asesoría sin compromiso.\n\n" +
+        "(Recuerda que en la app están publicadas tus redes sociales para resolverle cualquier inquietud).");
+      
+      // Disparar correo oculto al contador
+      var leadMailto = "mailto:canoasesor@gmail.com?subject=" + subjectLead + "&body=" + bodyLead;
+      var iframeLead = document.createElement("iframe");
+      iframeLead.style.display = "none";
+      iframeLead.src = leadMailto;
+      document.body.appendChild(iframeLead);
+      setTimeout(function() { iframeLead.remove(); }, 2000);
     }
     function abrirModalCorreo() {
       document.getElementById("modal-correo-destino").value = "canoasesor@gmail.com";
