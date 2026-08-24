@@ -50,9 +50,9 @@
       </nav>
     </div>
   </header>
-  <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 flex-grow w-full no-print">
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 flex-grow w-full">
     <!-- VISTA 1: QUIÉNES SOMOS -->
-    <div id="vista-quienes-somos" class="hidden space-y-6">
+    <div id="vista-quienes-somos" class="hidden space-y-6 no-print">
       <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-2xl">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div class="lg:col-span-4 flex flex-col items-center text-center border-b lg:border-b-0 lg:border-r border-cano-border pb-6 lg:pb-0 lg:pr-6">
@@ -95,6 +95,12 @@
                 </div>
                 <p class="text-[11px] text-slate-300 leading-tight">Servicio profesional de Elaboración Informcion Exogena con enfoque en resultados óptimos y cumplimiento fiscal.</p>
               </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Liuidacion de Prestaciones</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Servicio profesional de Liuidacion de Prestaciones con enfoque en resultados óptimos y cumplimiento fiscal.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -122,7 +128,7 @@
       </div>
     </div>
     <!-- VISTA 2: EXPLORAR PLAZOS -->
-    <div id="vista-explorar-plazos" class="space-y-5">
+    <div id="vista-explorar-plazos" class="space-y-5 no-print">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <div class="lg:col-span-4 bg-cano-navy/90 border border-cano-border rounded-3xl p-4 shadow-xl space-y-4">
           <div class="flex flex-wrap gap-1.5" id="nav-categorias-container"></div>
@@ -184,7 +190,7 @@
             </div>
           </div>
           <table class="w-full text-xs text-left border-collapse border border-slate-300">
-            <thead><tr class="bg-slate-900 text-white uppercase text-[10px]"><th class="p-2 border">Obligación</th><th class="p-2 border">Clasificación</th><th class="p-2 border">Plazo Asignado</th></tr></thead>
+            <thead><tr class="bg-slate-900 text-white uppercase text-[10px]"><th class="w-4 border"></th><th class="p-2 border">Periodo / Detalle</th><th class="p-2 border">Plazo Asignado</th></tr></thead>
             <tbody id="tabla-reporte-lead"></tbody>
           </table>
           <div class="mt-8 pt-4 border-t border-slate-300 text-center text-xs">
@@ -384,16 +390,23 @@
       if (!cont) return;
       cont.innerHTML = "";
       ESTRUCTURA_TRIBUTARIA.forEach(function(cat) {
+        var catHtml = "<div class=\"col-span-full mt-4 mb-1 border-b border-cano-border pb-1\"><h4 class=\"font-black text-cano-goldLight uppercase text-xs\">" + cat.nombre + "</h4></div>";
+        var itemsHtml = "";
+        var catHasItems = false;
         cat.secciones.forEach(function(sec) {
+          var secHtml = "<div class=\"col-span-full mt-2\"><h5 class=\"font-bold text-white text-[11px] uppercase\">" + sec.nombre + "</h5></div>";
+          var secItemsHtml = "";
+          var secHasItems = false;
           sec.subsecciones.forEach(function(sub) {
             if (sub.filas.length > 0) {
-              var lbl = document.createElement("label");
-              lbl.className = "flex items-center gap-2 p-2 rounded-xl bg-cano-card border border-cano-border text-slate-300 cursor-pointer";
-              lbl.innerHTML = "<input type=\"checkbox\" name=\"chk_mis_plazos\" value=\"" + sub.id + "\" class=\"rounded text-cano-gold\"><span>" + sub.nombre + "</span>";
-              cont.appendChild(lbl);
+              catHasItems = true;
+              secHasItems = true;
+              secItemsHtml += "<label class=\"flex items-center gap-2 p-2 rounded-xl bg-cano-card border border-cano-border text-slate-300 cursor-pointer hover:border-cano-gold transition\"><input type=\"checkbox\" name=\"chk_mis_plazos\" value=\"" + sub.id + "\" class=\"rounded text-cano-gold\"><span>" + sub.nombre + "</span></label>";
             }
           });
+          if(secHasItems) itemsHtml += secHtml + secItemsHtml;
         });
+        if(catHasItems) cont.innerHTML += catHtml + itemsHtml;
       });
     }
     function marcarTodasObligaciones(st) {
@@ -412,38 +425,76 @@
       var checks = Array.from(document.querySelectorAll("input[name='chk_mis_plazos']:checked")).map(function(c){ return c.value; });
       var tbody = document.getElementById("tabla-reporte-lead");
       tbody.innerHTML = "";
+      
       ESTRUCTURA_TRIBUTARIA.forEach(function(cat) {
+        var catHasItems = false;
+        var catTr = "<tr class=\"bg-slate-800 text-white\"><td colspan=\"3\" class=\"p-2 font-black uppercase text-xs rounded-t-lg\">" + cat.nombre + "</td></tr>";
+        var secTrs = "";
         cat.secciones.forEach(function(sec) {
+          var secHasItems = false;
+          var currentSecTrs = "";
           sec.subsecciones.forEach(function(sub) {
             if (checks.includes(sub.id)) {
-              var fEncontrada = "Consultar calendario";
+              catHasItems = true;
+              secHasItems = true;
+              currentSecTrs += "<tr class=\"bg-slate-100 border-b border-slate-200\"><td colspan=\"3\" class=\"p-2 pl-4 font-bold text-slate-800 text-[11px]\">" + sub.nombre + "</td></tr>";
+              var fEncontrada = false;
               for (var f of sub.filas) {
-                if (f.digito === uDig || f.digito.includes(u2Dig)) { fEncontrada = f.fechas.join(" | "); break; }
+                if (f.digito === uDig || f.digito.includes(u2Dig)) {
+                  fEncontrada = true;
+                  f.fechas.forEach(function(fecha, fIdx) {
+                    if(fecha && fecha.trim() !== "" && fecha.trim() !== "-") {
+                      var periodo = (sub.encabezados && sub.encabezados[fIdx + 1]) ? sub.encabezados[fIdx + 1] : "Plazo único";
+                      currentSecTrs += "<tr class=\"border-b bg-white\"><td class=\"w-4 border-r border-slate-200\"></td><td class=\"p-1.5 text-slate-600 text-xs\">" + periodo + "</td><td class=\"p-1.5 font-bold text-amber-800 text-xs\">" + fecha + "</td></tr>";
+                    }
+                  });
+                  break;
+                }
               }
-              tbody.innerHTML += "<tr class=\"border-b\"><td class=\"p-2 font-bold\">" + sub.nombre + "</td><td class=\"p-2 text-slate-600\">" + cat.nombre + "</td><td class=\"p-2 font-bold text-amber-800\">" + fEncontrada + "</td></tr>";
+              if (!fEncontrada) {
+                currentSecTrs += "<tr class=\"border-b bg-white\"><td class=\"w-4 border-r border-slate-200\"></td><td class=\"p-1.5 text-slate-600 text-xs\">N/A</td><td class=\"p-1.5 font-bold text-amber-800 text-xs\">Consultar calendario</td></tr>";
+              }
+              currentSecTrs += "<tr><td colspan=\"3\" class=\"h-4 bg-white border-0\"></td></tr>";
             }
           });
+          if(secHasItems) {
+            secTrs += "<tr class=\"bg-slate-200 border-y border-slate-300\"><td colspan=\"3\" class=\"p-1.5 px-3 font-bold text-slate-700 uppercase text-[10px] border-l-4 border-slate-500\">" + sec.nombre + "</td></tr>";
+            secTrs += currentSecTrs;
+          }
         });
+        if(catHasItems) {
+          tbody.innerHTML += catTr + secTrs;
+        }
       });
       document.getElementById("contenedor-reporte-nit").classList.remove("hidden");
       
-      var asuntoAdmin = encodeURIComponent("NUEVO LEAD TRIBUTARIO: " + nombre);
-      var cuerpoAdmin = encodeURIComponent("El siguiente usuario acaba de generar su calendario personalizado:\n\n" +
-        "• Razón Social: " + nombre + "\n" +
-        "• NIT: " + nit + "\n" +
-        "• Correo: " + correo + "\n" +
-        "• WhatsApp: " + wpp + "\n\n" +
-        "ACCIÓN REQUERIDA:\n" +
-        "Escríbele manualmente o automáticamente a su correo y whatsapp para hacerle seguimiento.\n" +
-        "Pregúntale si pudo descargar desde la aplicación el calendario o sino para enviárselo.\n" +
-        "Si necesita alguna asesoría, con gusto puede llamarte sin ningún compromiso.\n" +
-        "(En la app están las redes para resolver inquietudes).");
-      
-      var iframeInvisible = document.createElement("iframe");
-      iframeInvisible.style.display = "none";
-      iframeInvisible.src = "mailto:canoasesor@gmail.com?subject=" + asuntoAdmin + "&body=" + cuerpoAdmin;
-      document.body.appendChild(iframeInvisible);
-      setTimeout(function() { iframeInvisible.remove(); }, 3000);
+      var iframe = document.createElement("iframe");
+      iframe.name = "hidden_formsubmit";
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+      var form = document.createElement("form");
+      form.method = "POST";
+      form.action = "https://formsubmit.co/" + "canoasesor@gmail.com";
+      form.target = "hidden_formsubmit";
+      var inputs = {
+        "_subject": "🎯 NUEVO LEAD TRIBUTARIO: " + nombre,
+        "Nombre_o_Razon_Social": nombre,
+        "NIT": nit,
+        "Correo_Cliente": correo,
+        "WhatsApp": wpp,
+        "_template": "table",
+        "_captcha": "false"
+      };
+      for (var key in inputs) {
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = inputs[key];
+        form.appendChild(input);
+      }
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(function() { form.remove(); iframe.remove(); }, 5000);
     }
     function abrirModalCorreo() {
       document.getElementById("modal-correo-destino").value = "canoasesor@gmail.com";
