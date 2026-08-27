@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Óptica Armenia | Salud Visual Computarizada & Estética</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#090D16',
+                        brandCard: '#111827',
+                        brandEmerald: '#10B981',
+                        brandCyan: '#38BDF8',
+                        brandGray: '#94A3B8'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-white font-sans antialiased selection:bg-brandEmerald selection:text-black">
+
+    <!-- CONFIGURACIÓN DE VARIABLES (EDITAR AQUÍ) -->
+    <!-- 
+        1. Para cambiar el WhatsApp: Reemplaza "57NUMERO_DEL_CLIENTE" por tu número (Ej: 573001234567)
+        2. Para cambiar imágenes: Guarda tus archivos con los nombres imag01.jpg, imag02.jpg, etc.
+    -->
+
+    <!-- HEADER / NAV BAR -->
+    <header class="fixed top-0 w-full z-50 glass-card border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl sm:text-2xl font-extrabold tracking-wider text-white">
+                MULTI ÓPTICA <span class="text-brandEmerald">ARMENIA</span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-brandGray">
+                <a href="#inicio" class="hover:text-brandEmerald transition">Inicio</a>
+                <a href="#diagnostico" class="hover:text-brandEmerald transition">Diagnóstico</a>
+                <a href="#portafolio" class="hover:text-brandEmerald transition">Monturas & Lentes</a>
+                <a href="#novedades" class="hover:text-brandEmerald transition">Novedades</a>
+                <a href="#ubicacion" class="hover:text-brandEmerald transition">Ubicación</a>
+            </nav>
+            <a href="https://wa.me/57NUMERO_DEL_CLIENTE?text=Hola,%20estoy%20en%20su%20página%20web%20y%20quiero%20agendar%20mi%20examen%20visual." 
+               target="_blank" 
+               class="bg-brandEmerald hover:bg-emerald-400 text-black font-bold px-5 py-2.5 rounded-full transition duration-300 text-sm glow-emerald">
+               Agendar Examen
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="pt-32 pb-20 md:pt-44 md:pb-32 px-4 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+        <div class="md:w-1/2 space-y-6">
+            <span class="text-brandCyan text-sm font-semibold tracking-widest uppercase bg-brandCyan/10 px-4 py-1.5 rounded-full border border-brandCyan/20">
+                Salud Visual & Asesoría de Imagen
+            </span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+                Precisión Clínica Computarizada y <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandEmerald to-brandCyan">Estética Superior</span> Para Tu Mirada
+            </h1>
+            <p class="text-brandGray text-lg">
+                Diagnósticos visuales 100% exactos sin margen de error y asesoría de imagen personalizada con las últimas tendencias en monturas en el C.C. Yalcanes.
+            </p>
+            <div class="pt-4">
+                <a id="boton01" 
+                   href="https://wa.me/57NUMERO_DEL_CLIENTE?text=Hola,%20estoy%20en%20su%20página%20web%20y%20quiero%20agendar%20mi%20examen%20visual." 
+                   target="_blank" 
+                   class="inline-block bg-brandEmerald hover:bg-emerald-400 text-black text-lg font-bold px-8 py-4 rounded-xl transition duration-300 glow-emerald transform hover:-translate-y-1">
+                    Agendar Examen Computarizado Ahora
+                </a>
+            </div>
+        </div>
+        <div class="md:w-1/2 relative">
+            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brandEmerald to-brandCyan blur-xl opacity-30"></div>
+            <!-- REEMPLAZAR RUTA imag01.jpg -->
+            <img src="imag01.jpg" alt="Multi Óptica Armenia - Estética Visual" class="relative rounded-2xl w-full object-cover shadow-2xl border border-white/10" onerror="this.src='https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800&q=80'">
+        </div>
+    </section>
+
+    <!-- DOLOR VS SOLUCIÓN -->
+    <section id="diagnostico" class="py-20 bg-brandCard/50 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">¿Por qué cambiar la forma de examinar tus ojos?</h2>
+                <p class="text-brandGray">Compara el método tradicional contra el estándar de precisión clínica computarizada.</p>
+            </div>
+            <div class="grid md:grid-grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-card p-8 rounded-2xl border-red-500/20">
+                    <h3 class="text-2xl font-bold text-red-400 mb-4">❌ Diagnóstico Tradicional</h3>
+                    <ul class="space-y-3 text-brandGray">
+                        <li>• Margen de error en la medición de fórmula.</li>
+                        <li>• Monturas pesadas, desactualizadas y aburridas.</li>
+                        <li>• Fatiga visual persistente y dolor de cabeza por falta de filtros.</li>
+                    </ul>
+                </div>
+                <div class="glass-card p-8 rounded-2xl border-brandEmerald/30 glow-emerald">
+                    <h3 class="text-2xl font-bold text-brandEmerald mb-4">✔ Estándar Multi Óptica Armenia</h3>
+                    <ul class="space-y-3 text-white">
+                        <li>• Examen Computarizado de alta tecnología sin adivinanzas.</li>
+                        <li>• Asesoría de imagen según la morfología de tu rostro.</li>
+                        <li>• Lentes con filtro de luz azul, antirreflejo y protección UV real.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TARJETAS Y PORTAFOLIO -->
+    <section id="portafolio" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-4">Nuestro Portafolio Especializado</h2>
+            <p class="text-brandGray">Combinación perfecta entre precisión de salud clínica y moda visual.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Tarjeta 1 -->
+            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between hover:border-brandEmerald/50 transition group">
+                <div>
+                    <!-- REEMPLAZAR RUTA imag02.jpg -->
+                    <img src="imag02.jpg" alt="Examen Visual" class="rounded-xl mb-4 h-48 w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=500&q=80'">
+                    <h3 class="text-xl font-bold mb-2">Examen Visual Computarizado</h3>
+                    <p class="text-brandGray text-sm mb-4">Equipos de precisión digital que entregan diagnósticos clínicos 100% exactos.</p>
+                </div>
+                <a id="boton02" href="https://wa.me/57NUMERO_DEL_CLIENTE?text=Hola,%20quiero%20reservar%20mi%20Examen%20Visual%20Computarizado." target="_blank" class="block text-center bg-white/10 hover:bg-brandEmerald hover:text-black py-2.5 rounded-lg text-sm font-semibold transition">Reservar Diagnóstico</a>
+            </div>
+            <!-- Tarjeta 2 -->
+            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between hover:border-brandEmerald/50 transition group">
+                <div>
+                    <!-- REEMPLAZAR RUTA imag03.jpg -->
+                    <img src="imag03.jpg" alt="Monturas de Tendencia" class="rounded-xl mb-4 h-48 w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=500&q=80'">
+                    <h3 class="text-xl font-bold mb-2">Monturas de Alta Tendencia</h3>
+                    <p class="text-brandGray text-sm mb-4">Diseños en acetato y metal ultraligero seleccionados para destacar tu imagen.</p>
+                </div>
+                <a id="boton03" href="https://wa.me/57NUMERO_DEL_CLIENTE?text=Hola,%20quiero%20asesoría%20sobre%20monturas%20y%20lentes%20especializados." target="_blank" class="block text-center bg-white/10 hover:bg-brandEmerald hover:text-black py-2.5 rounded-lg text-sm font-semibold transition">Consultar Disponibilidad</a>
+            </div>
+            <!-- Tarjeta 3 -->
+            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between hover:border-brandEmerald/50 transition group">
+                <div>
+                    <!-- REEMPLAZAR RUTA imag04.jpg -->
+                    <img src="imag04.jpg" alt="Lentes Especializados" class="rounded-xl mb-4 h-48 w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&w=500&q=80'">
+                    <h3 class="text-xl font-bold mb-2">Lentes Especializados</h3>
+                    <p class="text-brandGray text-sm mb-4">Filtro de luz azul para pantallas, antirreflejo premium y fotocromáticos.</p>
+                </div>
+                <a href="https://wa.me/57NUMERO_DEL_CLIENTE?text=Hola,%20quiero%20información%20sobre%20lentes%20especializados." target="_blank" class="block text-center bg-white/10 hover:bg-brandEmerald hover:text-black py-2.5 rounded-lg text-sm font-semibold transition">Cotizar Lentes</a>
+            </div>
+            <!-- Tarjeta 4 -->
+            <div class="glass-card p-6 rounded-2xl flex flex-col justify-between hover:border-brandEmerald/50 transition group">
+                <div>
+                    <!-- REEMPLAZAR RUTA CON FOTO DE GAFAS DE SOL -->
+                    <img src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&fit=crop&w=500&q=80" alt="Lentes de Contacto y Sol" class="rounded-xl mb-4 h-48 w-full object-cover">
+                    <h3 class="text-xl font-bold mb-2">Lentes de Contacto & Sol</h3>
+                    <p class="text-brandGray text-sm mb-4">Opciones estéticas avanzadas y de descanso con protección UV certificada.</p>
+                </div>
+                <a href="https://wa.me/57NUMERO_DEL_CLIENTE?text=Hola,%20quiero%20información%20sobre%20gafas%20de%20sol%20y%20lentes%20de%20contacto." target="_blank" class="block text-center bg-white/10 hover:bg-brandEmerald hover:text-black py-2.5 rounded-lg text-sm font-semibold transition">Ver Opciones</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVEDADES REEL EMBED -->
+    <section id="novedades" class="py-20 bg-brandCard/30 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-8">Nuestra Vitrina en Redes</h2>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DbGco0sleAP/" data-instgrm-version="14" style="max-width:380px; width:100%;"></blockquote>
+                <script async src="//www.instagram.com/embed.js"></script>
+                <div class="space-y-4 text-left">
+                    <h3 class="text-2xl font-bold">Síguenos en Vivo</h3>
+                    <p class="text-brandGray max-w-sm">Descubre nuevos diseños que llegan semana a semana a nuestra sede en Armenia.</p>
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/multiopticaarmenia/" target="_blank" class="bg-brandCyan/20 text-brandCyan border border-brandCyan/30 px-4 py-2 rounded-lg font-semibold hover:bg-brandCyan hover:text-black transition">Instagram</a>
+                        <a href="https://www.facebook.com/multiopticaArmenia/?locale=es_LA" target="_blank" class="bg-blue-600/20 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition">Facebook</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIÓN & MAPA -->
+    <section id="ubicacion" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-2">Visítanos en el C.C. Yalcanes</h2>
+            <p class="text-brandGray">Carrera 15 #16-90, Armenia, Quindío</p>
+        </div>
+        <div class="rounded-2xl overflow-hidden glass-card p-2 border border-white/10 glow-cyan">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.168434914197!2d-75.6720304!3d4.5347602!2m3!1f00!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e38f5ac3e905ea3%3A0x767b8fe95d218ff!2sMulti%20Optica%20Armenia!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-xl"></iframe>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="py-20 bg-gradient-to-b from-brandDark to-brandCard text-center px-4">
+        <div class="max-w-4xl mx-auto space-y-6">
+            <h2 class="text-3xl sm:text-5xl font-extrabold">¿Listo para transformar tu salud visual y tu imagen personal?</h2>
+            <p class="text-brandGray text-lg">Reserva hoy tu Examen Visual Computarizado en el C.C. Yalcanes.</p>
+            <div>
+                <a id="boton04" href="https://wa.me/57NUMERO_DEL_CLIENTE?text=Hola,%20quiero%20agendar%20mi%20cita%20de%20salud%20visual%20en%20el%20C.C.%20Yalcanes." target="_blank" class="inline-block bg-brandEmerald hover:bg-emerald-400 text-black text-xl font-bold px-10 py-5 rounded-xl transition duration-300 glow-emerald transform hover:scale-105">
+                    Agendar Mi Cita por WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 border-t border-white/5 text-center text-brandGray text-sm">
+        <p>© Multi Óptica Armenia - Todos los derechos reservados. C.C. Yalcanes, Armenia, Quindío.</p>
+    </footer>
+
+</body>
+</html>
