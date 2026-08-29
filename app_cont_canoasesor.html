@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartilla Tributaria & Contable | CESAR AUGUSTO CANO PAREJA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cano: { dark: "#0a0f1d", navy: "#0f172a", card: "#131e36", gold: "#c59b27", goldLight: "#e0b84c", border: "#233354" }
+          },
+          fontFamily: { brand: ["Cinzel", "serif"], sans: ["Montserrat", "sans-serif"] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #080c17; color: #f1f5f9; font-family: "Montserrat", sans-serif; }
+    .gold-gradient-text { background: linear-gradient(135deg, #f8df8c 0%, #c59b27 50%, #9a7516 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .gold-gradient-bg { background: linear-gradient(135deg, #d8ac34 0%, #c59b27 50%, #9a7516 100%); }
+    .highlight-row { background-color: rgba(197, 155, 39, 0.22) !important; border-left: 3px solid #e0b84c !important; }
+    .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scroll::-webkit-scrollbar-thumb { background-color: #233354; border-radius: 4px; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: #ffffff !important; color: #000000 !important; font-size: 10pt; }
+      .print-area { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+  <header class="bg-cano-navy/95 border-b border-cano-gold/30 sticky top-0 z-40 shadow-2xl no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+      <div class="flex items-center gap-3">
+        <img src="https://i.ibb.co/Fqbm4QKd/logo-Cano-Asesor.png" class="w-10 h-10 rounded-full border-2 border-cano-gold object-cover shadow-md">
+        <div>
+          <h1 class="text-sm sm:text-base font-black uppercase font-brand gold-gradient-text">Cartilla Tributaria & Contable</h1>
+          <p class="text-[11px] text-slate-400 font-medium">CESAR AUGUSTO CANO PAREJA</p>
+        </div>
+      </div>
+      <nav class="flex items-center gap-1.5 bg-cano-card p-1 rounded-xl border border-cano-border">
+        <button onclick="cambiarSeccion('quienes-somos')" id="tab-quienes-somos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300">Quiénes Somos</button>
+        <button onclick="cambiarSeccion('explorar-plazos')" id="tab-explorar-plazos" class="px-4 py-1.5 rounded-lg text-xs font-black gold-gradient-bg text-cano-dark shadow">Explorar Plazos</button>
+        <button onclick="cambiarSeccion('mis-plazos')" id="tab-mis-plazos" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300">Mis Plazos</button>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 flex-grow w-full">
+    <!-- VISTA 1: QUIÉNES SOMOS -->
+    <div id="vista-quienes-somos" class="hidden space-y-6 no-print">
+      <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 sm:p-8 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-4 flex flex-col items-center text-center border-b lg:border-b-0 lg:border-r border-cano-border pb-6 lg:pb-0 lg:pr-6">
+            <img src="https://i.ibb.co/Fqbm4QKd/logo-Cano-Asesor.png" class="w-28 h-28 rounded-2xl border-2 border-cano-gold shadow-2xl object-cover mb-3">
+            <h2 class="text-lg font-black text-white font-brand">CESAR AUGUSTO CANO PAREJA</h2>
+            <p class="text-xs text-cano-goldLight font-mono">T.P. Oficial 39648 - T• Contador Público Universid EAFIT</p>
+          </div>
+          <div class="lg:col-span-8 space-y-4 text-center">
+            <h3 class="text-xs sm:text-sm font-bold text-cano-goldLight uppercase tracking-wider font-brand">Blindaje fiscal y optimización tributaria: Asesoría tributaria y contable estratégica para el crecimiento empresarial.</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Especialista en estructuración tributaria, planeación fiscal estratégica y blindaje normativo. Especialistas en planeación fiscal, revisoría y contabilidad en Colombia, garantizando tranquilidad normativa.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2 text-left">
+              <div class="p-3.5 rounded-2xl border bg-cano-card border-cano-gold shadow-md space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-cano-goldLight">Auditoría Externa</span>
+                  <span class="bg-cano-gold text-cano-dark text-[8px] font-black px-1.5 py-0.5 rounded uppercase">Principal #1</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Asesoría de alto impacto en Auditoría Externa con visión estratégica de ahorro fiscal y eficiencia contable.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Outsourcing Contable</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Gestión contable integral bajo normas NIIF con reportes e indicadores financieros mensuales para la alta gerencia.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Revisoría Fiscal</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Aseguramiento riguroso de la información, supervisión independiente y dictamen transparente de estados financieros.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Control Interno</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Diseño e implementación de políticas y manuales de control contable y tesorería para blindar los recursos de la empresa.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Elaboración Informcion Exogena</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Servicio profesional de Elaboración Informcion Exogena con enfoque en resultados óptimos y cumplimiento fiscal.</p>
+              </div>
+              <div class="p-3.5 rounded-2xl border bg-cano-navy/60 border-cano-border space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-white">Liuidacion de Prestaciones</span>
+                </div>
+                <p class="text-[11px] text-slate-300 leading-tight">Servicio profesional de Liuidacion de Prestaciones con enfoque en resultados óptimos y cumplimiento fiscal.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-cano-border grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <div class="space-y-3">
+            <div class="space-y-2 text-xs bg-cano-dark/60 p-4 rounded-2xl border border-cano-border">
+              <p class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-location-dot text-cano-gold"></i> Cl 17 # 15-49, Armenia, Colombia ,  , Of 501</p>
+              <p class="text-slate-300 flex items-center gap-2"><i class="fa-solid fa-envelope text-cano-gold"></i> <a href="#" onclick="abrirModalCorreo(); return false;" class="text-cano-goldLight hover:underline font-bold">canoasesor@gmail.com</a></p>
+              <p class="text-slate-300 flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> <a href="https://wa.me/573117715353?text=Hola,%20vengo%20de%20su%20app%20y%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" class="text-emerald-400 hover:underline font-bold">+573117715353</a></p>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center" id="app-redes-container">
+              <a href="https://facebook.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="https://linkedin.com/in/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="https://instagram.com/canoasesor" target="_blank" class="w-8 h-8 rounded-xl bg-cano-card hover:bg-cano-gold text-cano-goldLight hover:text-cano-dark border border-cano-border flex items-center justify-center text-xs transition shadow" title="instagram"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-center pt-2">
+              <a href="https://wa.me/573117715353?text=Hola,%20vengo%20de%20su%20app%20y%20estoy%20interesado%20en%20sus%20servicios.%20Mi%20nombre%20es..." target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+              <a href="https://canoasesor.com/blog" target="_blank" class="px-3.5 py-2 bg-cano-card border border-cano-gold/40 text-cano-goldLight rounded-xl text-xs font-bold"><i class="fa-solid fa-newspaper"></i> Blog</a>
+            </div>
+          </div>
+          <div class="w-full aspect-[9/16] max-h-[340px] rounded-2xl overflow-hidden border border-cano-border shadow-lg bg-cano-dark">
+            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=Cl%2017%20%23%2015-49%2C%20Armenia%2C%20Colombia&t=&z=19&ie=UTF8&iwloc=near&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- VISTA 2: EXPLORAR PLAZOS -->
+    <div id="vista-explorar-plazos" class="space-y-5 no-print">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <div class="lg:col-span-4 bg-cano-navy/90 border border-cano-border rounded-3xl p-4 shadow-xl space-y-4">
+          <div class="flex flex-wrap gap-1.5" id="nav-categorias-container"></div>
+          <div class="space-y-3 max-h-[60vh] overflow-y-auto custom-scroll pr-1 text-xs" id="lista-secciones-subsecciones"></div>
+        </div>
+        <div class="lg:col-span-8 bg-cano-navy/90 border border-cano-border rounded-3xl p-5 shadow-xl space-y-4" id="panel-visor-derecho"></div>
+      </div>
+    </div>
+    <!-- VISTA 3: MIS PLAZOS -->
+    <div id="vista-mis-plazos" class="hidden space-y-6">
+      <div class="bg-cano-navy/90 border border-cano-border rounded-3xl p-6 shadow-xl no-print space-y-4">
+        <div>
+          <h3 class="text-base font-black text-white font-brand">Genere su Calendario Individual por NIT</h3>
+          <p class="text-xs text-amber-400 font-medium mt-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i> El correo y el número de WhatsApp son obligatorios e importantes para poder enviarle y registrar su calendario completamente gratis.</p>
+        </div>
+        <form id="form-cliente-lead" onsubmit="procesarMisPlazos(event)" class="space-y-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">Nombre / Razón Social <span class="text-red-400">*</span></label>
+              <input type="text" id="lead-nombre" required placeholder="Ej: Empresa S.A.S." class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white focus:border-cano-gold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">NIT / Cédula (Sin DV) <span class="text-red-400">*</span></label>
+              <input type="text" id="lead-nit" required placeholder="Ej: 900123456" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white font-mono font-bold focus:border-cano-gold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">Correo Electrónico <span class="text-red-400">*</span></label>
+              <input type="email" id="lead-correo" required placeholder="correo@empresa.com" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white focus:border-cano-gold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-cano-goldLight uppercase mb-1">WhatsApp de Contacto <span class="text-red-400">*</span></label>
+              <input type="tel" id="lead-whatsapp" required placeholder="3101234567" class="w-full p-2.5 bg-cano-card border border-cano-border rounded-xl text-white font-mono font-bold focus:border-cano-gold focus:outline-none">
+            </div>
+          </div>
+          <div class="border-t border-cano-border pt-3">
+            <div class="flex flex-wrap justify-between items-center mb-2">
+              <p class="font-bold text-slate-300 uppercase">Seleccione obligaciones a incluir:</p>
+              <button type="button" onclick="marcarTodasObligaciones(false)" class="text-red-400 text-[11px] hover:underline font-bold"><i class="fa-solid fa-square-xmark mr-1"></i> Borrar Opciones (Deseleccionar)</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" id="checklist-mis-plazos"></div>
+          </div>
+          <button type="submit" class="px-6 py-2.5 gold-gradient-bg text-cano-dark font-black text-xs uppercase rounded-xl shadow-lg">Generar Mi Calendario Personalizado</button>
+        </form>
+      </div>
+      <div id="contenedor-reporte-nit" class="hidden space-y-4">
+        <div class="flex flex-wrap justify-between items-center bg-cano-card p-4 rounded-2xl border border-cano-border no-print">
+          <p class="text-xs text-cano-goldLight font-bold text-center" id="lead-exito-msg"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Calendario generado con éxito. Estaremos enviándolo a tu correo y No. de WhatsApp. Esperamos que sea de beneficio para usted.</p>
+          <button onclick="window.print()" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold uppercase transition flex items-center gap-1.5 shadow"><i class="fa-solid fa-file-pdf"></i> Imprimir / Guardar en PDF</button>
+        </div>
+        <div class="bg-white text-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 print-area">
+          <div class="border-b-2 border-slate-900 pb-3 mb-4 flex justify-between items-end">
+            <div>
+              <h2 class="text-lg font-black uppercase font-brand">Cartilla Tributaria & Contable</h2>
+              <p class="text-xs text-slate-600 font-bold">CESAR AUGUSTO CANO PAREJA • WhatsApp: 573117715353</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs font-black uppercase" id="rep-cl-nombre">Cliente</p>
+              <p class="text-xs font-mono font-bold">NIT: <span id="rep-cl-nit">0</span></p>
+            </div>
+          </div>
+          <table class="w-full text-xs text-left border-collapse border border-slate-300">
+            <thead><tr class="bg-slate-900 text-white uppercase text-[10px]"><th class="w-4 border"></th><th class="p-2 border">Periodo / Detalle</th><th class="p-2 border">Plazo Asignado</th></tr></thead>
+            <tbody id="tabla-reporte-lead"></tbody>
+          </table>
+          <div class="mt-8 pt-4 border-t border-slate-300 text-center text-xs">
+            <p class="font-bold">CESAR AUGUSTO CANO PAREJA</p>
+            <p class="text-[10px] text-slate-500">Firma Profesional</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- MODAL FORMULARIO CORREO -->
+  <div id="modal-correo" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-cano-navy border border-cano-gold rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-cano-border pb-3">
+        <h3 class="text-sm font-bold text-white uppercase font-brand"><i class="fa-solid fa-envelope text-cano-gold mr-1.5"></i> Enviar Mensaje al Contador</h3>
+        <button onclick="cerrarModalCorreo()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-cano-goldLight uppercase mb-1">Para el correo:</label>
+          <input type="text" id="modal-correo-destino" readonly class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="block font-bold text-cano-goldLight uppercase mb-1">Asunto:</label>
+          <input type="text" id="mail-asunto" value="Hola, vengo de su app y estoy interesado en sus servicios." class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">
+        </div>
+        <div>
+          <label class="block font-bold text-cano-goldLight uppercase mb-1">Su Correo Electrónico:</label>
+          <input type="email" id="mail-remitente" placeholder="su_correo@empresa.com" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">
+        </div>
+        <div>
+          <label class="block font-bold text-cano-goldLight uppercase mb-1">Mensaje / Inquietud:</label>
+          <textarea id="mail-cuerpo" rows="3" class="w-full p-2 bg-cano-card border border-cano-border rounded-xl text-white">Estimado equipo, me gustaria recibir más información sobre sus asesorías.</textarea>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2 border-t border-cano-border">
+        <button onclick="cerrarModalCorreo()" class="px-4 py-2 bg-cano-card text-slate-300 rounded-xl text-xs font-bold">Cancelar</button>
+        <button onclick="enviarCorreoContador()" class="px-5 py-2 gold-gradient-bg text-cano-dark rounded-xl text-xs font-black uppercase">Enviar Correo</button>
+      </div>
+    </div>
+  </div>
+  <footer class="bg-cano-dark border-t border-cano-border py-6 px-4 no-print text-center text-xs text-slate-400 space-y-2">
+    <p>© 2026 <strong>CESAR AUGUSTO CANO PAREJA</strong>. Todos los derechos reservados.</p>
+    <p><a href="https://wa.me/573117715353?text=Hola%20Cesar%2C%20dime%20como%20puedo%20adquirir%20mi%20propio%20calendario" target="_blank" class="text-cano-goldLight hover:underline font-bold">Si da clic aqui para descubrir como tener tu propio Calendario Tributario y compartirlo con tus clientes.</a></p>
+  </footer>
+  <script>
+    var TXT_B64 = "A%20Impuestos%20Nacionales%0A%0AA.1.%20Impuestos%20sobre%20la%20Renta%20y%20Patrimonio%0A%0AA.1.1.%20Renta%20Personas%20Naturales%20y%20Sucesiones%20Il%C3%ADquidas%0ATexto%3A%20Vencimientos%20para%20declaraci%C3%B3n%20y%20pago%20en%20una%20sola%20cuota%20seg%C3%BAn%20los%20dos%20%C3%BAltimos%20d%C3%ADgitos%20del%20NIT.%0AU2D%3BFecha%20L%C3%ADmite%0A01-02%2012%2F08%0A03-04%2013%2F08%0A05-06%2014%2F08%0A07-08%2018%2F08%0A09-10%2019%2F08%0A11-12%2020%2F08%0A13-14%2021%2F08%0A15-16%2024%2F08%0A17-18%2025%2F08%0A19-20%2026%2F08%0A21-22%2027%2F08%0A23-24%2028%2F08%0A25-26%2031%2F08%0A27-28%2001%2F09%0A29-30%2002%2F09%0A31-32%2003%2F09%0A33-34%2004%2F09%0A35-36%2007%2F09%0A37-38%2008%2F09%0A39-40%2009%2F09%0A41-42%2010%2F09%0A43-44%2011%2F09%0A45-46%2014%2F09%0A47-48%2015%2F09%0A49-50%2016%2F09%0A51-52%2017%2F09%0A53-54%2018%2F09%0A55-56%2021%2F09%0A57-58%2022%2F09%0A59-60%2023%2F09%0A61-62%2024%2F09%0A63-64%2025%2F09%0A65-66%2028%2F09%0A67-68%2001%2F10%0A69-70%2002%2F10%0A71-72%2005%2F10%0A73-74%2006%2F10%0A75-76%2007%2F10%0A77-78%2008%2F10%0A79-80%2009%2F10%0A81-82%2013%2F10%0A83-84%2014%2F10%0A85-86%2015%2F10%0A87-88%2016%2F10%0A89-90%2019%2F10%0A91-92%2020%2F10%0A93-94%2021%2F10%0A95-96%2022%2F10%0A97-98%2023%2F10%0A99-00%2026%2F10%0A%0AA.1.2.%20Nuevos%20plazos%20por%20Terremto%20Renta%20Personas%20Naturales%20y%20Sucesiones%20Il%C3%ADquidas%0ATexto%3A%20nuevos%20Vencimientos%20para%20Afectados%20por%20el%20Terremoto%20Agosto%2010%202026%0AU2D%3BFecha%20L%C3%ADmite%0A01-02%2027%2F10%0A03-04%2028%2F10%0A05-06%2029%2F10%0A07-08%2030%2F10%0A09-10%2003%2F11%0A11-12%2004%2F11%0A13-14%2005%2F11%0A15-16%2006%2F11%0A17-18%2009%2F11%0A19-20%2010%2F11%0A21-22%2011%2F11%0A23-24%2012%2F11%0A25-26%2013%2F11%0A%0AA.1.3.%20Declaraci%C3%B3n%20de%20Activos%20en%20el%20Exterior%0ATexto%3A%20Aplica%20en%20las%20mismas%20fechas%20del%20impuesto%20sobre%20la%20renta%20seg%C3%BAn%20el%20tipo%20de%20contribuyente%20(Grandes%20Contribuyentes%20en%20abril%2C%20Personas%20Jur%C3%ADdicas%20en%20mayo%20y%20Personas%20Naturales%20entre%20agosto%20y%20octubre).%0AUD%3BGrandes%20Contribuyentes%3BPersonas%20Jur%C3%ADdicas%0A1%2013%2F04%2012%2F05%0A2%2014%2F04%2013%2F05%0A3%2015%2F04%2014%2F05%0A4%2016%2F04%2015%2F05%0A5%2020%2F04%2019%2F05%0A6%2021%2F04%2020%2F05%0A7%2022%2F04%2021%2F05%0A8%2023%2F04%2022%2F05%0A9%2024%2F04%2025%2F05%0A0%2027%2F04%2026%2F05%0A%0AA.1.4.%20Impuesto%20al%20Patrimonio%0ATexto%3A%20Declaraci%C3%B3n%20y%20primera%20cuota%20en%20mayo%20seg%C3%BAn%20%C3%BAltimo%20d%C3%ADgito%3B%20segunda%20cuota%20fija%20el%2014%20de%20septiembre%20para%20todos%20los%20contribuyentes.%0AUD%3BDeclaraci%C3%B3n%20y%201%C2%AA%20Cuota%3BPago%202%C2%AA%20Cuota%0A1%2012%2F05%2014%2F09%0A2%2013%2F05%2014%2F09%0A3%2014%2F05%2014%2F09%0A4%2015%2F05%2014%2F09%0A5%2019%2F05%2014%2F09%0A6%2020%2F05%2014%2F09%0A7%2021%2F05%2014%2F09%0A8%2022%2F05%2014%2F09%0A9%2025%2F05%2014%2F09%0A0%2026%2F05%2014%2F09%0A%0A%0A%0AA.1.5.%20Renta%20Grandes%20Contribuyentes%0ATexto%3A%20Los%20Grandes%20Contribuyentes%20cancelan%20su%20obligaci%C3%B3n%20en%20tres%20(3)%20cuotas.%0AUD%3B1%C2%AA%20Cuota%20(20%25)%3B2%C2%AA%20Cuota%20%26%20Declaraci%C3%B3n%3B3%C2%AA%20Cuota%0A1%2010%2F02%2013%2F04%2010%2F06%0A2%2011%2F02%2014%2F04%2011%2F06%0A3%2012%2F02%2015%2F04%2012%2F06%0A4%2013%2F02%2016%2F04%2016%2F06%0A5%2016%2F02%2020%2F04%2017%2F06%0A6%2017%2F02%2021%2F04%2018%2F06%0A7%2018%2F02%2022%2F04%2019%2F06%0A8%2019%2F02%2023%2F04%2022%2F06%0A9%2020%2F02%2024%2F04%2023%2F06%0A0%2023%2F02%2027%2F04%2024%2F06%0ANota%3A%20Fechas%20actualizadas%20conforme%20a%20traslados%20oficiales%20de%20d%C3%ADas%20c%C3%ADvicos.%0A%0AA.1.6.%20Renta%20Personas%20Jur%C3%ADdicas%20y%20dem%C3%A1s%20contribuyentes%0ATexto%3A%20Declaraci%C3%B3n%20y%20pago%20de%20la%20primera%20cuota%20en%20mayo%2C%20y%20segunda%20cuota%20en%20julio.%0AUD%3BDeclaraci%C3%B3n%20y%201%C2%AA%20Cuota%3BPago%202%C2%AA%20Cuota%0A1%2012%2F05%2009%2F07%0A2%2013%2F05%2010%2F07%0A3%2014%2F05%2013%2F07%0A4%2015%2F05%2014%2F07%0A5%2019%2F05%2015%2F07%0A6%2020%2F05%2016%2F07%0A7%2021%2F05%2017%2F07%0A8%2022%2F05%2021%2F07%0A9%2025%2F05%2022%2F07%0A0%2026%2F05%2023%2F07%0A%0A%0A%0AA.2.%20Retenciones%20y%20Pagos%20Peri%C3%B3dicos%20Ordinarios%0A%0AA.2.1.%20Retenci%C3%B3n%20en%20la%20Fuente%0ATexto%3A%20Declaraci%C3%B3n%20y%20pago%20mensual%20correspondiente%20al%20Formulario%20350.%0A%0APrimer%20Cuatrimestre%20%0AUD%3BEne%3BFeb%3BMar%3BAbr%0A1%2010%2F02%2010%2F03%2013%2F04%2012%2F05%0A2%2011%2F02%2011%2F03%2014%2F04%2013%2F05%0A3%2012%2F02%2012%2F03%2015%2F04%2014%2F05%0A4%2013%2F02%2013%2F03%2016%2F04%2015%2F05%0A5%2016%2F02%2016%2F03%2020%2F04%2019%2F05%0A6%2017%2F02%2017%2F03%2021%2F04%2020%2F05%0A7%2018%2F02%2018%2F03%2022%2F04%2021%2F05%0A8%2019%2F02%2019%2F03%2023%2F04%2022%2F05%0A9%2020%2F02%2020%2F03%2024%2F04%2025%2F05%0A0%2023%2F02%2024%2F03%2027%2F04%2026%2F05%0A%0ASegundo%20Cuatrimestre%20%0AUD%3BMay%3BJun%3BJul%3BAgo%0A1%2010%2F06%2009%2F07%2012%2F08%2009%2F09%20%0A2%2011%2F06%2010%2F07%2013%2F08%2010%2F09%20%0A3%2012%2F06%2013%2F07%2014%2F08%2011%2F09%0A4%2016%2F06%2014%2F07%2018%2F08%2014%2F09%0A5%2017%2F06%2015%2F07%2019%2F08%2015%2F09%0A6%2018%2F06%2016%2F07%2020%2F08%2016%2F09%0A7%2019%2F06%2017%2F07%2021%2F08%2017%2F09%0A8%2022%2F06%2021%2F07%2024%2F08%2018%2F09%0A9%2023%2F06%2022%2F07%2025%2F08%2021%2F09%0A0%2026%2F05%2024%2F06%2023%2F07%2026%2F08%0A%0ATercer%20Cuatrimestre%20%0AUD%3BSep%3BOct%3BNov%3BDic%0A1%2009%2F10%2011%2F11%2010%2F12%2013%2F01%2F2027%0A2%2013%2F10%2012%2F11%2011%2F12%2014%2F01%2F2027%0A3%2014%2F10%2013%2F11%2014%2F12%2015%2F01%2F2027%0A4%2015%2F10%2017%2F11%2015%2F12%2018%2F01%2F2027%0A5%2016%2F10%2018%2F11%2016%2F12%2019%2F01%2F2027%0A6%2019%2F10%2019%2F11%2017%2F12%2020%2F01%2F2027%0A7%2020%2F10%2020%2F11%2018%2F12%2021%2F01%2F2027%0A8%2021%2F10%2023%2F11%2021%2F12%2022%2F01%2F2027%0A9%2022%2F10%2024%2F11%2022%2F12%2025%2F01%2F2027%0A0%2023%2F10%2025%2F11%2023%2F12%2026%2F01%2F2027%0A%0A%0AA.2.2.%20Impuesto%20sobre%20las%20Ventas%20-%20IVA%20Bimestral%0ATexto%3A%20Contribuyentes%20con%20ingresos%20brutos%20a%2031%20de%20diciembre%20superiores%20o%20iguales%20a%2092.000%20UVT.%0AUD%3BEne-Feb%3BMar-Abr%3BMay-Jun%3BJul-Ago%3BSep-Oct%3BNov-Dic%0A1%2010%2F03%2012%2F05%2009%2F07%2009%2F09%2011%2F11%2013%2F01%0A2%2011%2F03%2013%2F05%2010%2F07%2010%2F09%2012%2F11%2014%2F01%0A3%2012%2F03%2014%2F05%2013%2F07%2011%2F09%2013%2F11%2015%2F01%0A4%2013%2F03%2015%2F05%2014%2F07%2014%2F09%2017%2F11%2018%2F01%0A5%2016%2F03%2019%2F05%2015%2F07%2015%2F09%2018%2F11%2019%2F01%0A6%2017%2F03%2020%2F05%2016%2F07%2016%2F09%2019%2F11%2020%2F01%0A7%2018%2F03%2021%2F05%2017%2F07%2017%2F09%2020%2F11%2021%2F01%0A8%2019%2F03%2022%2F05%2021%2F07%2018%2F09%2023%2F11%2022%2F01%0A9%2020%2F03%2025%2F05%2022%2F07%2021%2F09%2024%2F11%2025%2F01%0A0%2024%2F03%2026%2F05%2023%2F07%2022%2F09%2025%2F11%2026%2F01%0A%0AA.2.3.%20Impuesto%20sobre%20las%20Ventas%20-%20IVA%20Cuatrimestral%0ATexto%3A%20Contribuyentes%20con%20ingresos%20brutos%20a%2031%20de%20diciembre%20inferiores%20a%2092.000%20UVT.%0AUD%3BEne-Abr%3BMay-Ago%3BSep-Dic%0A1%2012%2F05%2009%2F09%2013%2F01%0A2%2013%2F05%2010%2F09%2014%2F01%0A3%2014%2F05%2011%2F09%2015%2F01%0A4%2015%2F05%2014%2F09%2018%2F01%0A5%2019%2F05%2015%2F09%2019%2F01%0A6%2020%2F05%2016%2F09%2020%2F01%0A7%2021%2F05%2017%2F09%2021%2F01%0A8%2022%2F05%2018%2F09%2022%2F01%0A9%2025%2F05%2021%2F09%2025%2F01%0A0%2026%2F05%2022%2F09%2026%2F01%0A%0AA.2.4.%20Impuesto%20Nacional%20al%20Consumo%20-%20INC%0ATexto%3A%20Declaraci%C3%B3n%20y%20pago%20bimestral%20del%20impuesto%20al%20consumo.%0AUD%3BEne-Feb%3BMar-Abr%3BMay-Jun%3BJul-Ago%3BSep-Oct%3BNov-Dic%0A1%2010%2F03%2012%2F05%2009%2F07%2009%2F09%2011%2F11%2013%2F01%0A2%2011%2F03%2013%2F05%2010%2F07%2010%2F09%2012%2F11%2014%2F01%0A3%2012%2F03%2014%2F05%2013%2F07%2011%2F09%2013%2F11%2015%2F01%0A4%2013%2F03%2015%2F05%2014%2F07%2014%2F09%2017%2F11%2018%2F01%0A5%2016%2F03%2019%2F05%2015%2F07%2015%2F09%2018%2F11%2019%2F01%0A6%2017%2F03%2020%2F05%2016%2F07%2016%2F09%2019%2F11%2020%2F01%0A7%2018%2F03%2021%2F05%2017%2F07%2017%2F09%2020%2F11%2021%2F01%0A8%2019%2F03%2022%2F05%2021%2F07%2018%2F09%2023%2F11%2022%2F01%0A9%2020%2F03%2025%2F05%2022%2F07%2021%2F09%2024%2F11%2025%2F01%0A0%2024%2F03%2026%2F05%2023%2F07%2022%2F09%2025%2F11%2026%2F01%0A%0AA.3.%20R%C3%A9gimen%20Simple%20de%20Tributaci%C3%B3n%20-%20RST%0A%0AA.3.1.%20Declaraci%C3%B3n%20Anual%20Consolidada%20RST%0ATexto%3A%20Declaraci%C3%B3n%20anual%20del%20R%C3%A9gimen%20Simple%20de%20Tributaci%C3%B3n%20por%20parejas%20del%20%C3%BAltimo%20d%C3%ADgito%20del%20NIT.%0AU2D%3BDeclaraci%C3%B3n%20y%20Pago%0A1-2%2020%2F04%0A3-4%2021%2F04%0A5-6%2022%2F04%0A7-8%2023%2F04%0A9-0%2024%2F04%0A%0AA.3.2.%20Declaraci%C3%B3n%20Anual%20Consolidada%20de%20IVA%20-%20RST%0ATexto%3A%20Para%20contribuyentes%20del%20RST%20responsables%20de%20IVA.%0AU2D%3BDeclaraci%C3%B3n%20y%20Pago%0A1-2%2016%2F02%0A3-4%2017%2F02%0A5-6%2018%2F02%0A7-8%2019%2F02%0A9-0%2020%2F02%0A%0AA.3.3.%20Anticipo%20Bimestral%20RST%0ATexto%3A%20Pagos%20bimestrales%20anticipados%20a%20trav%C3%A9s%20del%20Formulario%20260.%0AUD%3BEne-Feb%3BMar-Abr%3BMay-Jun%3BJul-Ago%3BSep-Oct%3BNov-Dic%0A1%2012%2F05%2010%2F06%2009%2F07%2009%2F09%2011%2F11%2013%2F01%0A2%2013%2F05%2011%2F06%2010%2F07%2010%2F09%2012%2F11%2014%2F01%0A3%2014%2F05%2012%2F06%2013%2F07%2011%2F09%2013%2F11%2015%2F01%0A4%2015%2F05%2016%2F06%2014%2F07%2014%2F09%2017%2F11%2018%2F01%0A5%2019%2F05%2017%2F06%2015%2F07%2015%2F09%2018%2F11%2019%2F01%0A6%2020%2F05%2018%2F06%2016%2F07%2016%2F09%2019%2F11%2020%2F01%0A7%2021%2F05%2019%2F06%2017%2F07%2017%2F09%2020%2F11%2021%2F01%0A8%2022%2F05%2022%2F06%2021%2F07%2018%2F09%2023%2F11%2022%2F01%0A9%2025%2F05%2023%2F06%2022%2F07%2021%2F09%2024%2F11%2025%2F01%0A0%2026%2F05%2024%2F06%2023%2F07%2022%2F09%2025%2F11%2026%2F01%0A%0AA.4.%20Deberes%20Formales%20e%20Informaci%C3%B3n%20Ex%C3%B3gena%0A%0AA.4.1.%20Informaci%C3%B3n%20Ex%C3%B3gena%20-%20Grandes%20Contribuyentes%0AUD%3BFecha%20L%C3%ADmite%0A1%2027%2F04%0A2%2028%2F04%0A3%2004%2F05%0A4%2005%2F05%0A5%2006%2F05%0A6%2007%2F05%0A7%2008%2F05%0A8%2011%2F05%0A9%2012%2F05%0A0%2013%2F05%0A%0AA.4.2.%20Informaci%C3%B3n%20Ex%C3%B3gena%20-%20Personas%20Jur%C3%ADdicas%20y%20Naturales%0AU2D%3BFecha%20L%C3%ADmite%0A01-05%2014%2F05%0A06-10%2015%2F05%0A11-15%2019%2F05%0A16-20%2020%2F05%0A21-25%2021%2F05%0A26-30%2022%2F05%0A31-35%2025%2F05%0A36-40%2026%2F05%0A41-45%2027%2F05%0A46-50%2028%2F05%0A51-55%2029%2F05%0A56-60%2001%2F06%0A61-65%2002%2F06%0A66-70%2003%2F06%0A71-75%2004%2F06%0A76-80%2005%2F06%0A81-85%2009%2F06%0A86-90%2010%2F06%0A91-95%2011%2F06%0A96-00%2012%2F06%0A%0AA.4.3.%20Precios%20de%20Transferencia%20-%20Declaraci%C3%B3n%20Informativa%20y%20Documentaci%C3%B3n%0AUD%3BDeclaraci%C3%B3n%20Informativa%3BDoc.%20Comprobatoria%0A1%2009%2F09%2009%2F09%0A2%2010%2F09%2010%2F09%0A3%2011%2F09%2011%2F09%0A4%2014%2F09%2014%2F09%0A5%2015%2F09%2015%2F09%0A6%2016%2F09%2016%2F09%0A7%2017%2F09%2017%2F09%0A8%2018%2F09%2018%2F09%0A9%2021%2F09%2021%2F09%0A0%2022%2F09%2022%2F09%0ANota%3A%20El%20Informe%20Pa%C3%ADs%20por%20Pa%C3%ADs%20vence%20el%2015%2F12%20para%20todos%20los%20d%C3%ADgitos.%0A%0AA.4.4.%20RUB%20-%20Registro%20%C3%9Anico%20de%20Beneficiarios%20Finales%0ATexto%3A%20Actualizaci%C3%B3n%20trimestral%20independiente%20de%20si%20el%20d%C3%ADa%20es%20h%C3%A1bil%20o%20no.%0AConcepto%3BFecha%20L%C3%ADmite%0ATrimestre%201%20(Enero)%2002%2F02%0ATrimestre%202%20(Abril)%2004%2F05%0ATrimestre%203%20(Julio)%2003%2F08%0ATrimestre%204%20(Octubre)%2003%2F11%0A%0AA.5.%20Impuestos%20Ambientales%2C%20Sectoriales%20y%20Fijos%0A%0AA.5.1.%20Productos%20Azucarados%20y%20Ultraprocesados%0ATexto%3A%20Impuesto%20a%20bebidas%20ultraprocesadas%20azucaradas%20y%20productos%20comestibles%20ultraprocesados.%0ABimestre%3BFecha%20L%C3%ADmite%0AEne%20-%20Feb%2013%2F03%0AMar%20-%20Abr%2015%2F05%0AMay%20-%20Jun%2014%2F07%0AJul%20-%20Ago%2014%2F09%0ASep%20-%20Oct%2017%2F11%0ANov%20-%20Dic%2018%2F01%0A%0AA.5.2.%20Impuesto%20Nacional%20al%20Carbono%0ABimestre%3BFecha%20L%C3%ADmite%0AEne%20-%20Feb%2013%2F03%0AMar%20-%20Abr%2015%2F05%0AMay%20-%20Jun%2014%2F07%0AJul%20-%20Ago%2014%2F09%0ASep%20-%20Oct%2017%2F11%0ANov%20-%20Dic%2018%2F01%0A%0AA.5.3.%20Impuesto%20a%20la%20Gasolina%20y%20ACPM%0AMes%3BFecha%20L%C3%ADmite%0AEnero%2013%2F02%0AFebrero%2013%2F03%0AMarzo%2016%2F04%0AAbril%2015%2F05%0AMayo%2016%2F06%0AJunio%2014%2F07%0AJulio%2018%2F08%0AAgosto%2014%2F09%0ASeptiembre%2015%2F10%0AOctubre%2017%2F11%0ANoviembre%2015%2F12%0ADiciembre%2018%2F01%0A%0AA.5.4.%20Productos%20Pl%C3%A1sticos%20de%20un%20Solo%20Uso%0AConcepto%3BFecha%20L%C3%ADmite%0ADeclaraci%C3%B3n%20Anual%2013%2F02%0A%0AA.5.5.%20IVA%20Prestadores%20de%20Servicios%20desde%20el%20Exterior%0ABimestre%3BFecha%20L%C3%ADmite%0AEne%20-%20Feb%2013%2F03%0AMar%20-%20Abr%2015%2F05%0AMay%20-%20Jun%2014%2F07%0AJul%20-%20Ago%2014%2F09%0ASep%20-%20Oct%2017%2F11%0ANov%20-%20Dic%2018%2F01%0A%0AA.5.6.%20Gravamen%20a%20los%20Movimientos%20Financieros%20-%20GMF%0ATexto%3A%20Declaraci%C3%B3n%20y%20pago%20semanal.%20La%20semana%20inicia%20el%20s%C3%A1bado%20y%20finaliza%20el%20viernes%3B%20vence%20el%20segundo%20d%C3%ADa%20h%C3%A1bil%20de%20la%20semana%20siguiente.%0A%0AB%20Impuestos%20Municipales%20y%20Distritales%0A%0AB.1.%20Bogot%C3%A1%20D.C.%20-%20Industria%20y%20Comercio%20(ICA)%0A%0AB.1.1.%20ICA%20Bimestral%20R%C3%A9gimen%20Com%C3%BAn%0ABimestre%3BFecha%20L%C3%ADmite%0ABimestre%201%20(Ene-Feb)%2011%2F04%0ABimestre%202%20(Mar-Abr)%2013%2F06%0ABimestre%203%20(May-Jun)%2015%2F08%0ABimestre%204%20(Jul-Ago)%2017%2F10%0ABimestre%205%20(Sep-Oct)%2012%2F12%0ABimestre%206%20(Nov-Dic)%2020%2F02%0A%0AB.1.2.%20ReteICA%20Bimestral%20Bogot%C3%A1%0ABimestre%3BFecha%20L%C3%ADmite%0ABimestre%201%20(Ene-Feb)%2028%2F03%0ABimestre%202%20(Mar-Abr)%2023%2F05%0ABimestre%203%20(May-Jun)%2025%2F07%0ABimestre%204%20(Jul-Ago)%2026%2F09%0ABimestre%205%20(Sep-Oct)%2028%2F11%0ABimestre%206%20(Nov-Dic)%2030%2F01%0A%0AB.2.%20Medell%C3%ADn%20-%20Industria%20y%20Comercio%20(ICA)%0A%0AB.2.1.%20Declaraci%C3%B3n%20Anual%20ICA%20Medell%C3%ADn%0ATexto%3A%20Presentaci%C3%B3n%20anual%20seg%C3%BAn%20el%20calendario%20tributario%20municipal%20de%20Medell%C3%ADn.%0AUD%3BFecha%20L%C3%ADmite%0A1-2%2018%2F04%0A3-4%2019%2F04%0A5-6%2020%2F04%0A7-8%2021%2F04%0A9-0%2022%2F04";
+    var TXT_RAW = decodeURIComponent(TXT_B64);
+    var ESTRUCTURA_TRIBUTARIA = [];
+    var categoriaActivaIndex = 0;
+    var subseccionActivaKey = null;
+    var MESES_MAP = { "01":"Ene","1":"Ene","02":"Feb","2":"Feb","03":"Mar","3":"Mar","04":"Abr","4":"Abr","05":"May","5":"May","06":"Jun","6":"Jun","07":"Jul","7":"Jul","08":"Ago","8":"Ago","09":"Sep","9":"Sep","10":"Oct","11":"Nov","12":"Dic" };
+    function formatearFechaMmm(val) {
+      if (!val) return "";
+      var p = String(val).trim().split("/");
+      return (p.length === 2 && MESES_MAP[p[1]]) ? (p[0].padStart(2, "0") + " " + MESES_MAP[p[1]]) : val;
+    }
+    function parsearTxtACalendario(txt) {
+      if (!txt) return [];
+      var lineas = txt.split("\n");
+      var categorias = [];
+      var catActual = null, secActual = null, subActual = null;
+      for (var i = 0; i < lineas.length; i++) {
+        var l = lineas[i].trim();
+        if (!l) continue;
+        if (/^[A-Z]\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]/.test(l) && !l.includes(".")) {
+          catActual = { id: l.substring(0, 1), nombre: l, secciones: [] };
+          categorias.push(catActual);
+          secActual = null; subActual = null;
+        } else if (/^[A-Z]\.[0-9]+\./.test(l) && l.split(".").length === 3) {
+          secActual = { nombre: l, subsecciones: [] };
+          if (catActual) catActual.secciones.push(secActual);
+          subActual = null;
+        } else if (/^[A-Z]\.[0-9]+\.[0-9]+\./.test(l)) {
+          subActual = { id: l.split(" ")[0].replace(/\./g, "_"), nombre: l, textosPrevios: [], encabezados: [], filas: [], notasFinales: [] };
+          if (secActual) secActual.subsecciones.push(subActual);
+        } else if (subActual) {
+          if (l.startsWith("Texto:")) subActual.textosPrevios.push(l.replace("Texto:", "").trim());
+          else if (l.startsWith("Nota:")) subActual.notasFinales.push(l.replace("Nota:", "").trim());
+          else if (l.includes(";") && subActual.encabezados.length === 0) subActual.encabezados = l.split(";").map(function(h){ return h.trim(); });
+          else {
+            var p = l.split(/\s+/);
+            if (p.length >= 2) subActual.filas.push({ digito: p[0], fechas: p.slice(1).map(function(f){ return formatearFechaMmm(f); }) });
+          }
+        }
+      }
+      return categorias;
+    }
+    function cambiarSeccion(tabId) {
+      document.getElementById("vista-quienes-somos").classList.add("hidden");
+      document.getElementById("vista-explorar-plazos").classList.add("hidden");
+      document.getElementById("vista-mis-plazos").classList.add("hidden");
+      ["tab-quienes-somos", "tab-explorar-plazos", "tab-mis-plazos"].forEach(function(id) {
+        document.getElementById(id).className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300";
+      });
+      document.getElementById("vista-" + tabId).classList.remove("hidden");
+      document.getElementById("tab-" + tabId).className = "px-4 py-1.5 rounded-lg text-xs font-black gold-gradient-bg text-cano-dark shadow";
+      
+      if (tabId === "explorar-plazos") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+    function renderizarIndiceLateral() {
+      var catCont = document.getElementById("nav-categorias-container");
+      var secCont = document.getElementById("lista-secciones-subsecciones");
+      catCont.innerHTML = ""; secCont.innerHTML = "";
+      if (ESTRUCTURA_TRIBUTARIA.length === 0) return;
+      ESTRUCTURA_TRIBUTARIA.forEach(function(cat, cIdx) {
+        var btn = document.createElement("button");
+        btn.className = "px-3 py-1 rounded-xl text-[11px] font-black uppercase " + (cIdx === categoriaActivaIndex ? "gold-gradient-bg text-cano-dark shadow" : "bg-cano-card border border-cano-border text-slate-300");
+        btn.innerText = cat.nombre;
+        btn.onclick = function() { categoriaActivaIndex = cIdx; renderizarIndiceLateral(); };
+        catCont.appendChild(btn);
+      });
+      var cat = ESTRUCTURA_TRIBUTARIA[categoriaActivaIndex];
+      if (!cat) return;
+      cat.secciones.forEach(function(sec) {
+        var secBox = document.createElement("div");
+        secBox.className = "space-y-1 border border-cano-border bg-cano-card/60 p-2.5 rounded-2xl";
+        secBox.innerHTML = "<h4 class=\"font-black text-[11px] uppercase text-cano-goldLight\">" + sec.nombre + "</h4>";
+        var subList = document.createElement("div");
+        subList.className = "space-y-1 pl-2";
+        sec.subsecciones.forEach(function(sub, sIdx) {
+          if (!subseccionActivaKey && sIdx === 0) subseccionActivaKey = sub.id;
+          var esActiva = subseccionActivaKey === sub.id;
+          var subBtn = document.createElement("button");
+          subBtn.className = "w-full text-left p-1.5 rounded-xl text-xs " + (esActiva ? "bg-cano-navy border border-cano-gold text-white font-bold" : "text-slate-400");
+          subBtn.innerText = sub.nombre;
+          subBtn.onclick = function() { 
+            subseccionActivaKey = sub.id; 
+            renderizarIndiceLateral(); 
+            if (window.innerWidth < 1024) {
+              var visorElem = document.getElementById("panel-visor-derecho");
+              var headerOffset = 70;
+              var elementPosition = visorElem.getBoundingClientRect().top;
+              var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+              window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+            }
+          };
+          subList.appendChild(subBtn);
+        });
+        secBox.appendChild(subList);
+        secCont.appendChild(secBox);
+      });
+      renderizarVisorSubseccion();
+    }
+    function renderizarVisorSubseccion() {
+      var visor = document.getElementById("panel-visor-derecho");
+      var obj = null;
+      for (var i = 0; i < ESTRUCTURA_TRIBUTARIA.length; i++) {
+        var c = ESTRUCTURA_TRIBUTARIA[i];
+        for (var j = 0; j < c.secciones.length; j++) {
+          var s = c.secciones[j];
+          for (var k = 0; k < s.subsecciones.length; k++) {
+            var sub = s.subsecciones[k];
+            if (sub.id === subseccionActivaKey) { obj = { cat: c, sec: s, sub: sub }; break; }
+          }
+        }
+      }
+      if (!obj) return;
+      var cat = obj.cat, sec = obj.sec, sub = obj.sub;
+      var htmlHeader = "<div class=\"border-b border-cano-border pb-2\"><span class=\"text-[10px] text-cano-goldLight uppercase font-bold\">" + cat.nombre + " • " + sec.nombre + "</span><h3 class=\"text-base font-black text-white\">" + sub.nombre + "</h3></div>";
+      var htmlTextos = sub.textosPrevios.map(function(t){ return "<p class=\"text-xs text-slate-300 italic\">" + t + "</p>"; }).join("");
+      var htmlTabla = "";
+      if (sub.encabezados.length > 0) {
+        var esU2D = sub.encabezados[0].includes("U2D");
+        if (esU2D && sub.filas.length > 20) {
+          var mitad = Math.ceil(sub.filas.length / 2);
+          var trs = "";
+          for (var r = 0; r < mitad; r++) {
+            var f1 = sub.filas[r], f2 = sub.filas[r + mitad];
+            trs += "<tr class=\"border-b border-cano-border/50 text-center\"><td class=\"p-1.5 text-cano-goldLight font-bold\">" + f1.digito + "</td><td class=\"p-1.5 text-white\">" + (f1.fechas[0]||"") + "</td><td class=\"p-1.5 text-cano-goldLight font-bold\">" + (f2?f2.digito:"") + "</td><td class=\"p-1.5 text-white\">" + (f2&&f2.fechas[0]?f2.fechas[0]:"") + "</td></tr>";
+          }
+          htmlTabla = "<table class=\"w-full text-xs border border-cano-border\"><thead class=\"bg-cano-card text-cano-goldLight text-[10px]\"><tr><th>" + sub.encabezados[0] + "</th><th>Fecha</th><th>" + sub.encabezados[0] + "</th><th>Fecha</th></tr></thead><tbody>" + trs + "</tbody></table>";
+        } else {
+          var ths = sub.encabezados.map(function(h){ return "<th class=\"p-2\">" + h + "</th>"; }).join("");
+          var trs = sub.filas.map(function(f) {
+            var tds = f.fechas.map(function(fc){ return "<td class=\"p-1.5 text-center text-white\">" + fc + "</td>"; }).join("");
+            return "<tr class=\"border-b border-cano-border/50\"><td class=\"p-1.5 text-center font-bold text-cano-goldLight\">" + f.digito + "</td>" + tds + "</tr>";
+          }).join("");
+          htmlTabla = "<div class=\"overflow-x-auto\"><table class=\"w-full text-xs border border-cano-border\"><thead class=\"bg-cano-card text-cano-goldLight text-[10px]\"><tr>" + ths + "</tr></thead><tbody>" + trs + "</tbody></table></div>";
+        }
+      }
+      visor.innerHTML = "<div class=\"space-y-3\">" + htmlHeader + htmlTextos + htmlTabla + "</div>";
+    }
+    function renderizarChecklistMisPlazos() {
+      var cont = document.getElementById("checklist-mis-plazos");
+      if (!cont) return;
+      cont.innerHTML = "";
+      ESTRUCTURA_TRIBUTARIA.forEach(function(cat) {
+        var catHtml = "<div class=\"col-span-full mt-4 mb-1 border-b border-cano-border pb-1\"><h4 class=\"font-black text-cano-goldLight uppercase text-xs\">" + cat.nombre + "</h4></div>";
+        var itemsHtml = "";
+        var catHasItems = false;
+        cat.secciones.forEach(function(sec) {
+          var secHtml = "<div class=\"col-span-full mt-2\"><h5 class=\"font-bold text-white text-[11px] uppercase\">" + sec.nombre + "</h5></div>";
+          var secItemsHtml = "";
+          var secHasItems = false;
+          sec.subsecciones.forEach(function(sub) {
+            if (sub.filas.length > 0) {
+              catHasItems = true;
+              secHasItems = true;
+              secItemsHtml += "<label class=\"flex items-center gap-2 p-2 rounded-xl bg-cano-card border border-cano-border text-slate-300 cursor-pointer hover:border-cano-gold transition\"><input type=\"checkbox\" name=\"chk_mis_plazos\" value=\"" + sub.id + "\" class=\"rounded text-cano-gold\"><span>" + sub.nombre + "</span></label>";
+            }
+          });
+          if(secHasItems) itemsHtml += secHtml + secItemsHtml;
+        });
+        if(catHasItems) cont.innerHTML += catHtml + itemsHtml;
+      });
+    }
+    function marcarTodasObligaciones(st) {
+      document.querySelectorAll("input[name='chk_mis_plazos']").forEach(function(c){ c.checked = st; });
+    }
+    function procesarMisPlazos(e) {
+      e.preventDefault();
+      var nombre = document.getElementById("lead-nombre").value;
+      var nit = document.getElementById("lead-nit").value.replace(/\D/g, "");
+      var correo = document.getElementById("lead-correo").value;
+      var wpp = document.getElementById("lead-whatsapp").value;
+      var uDig = nit.slice(-1);
+      var u2Dig = nit.slice(-2);
+      document.getElementById("rep-cl-nombre").innerText = nombre;
+      document.getElementById("rep-cl-nit").innerText = nit;
+      var checks = Array.from(document.querySelectorAll("input[name='chk_mis_plazos']:checked")).map(function(c){ return c.value; });
+      var tbody = document.getElementById("tabla-reporte-lead");
+      tbody.innerHTML = "";
+      
+      ESTRUCTURA_TRIBUTARIA.forEach(function(cat) {
+        var catHasItems = false;
+        var catTr = "<tr class=\"bg-slate-800 text-white\"><td colspan=\"3\" class=\"p-2 font-black uppercase text-xs rounded-t-lg\">" + cat.nombre + "</td></tr>";
+        var secTrs = "";
+        cat.secciones.forEach(function(sec) {
+          var secHasItems = false;
+          var currentSecTrs = "";
+          sec.subsecciones.forEach(function(sub) {
+            if (checks.includes(sub.id)) {
+              catHasItems = true;
+              secHasItems = true;
+              currentSecTrs += "<tr class=\"bg-slate-100 border-b border-slate-200\"><td colspan=\"3\" class=\"p-2 pl-4 font-bold text-slate-800 text-[11px]\">" + sub.nombre + "</td></tr>";
+              var fEncontrada = false;
+              for (var f of sub.filas) {
+                if (f.digito === uDig || f.digito.includes(u2Dig)) {
+                  fEncontrada = true;
+                  f.fechas.forEach(function(fecha, fIdx) {
+                    if(fecha && fecha.trim() !== "" && fecha.trim() !== "-") {
+                      var periodo = (sub.encabezados && sub.encabezados[fIdx + 1]) ? sub.encabezados[fIdx + 1] : "Plazo único";
+                      currentSecTrs += "<tr class=\"border-b bg-white\"><td class=\"w-4 border-r border-slate-200\"></td><td class=\"p-1.5 text-slate-600 text-xs\">" + periodo + "</td><td class=\"p-1.5 font-bold text-amber-800 text-xs\">" + fecha + "</td></tr>";
+                    }
+                  });
+                  break;
+                }
+              }
+              if (!fEncontrada) {
+                currentSecTrs += "<tr class=\"border-b bg-white\"><td class=\"w-4 border-r border-slate-200\"></td><td class=\"p-1.5 text-slate-600 text-xs\">N/A</td><td class=\"p-1.5 font-bold text-amber-800 text-xs\">Consultar calendario</td></tr>";
+              }
+              currentSecTrs += "<tr><td colspan=\"3\" class=\"h-4 bg-white border-0\"></td></tr>";
+            }
+          });
+          if(secHasItems) {
+            secTrs += "<tr class=\"bg-slate-200 border-y border-slate-300\"><td colspan=\"3\" class=\"p-1.5 px-3 font-bold text-slate-700 uppercase text-[10px] border-l-4 border-slate-500\">" + sec.nombre + "</td></tr>";
+            secTrs += currentSecTrs;
+          }
+        });
+        if(catHasItems) {
+          tbody.innerHTML += catTr + secTrs;
+        }
+      });
+      document.getElementById("contenedor-reporte-nit").classList.remove("hidden");
+      
+      var iframe = document.createElement("iframe");
+      iframe.name = "hidden_formsubmit";
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+      var form = document.createElement("form");
+      form.method = "POST";
+      form.action = "https://formsubmit.co/" + "canoasesor@gmail.com";
+      form.target = "hidden_formsubmit";
+      var inputs = {
+        "_subject": "🎯 NUEVO LEAD TRIBUTARIO: " + nombre,
+        "Nombre_o_Razon_Social": nombre,
+        "NIT": nit,
+        "Correo_Cliente": correo,
+        "WhatsApp": wpp,
+        "_template": "table",
+        "_captcha": "false"
+      };
+      for (var key in inputs) {
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = inputs[key];
+        form.appendChild(input);
+      }
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(function() { form.remove(); iframe.remove(); }, 5000);
+    }
+    function abrirModalCorreo() {
+      document.getElementById("modal-correo-destino").value = "canoasesor@gmail.com";
+      document.getElementById("modal-correo").classList.remove("hidden");
+    }
+    function cerrarModalCorreo() {
+      document.getElementById("modal-correo").classList.add("hidden");
+    }
+    function enviarCorreoContador() {
+      var remitente = document.getElementById("mail-remitente").value;
+      var asunto = document.getElementById("mail-asunto").value;
+      var cuerpo = document.getElementById("mail-cuerpo").value;
+      var mailtoLink = "mailto:canoasesor@gmail.com?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent("Remitente: " + remitente + "\n\n" + cuerpo);
+      window.location.href = mailtoLink;
+      cerrarModalCorreo();
+    }
+    window.onload = function() {
+      ESTRUCTURA_TRIBUTARIA = parsearTxtACalendario(TXT_RAW);
+      renderizarIndiceLateral();
+      renderizarChecklistMisPlazos();
+    };
+  </script>
+</body>
+</html>
