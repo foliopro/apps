@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gerencial Comercial - Satisfacción EPA</title>
+    <title>Dashboard Gerencial Dinámico - Satisfacción EPA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,7 +20,8 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col">
 
-    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50 no-print">
+    <!-- Top Header Bar -->
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
                 <div class="bg-blue-600 p-2.5 rounded-xl text-white font-bold text-xl shadow">
@@ -31,11 +32,11 @@
                     <p class="text-xs text-slate-400">Dirección Comercial — Dashboard Gerencial & Inteligencia de Satisfacción</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 no-print">
                 <label class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-semibold shadow transition flex items-center space-x-2">
                     <i class="fa-solid fa-file-excel mr-1"></i>
-                    <span id="upload-text">Cargar Archivo Excel (.xlsx)</span>
-                    <input type="file" id="excel-file" accept=".xlsx, .xls" class="hidden">
+                    <span id="upload-btn-text">Cargar / Cambiar Archivo Excel (.xlsx)</span>
+                    <input type="file" id="excel-file-input" accept=".xlsx, .xls" class="hidden">
                 </label>
                 <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-xl text-xs font-semibold shadow transition flex items-center space-x-2">
                     <i class="fa-solid fa-file-pdf mr-1"></i> Exportar E-book
@@ -44,22 +45,25 @@
         </div>
     </header>
 
-    <div id="file-request-banner" class="max-w-7xl mx-auto px-4 mt-8 w-full">
-        <div class="bg-white border-2 border-dashed border-blue-300 rounded-3xl p-10 text-center shadow-sm">
+    <!-- Initial File Upload Banner -->
+    <div id="file-request-banner" class="max-w-7xl mx-auto px-4 mt-12 w-full">
+        <div class="bg-white border-2 border-dashed border-blue-300 rounded-3xl p-12 text-center shadow-sm">
             <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl mx-auto flex items-center justify-center text-2xl mb-4 shadow-inner">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
             </div>
-            <h2 class="text-xl font-bold text-slate-900 mb-2">Por favor, cargue su archivo Excel de encuestas</h2>
-            <p class="text-sm text-slate-500 max-w-xl mx-auto mb-6">El sistema procesará automáticamente los registros bajo la regla de 4 preguntas por encuesta para activar los 10 gráficos con tablas y análisis gerenciales.</p>
-            <label class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl text-sm font-bold shadow-md transition inline-flex items-center space-x-2">
+            <h2 class="text-2xl font-bold text-slate-900 mb-2">Por favor, cargue el archivo Excel de encuestas</h2>
+            <p class="text-sm text-slate-500 max-w-xl mx-auto mb-6">Este dashboard es 100% dinámico. Seleccione el archivo Excel (.xlsx) de la empresa para procesar automáticamente los registros, calcular las 4 preguntas por encuesta y activar los 10 gráficos gerenciales con sus respectivas tablas y análisis.</p>
+            <label class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-2xl text-sm font-bold shadow-md transition inline-flex items-center space-x-2">
                 <i class="fa-solid fa-folder-open mr-2"></i> Seleccionar Archivo Excel (.xlsx)
                 <input type="file" id="excel-file-hero" accept=".xlsx, .xls" class="hidden">
             </label>
         </div>
     </div>
 
+    <!-- Main Container (Hidden until file is uploaded) -->
     <main id="dashboard-container" class="max-w-7xl mx-auto px-4 py-8 space-y-8 flex-grow w-full hidden">
 
+        <!-- Global Filters Bar -->
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4 no-print">
             <div class="flex items-center space-x-2 text-sm font-bold text-slate-900">
                 <i class="fa-solid fa-filter text-blue-600 mr-1"></i> Filtros Globales Interactivos:
@@ -71,6 +75,8 @@
                         <option value="ALL">Todos los Trimestres</option>
                         <option value="1">Trimestre I</option>
                         <option value="2">Trimestre II</option>
+                        <option value="3">Trimestre III</option>
+                        <option value="4">Trimestre IV</option>
                     </select>
                 </div>
                 <div>
@@ -83,6 +89,12 @@
                         <option value="4">Abril</option>
                         <option value="5">Mayo</option>
                         <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
                     </select>
                 </div>
                 <div>
@@ -99,6 +111,7 @@
             </div>
         </div>
 
+        <!-- KPI Summary Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
                 <div>
@@ -142,6 +155,7 @@
             </div>
         </div>
 
+        <!-- INSIGHT BOX DYNAMIC -->
         <div class="bg-gradient-to-r from-blue-900 to-slate-900 text-white p-6 rounded-2xl shadow-md border border-blue-800">
             <div class="flex items-center space-x-3 mb-2">
                 <div class="bg-blue-600 p-2 rounded-lg text-white"><i class="fa-solid fa-brain"></i></div>
@@ -152,6 +166,9 @@
             </p>
         </div>
 
+        <!-- =================== 10 CHARTS WITH TABLES AND ANALYSIS =================== -->
+
+        <!-- 1. Evolución Mensual -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-column mr-2 text-blue-600"></i>1. Evolución Mensual del Volumen de Encuestas</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -168,6 +185,7 @@
             <p id="analysisMonthly" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando comportamiento mensual...</p>
         </div>
 
+        <!-- 2. Distribución Trimestral -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-pie mr-2 text-emerald-600"></i>2. Distribución General por Trimestre</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -184,6 +202,7 @@
             <p id="analysisTrim" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando distribución trimestral...</p>
         </div>
 
+        <!-- 3. Satisfacción por Variable -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-square-poll-vertical mr-2 text-indigo-600"></i>3. Satisfacción por Variable / Pregunta</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -200,6 +219,7 @@
             <p id="analysisQuestion" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando variables clave...</p>
         </div>
 
+        <!-- 4. Distribución Global de Calificaciones -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-pie mr-2 text-rose-500"></i>4. Distribución Global de Calificaciones</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -216,6 +236,7 @@
             <p id="analysisRatings" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando escalas globales...</p>
         </div>
 
+        <!-- 5. Carga Operativa por Funcionario -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-users mr-2 text-amber-600"></i>5. Carga Operativa por Funcionario (Volumen)</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -232,6 +253,7 @@
             <p id="analysisEmpWorkload" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando carga operativa...</p>
         </div>
 
+        <!-- 6. Índice de Excelencia por Funcionario -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-award mr-2 text-emerald-600"></i>6. Índice de Excelencia por Funcionario (%)</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -248,6 +270,7 @@
             <p id="analysisEmpExcellence" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando excelencia individual...</p>
         </div>
 
+        <!-- 7. Tendencia Mensual de Satisfacción Positiva -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-line mr-2 text-blue-600"></i>7. Tendencia Mensual del % de Satisfacción Positiva</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -264,6 +287,7 @@
             <p id="analysisMonthlySat" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando tendencia de calidad...</p>
         </div>
 
+        <!-- 8. Análisis Tiempos de Espera -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-clock mr-2 text-rose-600"></i>8. Análisis Específico de Tiempos de Espera (Pregunta 3)</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -280,6 +304,7 @@
             <p id="analysisWaitTime" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando tiempos de espera...</p>
         </div>
 
+        <!-- 9. Desglose Apilado por Funcionario -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-layer-group mr-2 text-indigo-600"></i>9. Desglose Apilado de Calificaciones por Colaborador</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -296,6 +321,7 @@
             <p id="analysisEmpStacked" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando desglose por agente...</p>
         </div>
 
+        <!-- 10. Comparativa Trimestral por Pregunta -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
             <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-calendar-days mr-2 text-amber-600"></i>10. Comparativa Trimestral de Volumen por Pregunta</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
@@ -312,24 +338,49 @@
             <p id="analysisTrimQuestion" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200"><strong>Análisis:</strong> Evaluando comparativa trimestral...</p>
         </div>
 
+        <!-- AUDIT TABLE -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4 print-break">
+            <h2 class="text-sm font-bold text-slate-900"><i class="fa-solid fa-table mr-2 text-blue-600"></i>Auditoría Detallada de Rendimiento por Funcionario</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead class="bg-slate-50 text-slate-700 border-b border-slate-200">
+                        <tr>
+                            <th class="p-3 font-bold">Funcionario</th>
+                            <th class="p-3 font-bold text-center">Encuestas Atendidas</th>
+                            <th class="p-3 font-bold text-center">Participación %</th>
+                            <th class="p-3 font-bold text-center">Excelente</th>
+                            <th class="p-3 font-bold text-center">Bueno</th>
+                            <th class="p-3 font-bold text-center">Regular / Malo</th>
+                            <th class="p-3 font-bold text-right">% Excelencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employee-table-body" class="divide-y divide-slate-100"></tbody>
+                </table>
+            </div>
+        </div>
+
     </main>
 
+    <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs mt-12 border-t border-slate-800 no-print">
-        <p>Dirección Comercial — Empresas Públicas de Armenia E.S.P. (EPA) | Sistema Inteligente de Analítica</p>
+        <p>Dirección Comercial — Empresas Públicas de Armenia E.S.P. (EPA) | Sistema Dinámico de Inteligencia Gerencial</p>
     </footer>
 
+    <!-- DYNAMIC UPLOADER & DASHBOARD ENGINE SCRIPT -->
     <script>
         let rawData = [];
         let charts = {};
         const monthNames = {1:'Enero', 2:'Febrero', 3:'Marzo', 4:'Abril', 5:'Mayo', 6:'Junio', 7:'Julio', 8:'Agosto', 9:'Septiembre', 10:'Octubre', 11:'Noviembre', 12:'Diciembre'};
         const qNames = ['Amabilidad', 'Conocimiento', 'Solicitud', 'Tiempos de Espera'];
 
-        document.getElementById('excel-file').addEventListener('change', handleFile);
+        document.getElementById('excel-file-input').addEventListener('change', handleFile);
         document.getElementById('excel-file-hero').addEventListener('change', handleFile);
 
         function handleFile(e) {
             const file = e.target.files[0];
             if (!file) return;
+
+            document.getElementById('upload-btn-text').textContent = file.name;
             const reader = new FileReader();
             reader.onload = function(evt) {
                 const data = new Uint8Array(evt.target.result);
@@ -344,20 +395,20 @@
         function parseExcel(rows) {
             rawData = [];
             rows.forEach((row) => {
-                if (row.length >= 6 && row[0] && typeof row[1] === 'number') {
+                if (row.length >= 6 && row[0] && (typeof row[1] === 'number' || !isNaN(row[1]))) {
                     let dateStr = String(row[0]).split('T')[0];
-                    let month = parseInt(row[7] || dateStr.substring(5,7), 10);
-                    let trim = parseInt(row[8] || (month <= 3 ? 1 : 2), 10);
+                    let month = parseInt(row[7] || (dateStr.length >= 7 ? dateStr.substring(5,7) : 1), 10);
+                    let trim = parseInt(row[8] || (month <= 3 ? 1 : month <= 6 ? 2 : month <= 9 ? 3 : 4), 10);
                     let emp = String(row[5] || '').trim();
                     if (emp === 'lihudma') emp = 'Lihud Mila Uribe';
 
                     rawData.push({
                         date: dateStr,
-                        month: month,
-                        trim: trim,
+                        month: isNaN(month) ? 1 : month,
+                        trim: isNaN(trim) ? 1 : trim,
                         preg: parseInt(row[1], 10),
                         rating: String(row[3] || '').trim(),
-                        user: emp
+                        user: emp || 'Sin Asignar'
                     });
                 }
             });
@@ -390,6 +441,7 @@
             updateKPIs(filtered);
             updateGlobalInsight(filtered);
             renderAllSections(filtered);
+            renderAuditTable(filtered);
         }
 
         function resetFilters() {
@@ -422,26 +474,35 @@
             let totalRecs = filtered.length;
             let totalSurvs = Math.round(totalRecs / 4);
             let posPct = totalRecs > 0 ? (filtered.filter(d => d.rating === 'Excelente' || d.rating === 'Bueno').length / totalRecs * 100).toFixed(1) : 0;
-            document.getElementById('dynamic-insight-text').innerHTML = `Se analizan <strong>${totalSurvs.toLocaleString()} encuestas</strong> con un índice de favorabilidad del <strong>${posPct}%</strong>. El sistema dinámico está operando en tiempo real con los filtros seleccionados.`;
+            let excelCount = filtered.filter(d => d.rating === 'Excelente').length;
+            let excelPct = totalRecs > 0 ? (excelCount / totalRecs * 100).toFixed(1) : 0;
+
+            let empCounts = {};
+            filtered.forEach(d => { empCounts[d.user] = (empCounts[d.user] || 0) + 1; });
+            let topEmp = Object.keys(empCounts).reduce((a, b) => empCounts[a] > empCounts[b] ? a : b, 'N/A');
+
+            document.getElementById('dynamic-insight-text').innerHTML = `Se han analizado <strong>${totalSurvs.toLocaleString()} encuestas válidas</strong> (${totalRecs.toLocaleString()} registros) bajo los filtros activos. El índice de satisfacción positiva global se sitúa en el <strong>${posPct}%</strong>, con un dominio de calificaciones excelentes del <strong>${excelPct}%</strong>. El colaborador con mayor volumen de atención en este corte es <strong>${topEmp}</strong>. Se recomienda mantener las estrategias de calidez y reforzar la agilidad en sala durante los periodos de mayor afluencia.`;
         }
 
         function renderAllSections(f) {
             let totalSurvs = Math.round(f.length / 4);
 
             // 1. Monthly
-            let mData = {1:0,2:0,3:0,4:0,5:0,6:0};
+            let mData = {};
+            [1,2,3,4,5,6,7,8,9,10,11,12].forEach(m => mData[m] = 0);
             f.forEach(d => { if(mData[d.month] !== undefined) mData[d.month]++; });
-            let mLabels = Object.keys(mData).map(m => monthNames[m]);
-            let mVals = Object.values(mData).map(v => Math.round(v/4));
+            let activeMonths = Object.keys(mData).filter(m => mData[m] > 0);
+            let mLabels = activeMonths.map(m => monthNames[m]);
+            let mVals = activeMonths.map(m => Math.round(mData[m]/4));
             
             let tMonthly = '';
-            Object.keys(mData).forEach(m => {
+            activeMonths.forEach(m => {
                 let cnt = Math.round(mData[m]/4);
                 let p = totalSurvs > 0 ? (cnt/totalSurvs*100).toFixed(1) : 0;
-                tMonthly += `<tr><td class="p-2.5 font-semibold">${monthNames[m]}</td><td class="p-2.5 text-center">${cnt}</td><td class="p-2.5 text-right">${p}%</td></tr>`;
+                tMonthly += `<tr><td class="p-2.5 font-semibold">${monthNames[m]}</td><td class="p-2.5 text-center">${cnt.toLocaleString()}</td><td class="p-2.5 text-right">${p}%</td></tr>`;
             });
-            document.getElementById('tableMonthly').innerHTML = tMonthly;
-            document.getElementById('analysisMonthly').innerHTML = `<strong>Análisis:</strong> El flujo de encuestas muestra variaciones estacionales, concentrando los mayores picos de atención presencial en los meses del segundo trimestre.`;
+            document.getElementById('tableMonthly').innerHTML = tMonthly || '<tr><td colspan="3" class="p-3 text-center text-slate-400">Sin datos</td></tr>';
+            document.getElementById('analysisMonthly').innerHTML = `<strong>Análisis:</strong> Distribución volumétrica mensual que permite a la gerencia identificar estacionalidades y picos de afluencia de los usuarios en ventanilla.`;
 
             if(charts.c1) charts.c1.destroy();
             charts.c1 = new Chart(document.getElementById('chartMonthly'), {
@@ -450,15 +511,23 @@
             });
 
             // 2. Trim
-            let tCounts = {1:0, 2:0};
+            let tCounts = {1:0, 2:0, 3:0, 4:0};
             f.forEach(d => { if(tCounts[d.trim] !== undefined) tCounts[d.trim]++; });
-            let t1 = Math.round(tCounts[1]/4), t2 = Math.round(tCounts[2]/4);
-            document.getElementById('tableTrim').innerHTML = `<tr><td class="p-2.5">Trimestre I</td><td class="p-2.5 text-center">${t1}</td><td class="p-2.5 text-right">${totalSurvs>0?(t1/totalSurvs*100).toFixed(1):0}%</td></tr><tr><td class="p-2.5">Trimestre II</td><td class="p-2.5 text-center">${t2}</td><td class="p-2.5 text-right">${totalSurvs>0?(t2/totalSurvs*100).toFixed(1):0}%</td></tr>`;
-            document.getElementById('analysisTrim').innerHTML = `<strong>Análisis:</strong> Comparativa trimestral que refleja el volumen acumulado gestionado por la Dirección Comercial.`;
+            let activeTrims = Object.keys(tCounts).filter(t => tCounts[t] > 0);
+            let tLabels = activeTrims.map(t => 'Trimestre ' + t);
+            let tVals = activeTrims.map(t => Math.round(tCounts[t]/4));
+
+            let tTrimHtml = '';
+            activeTrims.forEach(t => {
+                let cnt = Math.round(tCounts[t]/4);
+                tTrimHtml += `<tr><td class="p-2.5">Trimestre ${t}</td><td class="p-2.5 text-center">${cnt.toLocaleString()}</td><td class="p-2.5 text-right">${totalSurvs>0?(cnt/totalSurvs*100).toFixed(1):0}%</td></tr>`;
+            });
+            document.getElementById('tableTrim').innerHTML = tTrimHtml || '<tr><td colspan="3" class="p-3 text-center text-slate-400">Sin datos</td></tr>';
+            document.getElementById('analysisTrim').innerHTML = `<strong>Análisis:</strong> Ponderación trimestral del volumen de encuestas para comparar el rendimiento operativo a lo largo de los periodos del año.`;
 
             if(charts.c2) charts.c2.destroy();
             charts.c2 = new Chart(document.getElementById('chartTrim'), {
-                type: 'doughnut', data: {labels:['Trimestre I', 'Trimestre II'], datasets:[{data:[t1, t2], backgroundColor:['#6366f1', '#10b981']}]},
+                type: 'doughnut', data: {labels: tLabels, datasets:[{data: tVals, backgroundColor:['#6366f1', '#10b981', '#f59e0b', '#3b82f6']}]},
                 options: {responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}, cutout:'60%'}
             });
 
@@ -472,10 +541,10 @@
             });
             let tQ = '';
             qNames.forEach((name, i) => {
-                tQ += `<tr><td class="p-2.5 font-semibold">${name}</td><td class="p-2.5 text-center text-emerald-600 font-bold">${qData[i].E}</td><td class="p-2.5 text-right">${qData[i].B}</td></tr>`;
+                tQ += `<tr><td class="p-2.5 font-semibold">${name}</td><td class="p-2.5 text-center text-emerald-600 font-bold">${qData[i].E.toLocaleString()}</td><td class="p-2.5 text-right">${qData[i].B.toLocaleString()}</td></tr>`;
             });
             document.getElementById('tableQuestion').innerHTML = tQ;
-            document.getElementById('analysisQuestion').innerHTML = `<strong>Análisis:</strong> Las dimensiones de amabilidad y conocimiento técnico lideran las calificaciones excelentes.`;
+            document.getElementById('analysisQuestion').innerHTML = `<strong>Análisis:</strong> Desglose por variable crítica que ratifica la excelencia humana (amabilidad) y técnica (conocimiento) del equipo comercial.`;
 
             if(charts.c3) charts.c3.destroy();
             charts.c3 = new Chart(document.getElementById('chartQuestion'), {
@@ -484,15 +553,15 @@
             });
 
             // 4. Ratings
-            let rMap = {Excelente:0, Bueno:0, Regular:0, Malo:0};
+            let rMap = {'Excelente':0, 'Bueno':0, 'Regular':0, 'Malo':0};
             f.forEach(d => { if(rMap[d.rating] !== undefined) rMap[d.rating]++; });
             let tR = '';
             Object.keys(rMap).forEach(k => {
                 let cnt = rMap[k];
-                tR += `<tr><td class="p-2.5 font-semibold">${k}</td><td class="p-2.5 text-center">${cnt}</td><td class="p-2.5 text-right">${f.length>0?(cnt/f.length*100).toFixed(2):0}%</td></tr>`;
+                tR += `<tr><td class="p-2.5 font-semibold">${k}</td><td class="p-2.5 text-center">${cnt.toLocaleString()}</td><td class="p-2.5 text-right">${f.length>0?(cnt/f.length*100).toFixed(2):0}%</td></tr>`;
             });
             document.getElementById('tableRatings').innerHTML = tR;
-            document.getElementById('analysisRatings').innerHTML = `<strong>Análisis:</strong> Distribución global que confirma una favorabilidad superior al 99% en el periodo analizado.`;
+            document.getElementById('analysisRatings').innerHTML = `<strong>Análisis:</strong> Proporción general de escalas de satisfacción, evidenciando una sólida aceptación ciudadana sin incidencias mayores.`;
 
             if(charts.c4) charts.c4.destroy();
             charts.c4 = new Chart(document.getElementById('chartRatingsDonut'), {
@@ -507,10 +576,10 @@
             let tEW = '';
             sEmp.forEach(e => {
                 let cnt = Math.round(eMap[e]/4);
-                tEW += `<tr><td class="p-2.5 font-semibold">${e}</td><td class="p-2.5 text-center">${cnt}</td><td class="p-2.5 text-right">${totalSurvs>0?(cnt/totalSurvs*100).toFixed(1):0}%</td></tr>`;
+                tEW += `<tr><td class="p-2.5 font-semibold">${e}</td><td class="p-2.5 text-center">${cnt.toLocaleString()}</td><td class="p-2.5 text-right">${totalSurvs>0?(cnt/totalSurvs*100).toFixed(1):0}%</td></tr>`;
             });
             document.getElementById('tableEmpWorkload').innerHTML = tEW;
-            document.getElementById('analysisEmpWorkload').innerHTML = `<strong>Análisis:</strong> Auditoría de carga laboral que evidencia el balance operativo entre los colaboradores de ventanilla.`;
+            document.getElementById('analysisEmpWorkload').innerHTML = `<strong>Análisis:</strong> Auditoría de carga operativa por funcionario, esencial para medir la productividad individual en las ventanillas.`;
 
             if(charts.c5) charts.c5.destroy();
             charts.c5 = new Chart(document.getElementById('chartEmpWorkload'), {
@@ -524,10 +593,10 @@
                 let recs = f.filter(d => d.user === e);
                 let exc = recs.filter(d => d.rating === 'Excelente').length;
                 let pct = recs.length > 0 ? (exc/recs.length*100).toFixed(1) : 0;
-                tEE += `<tr><td class="p-2.5 font-semibold">${e}</td><td class="p-2.5 text-center text-emerald-600 font-bold">${exc}</td><td class="p-2.5 text-right font-bold">${pct}%</td></tr>`;
+                tEE += `<tr><td class="p-2.5 font-semibold">${e}</td><td class="p-2.5 text-center text-emerald-600 font-bold">${exc.toLocaleString()}</td><td class="p-2.5 text-right font-bold">${pct}%</td></tr>`;
             });
             document.getElementById('tableEmpExcellence').innerHTML = tEE;
-            document.getElementById('analysisEmpExcellence').innerHTML = `<strong>Análisis:</strong> Mide el porcentaje de calificaciones excelentes entregadas por cada funcionario individualmente.`;
+            document.getElementById('analysisEmpExcellence').innerHTML = `<strong>Análisis:</strong> Porcentaje de respuestas excelentes alcanzado por cada agente frente al total de sus evaluaciones.`;
 
             if(charts.c6) charts.c6.destroy();
             charts.c6 = new Chart(document.getElementById('chartEmpExcellence'), {
@@ -540,17 +609,20 @@
             });
 
             // 7. Monthly Sat Trend
-            let mSat = [], mLabels2 = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'];
-            let tMS = '';
-            [1,2,3,4,5,6].forEach(m => {
-                let mRecs = f.filter(d => d.month === m);
+            let mSat = [], mLabels2 = [];
+            activeMonths.forEach(m => {
+                mLabels2.push(monthNames[m]);
+                let mRecs = f.filter(d => d.month === parseInt(m, 10));
                 let pos = mRecs.filter(d => d.rating === 'Excelente' || d.rating === 'Bueno').length;
                 let pct = mRecs.length > 0 ? (pos/mRecs.length*100).toFixed(1) : 0;
                 mSat.push(pct);
-                tMS += `<tr><td class="p-2.5 font-semibold">${monthNames[m]}</td><td class="p-2.5 text-center font-bold text-blue-600">${pct}%</td></tr>`;
             });
-            document.getElementById('tableMonthlySat').innerHTML = tMS;
-            document.getElementById('analysisMonthlySat').innerHTML = `<strong>Análisis:</strong> Comportamiento mensual que demuestra la estabilidad y calidad sostenida en el servicio al usuario.`;
+            let tMS = '';
+            activeMonths.forEach((m, idx) => {
+                tMS += `<tr><td class="p-2.5 font-semibold">${monthNames[m]}</td><td class="p-2.5 text-center font-bold text-blue-600">${mSat[idx]}%</td></tr>`;
+            });
+            document.getElementById('tableMonthlySat').innerHTML = tMS || '<tr><td colspan="2" class="p-3 text-center text-slate-400">Sin datos</td></tr>';
+            document.getElementById('analysisMonthlySat').innerHTML = `<strong>Análisis:</strong> Evolución del índice de satisfacción positiva, evidenciando consistencia y calidad superior al 99%.`;
 
             if(charts.c7) charts.c7.destroy();
             charts.c7 = new Chart(document.getElementById('chartMonthlySat'), {
@@ -560,15 +632,15 @@
 
             // 8. Wait Time
             let p3Recs = f.filter(d => d.preg === 3);
-            let p3Map = {Excelente:0, Bueno:0, Regular:0, Malo:0};
+            let p3Map = {'Excelente':0, 'Bueno':0, 'Regular':0, 'Malo':0};
             p3Recs.forEach(d => { if(p3Map[d.rating] !== undefined) p3Map[d.rating]++; });
             let tWT = '';
             Object.keys(p3Map).forEach(k => {
                 let cnt = p3Map[k];
-                tWT += `<tr><td class="p-2.5 font-semibold">${k}</td><td class="p-2.5 text-center">${cnt}</td><td class="p-2.5 text-right">${p3Recs.length>0?(cnt/p3Recs.length*100).toFixed(2):0}%</td></tr>`;
+                tWT += `<tr><td class="p-2.5 font-semibold">${k}</td><td class="p-2.5 text-center">${cnt.toLocaleString()}</td><td class="p-2.5 text-right">${p3Recs.length>0?(cnt/p3Recs.length*100).toFixed(2):0}%</td></tr>`;
             });
             document.getElementById('tableWaitTime').innerHTML = tWT;
-            document.getElementById('analysisWaitTime').innerHTML = `<strong>Análisis:</strong> La variable de tiempos de espera es la más sensible, concentrando las pocas oportunidades de mejora del proceso.`;
+            document.getElementById('analysisWaitTime').innerHTML = `<strong>Análisis:</strong> Monitoreo de tiempos de espera en sala (Pregunta 3), identificando el principal punto de mejora operativa.`;
 
             if(charts.c8) charts.c8.destroy();
             charts.c8 = new Chart(document.getElementById('chartWaitTime'), {
@@ -584,10 +656,10 @@
                 let exc = recs.filter(d => d.rating === 'Excelente').length;
                 let bno = recs.filter(d => d.rating === 'Bueno').length;
                 eExc.push(exc); eBno.push(bno);
-                tES += `<tr><td class="p-2.5 font-semibold">${e}</td><td class="p-2.5 text-center text-emerald-600">${exc}</td><td class="p-2.5 text-right">${bno}</td></tr>`;
+                tES += `<tr><td class="p-2.5 font-semibold">${e}</td><td class="p-2.5 text-center text-emerald-600">${exc.toLocaleString()}</td><td class="p-2.5 text-right">${bno.toLocaleString()}</td></tr>`;
             });
             document.getElementById('tableEmpStacked').innerHTML = tES;
-            document.getElementById('analysisEmpStacked').innerHTML = `<strong>Análisis:</strong> Desglose absoluto que compara el volumen de respuestas excelentes frente a buenas por agente.`;
+            document.getElementById('analysisEmpStacked').innerHTML = `<strong>Análisis:</strong> Comparativa apilada entre calificaciones excelentes y buenas por cada agente de atención.`;
 
             if(charts.c9) charts.c9.destroy();
             charts.c9 = new Chart(document.getElementById('chartEmpStacked'), {
@@ -600,16 +672,47 @@
             let t2Q = [0,1,2,3].map(q => f.filter(d => d.trim === 2 && d.preg === q).length);
             let tTQ = '';
             qNames.forEach((name, i) => {
-                tTQ += `<tr><td class="p-2.5 font-semibold">${name}</td><td class="p-2.5 text-center">${t1Q[i]}</td><td class="p-2.5 text-right">${t2Q[i]}</td></tr>`;
+                tTQ += `<tr><td class="p-2.5 font-semibold">${name}</td><td class="p-2.5 text-center">${t1Q[i].toLocaleString()}</td><td class="p-2.5 text-right">${t2Q[i].toLocaleString()}</td></tr>`;
             });
             document.getElementById('tableTrimQuestion').innerHTML = tTQ;
-            document.getElementById('analysisTrimQuestion').innerHTML = `<strong>Análisis:</strong> Contraste de volumen evaluado por cada pregunta en los dos trimestres del periodo analizado.`;
+            document.getElementById('analysisTrimQuestion').innerHTML = `<strong>Análisis:</strong> Contraste del volumen de respuestas evaluadas por cada pregunta entre el Trimestre I y Trimestre II.`;
 
             if(charts.c10) charts.c10.destroy();
             charts.c10 = new Chart(document.getElementById('chartTrimQuestion'), {
                 type: 'bar', data: {labels: qNames, datasets:[{label:'Trimestre I', data:t1Q, backgroundColor:'#6366f1', borderRadius:6}, {label:'Trimestre II', data:t2Q, backgroundColor:'#10b981', borderRadius:6}]},
                 options: {responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}}
             });
+        }
+
+        function renderAuditTable(filtered) {
+            let empMap = {};
+            filtered.forEach(d => { empMap[d.user] = (empMap[d.user] || 0) + 1; });
+            let sortedEmp = Object.keys(empMap).sort((a,b) => empMap[b] - empMap[a]);
+            let totalSurvs = Math.round(filtered.length / 4);
+
+            let html = '';
+            sortedEmp.forEach(e => {
+                let recs = filtered.filter(d => d.user === e);
+                let survCount = Math.round(recs.length / 4);
+                let part = totalSurvs > 0 ? ((survCount / totalSurvs) * 100).toFixed(1) : 0;
+                let exc = recs.filter(d => d.rating === 'Excelente').length;
+                let bno = recs.filter(d => d.rating === 'Bueno').length;
+                let rem = recs.filter(d => d.rating === 'Regular' || d.rating === 'Malo').length;
+                let excPct = recs.length > 0 ? ((exc / recs.length) * 100).toFixed(2) : 0;
+
+                html += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-semibold text-slate-900 flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-blue-600 mr-2"></span> ${e}</td>
+                        <td class="p-3 text-center font-bold">${survCount.toLocaleString()}</td>
+                        <td class="p-3 text-center text-slate-500">${part}%</td>
+                        <td class="p-3 text-center text-emerald-600 font-semibold">${exc.toLocaleString()}</td>
+                        <td class="p-3 text-center">${bno.toLocaleString()}</td>
+                        <td class="p-3 text-center text-rose-600 font-semibold">${rem}</td>
+                        <td class="p-3 text-right font-bold text-emerald-600">${excPct}%</td>
+                    </tr>
+                `;
+            });
+            document.getElementById('employee-table-body').innerHTML = html || '<tr><td colspan="7" class="p-4 text-center text-slate-400">Sin registros para los filtros seleccionados</td></tr>';
         }
     </script>
 </body>
